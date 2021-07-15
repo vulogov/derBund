@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/cmd/bund">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/banner">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/bund">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/conf">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/log">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/parse">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/parser">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/signal">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
+</testsuites>
