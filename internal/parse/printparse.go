@@ -67,3 +67,19 @@ func (l *bundListener) EnterNs(c *parser.NsContext) {
 func (l *bundListener) ExitNs(c *parser.NsContext) {
 	log.Infof("EXITING Namespace: %v", c.GetName().GetText())
 }
+
+func (l *bundListener) EnterBlock(c *parser.BlockContext) {
+	log.Infof("ENTERING Block")
+}
+
+func (l *bundListener) ExitBlock(c *parser.BlockContext) {
+	log.Infof("EXITING Block")
+}
+
+func (l *bundListener) EnterTrue_term(c *parser.True_termContext) {
+	log.Infof("Value: TRUE")
+}
+
+func (l *bundListener) EnterFalse_term(c *parser.False_termContext) {
+	log.Infof("Value: FALSE")
+}

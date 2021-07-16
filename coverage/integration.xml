@@ -40,4 +40,9 @@
 			<property name="go.version" value="go1.16 darwin/amd64"></property>
 		</properties>
 	</testsuite>
+	<testsuite tests="0" failures="0" time="0.000000" name="github.com/vulogov/derBund/internal/vm">
+		<properties>
+			<property name="go.version" value="go1.16 darwin/amd64"></property>
+		</properties>
+	</testsuite>
 </testsuites>

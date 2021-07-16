@@ -11,7 +11,7 @@ pre:
 	go get github.com/stretchr/testify/assert@v1.6.1
 	go get github.com/rs/xid
 	go get github.com/lrita/cmap
-	go get github.com/edwingeng/deque
+	go get github.com/gammazero/deque
 	go get github.com/common-nighthawk/go-figure
 	go get -u gonum.org/v1/gonum/...
 	go get github.com/pieterclaerhout/go-formatter@v1.0.4
@@ -21,3 +21,5 @@ pre:
 	go get github.com/pieterclaerhout/go-log
 	go get github.com/tomlazar/table
 	go get github.com/antlr/antlr4/runtime/Go/antlr
+	go get github.com/google/uuid
+	go get github.com/cstockton/go-conv

@@ -23,7 +23,7 @@ func LexerPrint(code string) {
 			n = 0
 		}
 		ident := strings.Repeat("..", n)
-		fmt.Printf("%s%s (%q)\n", ident,
+		fmt.Printf("%s %s (%q)\n", ident,
 			lexer.SymbolicNames[t.GetTokenType()], t.GetText())
 		if t.GetText() == "|" {
 			if group {
@@ -36,7 +36,16 @@ func LexerPrint(code string) {
 		if t.GetText() == "(" {
 			n++
 		}
+		if t.GetText() == "[" {
+			n++
+		}
 		if t.GetText() == ")" {
+			n--
+		}
+		if t.GetText() == "]" {
+			n--
+		}
+		if t.GetText() == ";;" {
 			n--
 		}
 	}

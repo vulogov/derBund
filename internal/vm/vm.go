@@ -1,0 +1,126 @@
+package vm
+
+import (
+	"github.com/gammazero/deque"
+	"github.com/lrita/cmap"
+	"github.com/pieterclaerhout/go-log"
+)
+
+type VM struct {
+	Name        string
+	Mode        bool
+	NSStack     deque.Deque
+	NS          cmap.Cmap
+	Current     *deque.Deque
+	CurrentNS   *NS
+	CurrentElem *Elem
+}
+
+func NewVM(name string) *VM {
+	log.Debugf("Creating VM: %v", name)
+	return &VM{Name: name, Current: nil, CurrentNS: nil, CurrentElem: nil, Mode: true}
+}
+
+func (vm *VM) GetNS(name string) *NS {
+	var res *NS
+	if _res, ok := vm.NS.Load(name); ok {
+		log.Debugf("Returning NAMESPACE: %v", name)
+		res = _res.(*NS)
+	} else {
+		res = NewNS(name)
+		vm.NS.Store(name, res)
+	}
+	if vm.CurrentNS != nil {
+		vm.NSStack.PushBack(vm.CurrentNS)
+	} else {
+		log.Debugf("Skip sending an empty state to a NAMESPACE stack")
+	}
+	vm.CurrentNS = res
+	vm.Current = &res.Stack
+	return res
+}
+
+func (vm *VM) EndNS() *NS {
+	var res *NS
+	if vm.NSStack.Len() > 0 {
+		_res := vm.NSStack.PopBack()
+		if _res != nil {
+			res = _res.(*NS)
+			vm.CurrentNS = res
+			vm.Current = &res.Stack
+		} else {
+			log.Debugf("NAMESPACE stack returns End_of_Stack")
+			res = nil
+			vm.CurrentNS = nil
+			vm.Current = nil
+		}
+		log.Debugf("NAMESPACE stack %v size: %v", vm.CurrentNS.Name, vm.NSStack.Len())
+	} else {
+		log.Debugf("NAMESPACE stack is empty")
+		res = nil
+		vm.CurrentNS = nil
+		vm.Current = nil
+	}
+	return res
+}
+
+func (vm *VM) IsStack() bool {
+	if vm.CurrentNS == nil {
+		return false
+	}
+	if vm.Current == nil {
+		return false
+	}
+	return true
+}
+
+func (vm *VM) CanGet() bool {
+	if !vm.IsStack() {
+		return false
+	}
+	if vm.Current.Len() == 0 {
+		return false
+	}
+	return true
+}
+
+func (vm *VM) Put(e *Elem) bool {
+	if !vm.IsStack() {
+		log.Errorf("Attempt to Put() but Stack doesn't exists")
+		return false
+	}
+	if vm.Mode {
+		vm.Current.PushBack(e)
+	} else {
+		vm.Current.PushFront(e)
+	}
+	return true
+}
+
+func (vm *VM) Get() *Elem {
+	var res interface{}
+	if !vm.CanGet() {
+		log.Errorf("Attempt to Get() but Stack doesn't exists or empty")
+		return nil
+	}
+	if vm.Mode {
+		res = vm.Current.Back()
+	} else {
+		res = vm.Current.Front()
+	}
+	return res.(*Elem)
+}
+
+func (vm *VM) Take() *Elem {
+	var res interface{}
+	if !vm.CanGet() {
+		log.Errorf("Attempt to Take() but Stack doesn't exists or empty")
+		return nil
+	}
+	if vm.Mode {
+		res = vm.Current.PopBack()
+	} else {
+		res = vm.Current.PopFront()
+	}
+	return res.(*Elem)
+}
