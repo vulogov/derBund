@@ -62,3 +62,21 @@ func (s *BaseBundListener) EnterFalse_term(ctx *False_termContext) {}
 
 // ExitFalse_term is called when production false_term is exited.
 func (s *BaseBundListener) ExitFalse_term(ctx *False_termContext) {}
+
+// EnterCall_term is called when production call_term is entered.
+func (s *BaseBundListener) EnterCall_term(ctx *Call_termContext) {}
+
+// ExitCall_term is called when production call_term is exited.
+func (s *BaseBundListener) ExitCall_term(ctx *Call_termContext) {}
+
+// EnterBegin is called when production begin is entered.
+func (s *BaseBundListener) EnterBegin(ctx *BeginContext) {}
+
+// ExitBegin is called when production begin is exited.
+func (s *BaseBundListener) ExitBegin(ctx *BeginContext) {}
+
+// EnterEnd is called when production end is entered.
+func (s *BaseBundListener) EnterEnd(ctx *EndContext) {}
+
+// ExitEnd is called when production end is exited.
+func (s *BaseBundListener) ExitEnd(ctx *EndContext) {}

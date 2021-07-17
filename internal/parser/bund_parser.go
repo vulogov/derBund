@@ -16,38 +16,45 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 11, 57, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 12, 72, 4,
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4,
-	8, 9, 8, 3, 2, 7, 2, 18, 10, 2, 12, 2, 14, 2, 21, 11, 2, 3, 3, 3, 3, 5,
-	3, 25, 10, 3, 3, 4, 3, 4, 3, 4, 3, 4, 5, 4, 31, 10, 4, 3, 5, 3, 5, 3, 5,
-	3, 5, 7, 5, 37, 10, 5, 12, 5, 14, 5, 40, 11, 5, 3, 5, 3, 5, 3, 6, 3, 6,
-	7, 6, 46, 10, 6, 12, 6, 14, 6, 49, 11, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 8,
-	3, 8, 3, 8, 2, 2, 9, 2, 4, 6, 8, 10, 12, 14, 2, 2, 2, 56, 2, 19, 3, 2,
-	2, 2, 4, 24, 3, 2, 2, 2, 6, 30, 3, 2, 2, 2, 8, 32, 3, 2, 2, 2, 10, 43,
-	3, 2, 2, 2, 12, 52, 3, 2, 2, 2, 14, 54, 3, 2, 2, 2, 16, 18, 5, 4, 3, 2,
-	17, 16, 3, 2, 2, 2, 18, 21, 3, 2, 2, 2, 19, 17, 3, 2, 2, 2, 19, 20, 3,
-	2, 2, 2, 20, 3, 3, 2, 2, 2, 21, 19, 3, 2, 2, 2, 22, 25, 5, 8, 5, 2, 23,
-	25, 5, 10, 6, 2, 24, 22, 3, 2, 2, 2, 24, 23, 3, 2, 2, 2, 25, 5, 3, 2, 2,
-	2, 26, 31, 5, 8, 5, 2, 27, 31, 5, 10, 6, 2, 28, 31, 5, 12, 7, 2, 29, 31,
-	5, 14, 8, 2, 30, 26, 3, 2, 2, 2, 30, 27, 3, 2, 2, 2, 30, 28, 3, 2, 2, 2,
-	30, 29, 3, 2, 2, 2, 31, 7, 3, 2, 2, 2, 32, 33, 7, 3, 2, 2, 33, 34, 7, 10,
-	2, 2, 34, 38, 7, 4, 2, 2, 35, 37, 5, 6, 4, 2, 36, 35, 3, 2, 2, 2, 37, 40,
-	3, 2, 2, 2, 38, 36, 3, 2, 2, 2, 38, 39, 3, 2, 2, 2, 39, 41, 3, 2, 2, 2,
-	40, 38, 3, 2, 2, 2, 41, 42, 7, 5, 2, 2, 42, 9, 3, 2, 2, 2, 43, 47, 7, 6,
-	2, 2, 44, 46, 5, 6, 4, 2, 45, 44, 3, 2, 2, 2, 46, 49, 3, 2, 2, 2, 47, 45,
-	3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 50, 3, 2, 2, 2, 49, 47, 3, 2, 2, 2,
-	50, 51, 7, 6, 2, 2, 51, 11, 3, 2, 2, 2, 52, 53, 7, 7, 2, 2, 53, 13, 3,
-	2, 2, 2, 54, 55, 7, 8, 2, 2, 55, 15, 3, 2, 2, 2, 7, 19, 24, 30, 38, 47,
+	8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 3, 2, 7, 2, 24, 10, 2,
+	12, 2, 14, 2, 27, 11, 2, 3, 3, 3, 3, 5, 3, 31, 10, 3, 3, 4, 3, 4, 3, 4,
+	3, 4, 3, 4, 3, 4, 3, 4, 5, 4, 40, 10, 4, 3, 5, 3, 5, 3, 5, 3, 5, 7, 5,
+	46, 10, 5, 12, 5, 14, 5, 49, 11, 5, 3, 5, 3, 5, 3, 6, 3, 6, 7, 6, 55, 10,
+	6, 12, 6, 14, 6, 58, 11, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 8, 3, 8, 3, 9, 3,
+	9, 3, 10, 3, 10, 3, 11, 3, 11, 3, 11, 2, 2, 12, 2, 4, 6, 8, 10, 12, 14,
+	16, 18, 20, 2, 2, 2, 71, 2, 25, 3, 2, 2, 2, 4, 30, 3, 2, 2, 2, 6, 39, 3,
+	2, 2, 2, 8, 41, 3, 2, 2, 2, 10, 52, 3, 2, 2, 2, 12, 61, 3, 2, 2, 2, 14,
+	63, 3, 2, 2, 2, 16, 65, 3, 2, 2, 2, 18, 67, 3, 2, 2, 2, 20, 69, 3, 2, 2,
+	2, 22, 24, 5, 4, 3, 2, 23, 22, 3, 2, 2, 2, 24, 27, 3, 2, 2, 2, 25, 23,
+	3, 2, 2, 2, 25, 26, 3, 2, 2, 2, 26, 3, 3, 2, 2, 2, 27, 25, 3, 2, 2, 2,
+	28, 31, 5, 8, 5, 2, 29, 31, 5, 10, 6, 2, 30, 28, 3, 2, 2, 2, 30, 29, 3,
+	2, 2, 2, 31, 5, 3, 2, 2, 2, 32, 40, 5, 8, 5, 2, 33, 40, 5, 10, 6, 2, 34,
+	40, 5, 12, 7, 2, 35, 40, 5, 14, 8, 2, 36, 40, 5, 16, 9, 2, 37, 40, 5, 18,
+	10, 2, 38, 40, 5, 20, 11, 2, 39, 32, 3, 2, 2, 2, 39, 33, 3, 2, 2, 2, 39,
+	34, 3, 2, 2, 2, 39, 35, 3, 2, 2, 2, 39, 36, 3, 2, 2, 2, 39, 37, 3, 2, 2,
+	2, 39, 38, 3, 2, 2, 2, 40, 7, 3, 2, 2, 2, 41, 42, 7, 3, 2, 2, 42, 43, 7,
+	11, 2, 2, 43, 47, 7, 8, 2, 2, 44, 46, 5, 6, 4, 2, 45, 44, 3, 2, 2, 2, 46,
+	49, 3, 2, 2, 2, 47, 45, 3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 50, 3, 2, 2,
+	2, 49, 47, 3, 2, 2, 2, 50, 51, 7, 4, 2, 2, 51, 9, 3, 2, 2, 2, 52, 56, 7,
+	5, 2, 2, 53, 55, 5, 6, 4, 2, 54, 53, 3, 2, 2, 2, 55, 58, 3, 2, 2, 2, 56,
+	54, 3, 2, 2, 2, 56, 57, 3, 2, 2, 2, 57, 59, 3, 2, 2, 2, 58, 56, 3, 2, 2,
+	2, 59, 60, 7, 5, 2, 2, 60, 11, 3, 2, 2, 2, 61, 62, 7, 6, 2, 2, 62, 13,
+	3, 2, 2, 2, 63, 64, 7, 7, 2, 2, 64, 15, 3, 2, 2, 2, 65, 66, 7, 11, 2, 2,
+	66, 17, 3, 2, 2, 2, 67, 68, 7, 8, 2, 2, 68, 19, 3, 2, 2, 2, 69, 70, 7,
+	9, 2, 2, 70, 21, 3, 2, 2, 2, 7, 25, 30, 39, 47, 56,
 }
 var literalNames = []string{
-	"", "'['", "':'", "';;'", "'|'", "", "", "'/'",
+	"", "'['", "';;'", "'|'", "", "", "':'", "';'", "'/'",
 }
 var symbolicNames = []string{
-	"", "", "", "", "", "TRUE", "FALSE", "SLASH", "NAME", "SKIP_",
+	"", "", "", "", "TRUE", "FALSE", "TOBEGIN", "TOEND", "SLASH", "NAME", "SKIP_",
 }
 
 var ruleNames = []string{
 	"expressions", "root_term", "term", "ns", "block", "true_term", "false_term",
+	"call_term", "begin", "end",
 }
 
 type BundParser struct {
@@ -81,16 +88,17 @@ func NewBundParser(input antlr.TokenStream) *BundParser {
 
 // BundParser tokens.
 const (
-	BundParserEOF   = antlr.TokenEOF
-	BundParserT__0  = 1
-	BundParserT__1  = 2
-	BundParserT__2  = 3
-	BundParserT__3  = 4
-	BundParserTRUE  = 5
-	BundParserFALSE = 6
-	BundParserSLASH = 7
-	BundParserNAME  = 8
-	BundParserSKIP_ = 9
+	BundParserEOF     = antlr.TokenEOF
+	BundParserT__0    = 1
+	BundParserT__1    = 2
+	BundParserT__2    = 3
+	BundParserTRUE    = 4
+	BundParserFALSE   = 5
+	BundParserTOBEGIN = 6
+	BundParserTOEND   = 7
+	BundParserSLASH   = 8
+	BundParserNAME    = 9
+	BundParserSKIP_   = 10
 )
 
 // BundParser rules.
@@ -102,6 +110,9 @@ const (
 	BundParserRULE_block       = 4
 	BundParserRULE_true_term   = 5
 	BundParserRULE_false_term  = 6
+	BundParserRULE_call_term   = 7
+	BundParserRULE_begin       = 8
+	BundParserRULE_end         = 9
 )
 
 // IExpressionsContext is an interface to support dynamic dispatch.
@@ -207,17 +218,17 @@ func (p *BundParser) Expressions() (localctx IExpressionsContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(17)
+	p.SetState(23)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == BundParserT__0 || _la == BundParserT__3 {
+	for _la == BundParserT__0 || _la == BundParserT__2 {
 		{
-			p.SetState(14)
+			p.SetState(20)
 			p.Root_term()
 		}
 
-		p.SetState(19)
+		p.SetState(25)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -324,19 +335,19 @@ func (p *BundParser) Root_term() (localctx IRoot_termContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(22)
+	p.SetState(28)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case BundParserT__0:
 		{
-			p.SetState(20)
+			p.SetState(26)
 			p.Ns()
 		}
 
-	case BundParserT__3:
+	case BundParserT__2:
 		{
-			p.SetState(21)
+			p.SetState(27)
 			p.Block()
 		}
 
@@ -425,6 +436,36 @@ func (s *TermContext) False_term() IFalse_termContext {
 	return t.(IFalse_termContext)
 }
 
+func (s *TermContext) Call_term() ICall_termContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICall_termContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ICall_termContext)
+}
+
+func (s *TermContext) Begin() IBeginContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IBeginContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBeginContext)
+}
+
+func (s *TermContext) End() IEndContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IEndContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IEndContext)
+}
+
 func (s *TermContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -466,32 +507,50 @@ func (p *BundParser) Term() (localctx ITermContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(28)
+	p.SetState(37)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case BundParserT__0:
 		{
-			p.SetState(24)
+			p.SetState(30)
 			p.Ns()
 		}
 
-	case BundParserT__3:
+	case BundParserT__2:
 		{
-			p.SetState(25)
+			p.SetState(31)
 			p.Block()
 		}
 
 	case BundParserTRUE:
 		{
-			p.SetState(26)
+			p.SetState(32)
 			p.True_term()
 		}
 
 	case BundParserFALSE:
 		{
-			p.SetState(27)
+			p.SetState(33)
 			p.False_term()
+		}
+
+	case BundParserNAME:
+		{
+			p.SetState(34)
+			p.Call_term()
+		}
+
+	case BundParserTOBEGIN:
+		{
+			p.SetState(35)
+			p.Begin()
+		}
+
+	case BundParserTOEND:
+		{
+			p.SetState(36)
+			p.End()
 		}
 
 	default:
@@ -572,6 +631,10 @@ func (s *NsContext) GetBody() []ITermContext { return s.body }
 
 func (s *NsContext) SetBody(v []ITermContext) { s.body = v }
 
+func (s *NsContext) TOBEGIN() antlr.TerminalNode {
+	return s.GetToken(BundParserTOBEGIN, 0)
+}
+
 func (s *NsContext) NAME() antlr.TerminalNode {
 	return s.GetToken(BundParserNAME, 0)
 }
@@ -642,27 +705,27 @@ func (p *BundParser) Ns() (localctx INsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(30)
+		p.SetState(39)
 		p.Match(BundParserT__0)
 	}
 	{
-		p.SetState(31)
+		p.SetState(40)
 
 		var _m = p.Match(BundParserNAME)
 
 		localctx.(*NsContext).name = _m
 	}
 	{
-		p.SetState(32)
-		p.Match(BundParserT__1)
+		p.SetState(41)
+		p.Match(BundParserTOBEGIN)
 	}
-	p.SetState(36)
+	p.SetState(45)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for ((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__3)|(1<<BundParserTRUE)|(1<<BundParserFALSE))) != 0 {
+	for ((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserNAME))) != 0 {
 		{
-			p.SetState(33)
+			p.SetState(42)
 
 			var _x = p.Term()
 
@@ -670,13 +733,13 @@ func (p *BundParser) Ns() (localctx INsContext) {
 		}
 		localctx.(*NsContext).body = append(localctx.(*NsContext).body, localctx.(*NsContext)._term)
 
-		p.SetState(38)
+		p.SetState(47)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(39)
-		p.Match(BundParserT__2)
+		p.SetState(48)
+		p.Match(BundParserT__1)
 	}
 
 	return localctx
@@ -809,17 +872,17 @@ func (p *BundParser) Block() (localctx IBlockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(41)
-		p.Match(BundParserT__3)
+		p.SetState(50)
+		p.Match(BundParserT__2)
 	}
-	p.SetState(45)
+	p.SetState(54)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 4, p.GetParserRuleContext())
 
 	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
 		if _alt == 1 {
 			{
-				p.SetState(42)
+				p.SetState(51)
 
 				var _x = p.Term()
 
@@ -828,13 +891,13 @@ func (p *BundParser) Block() (localctx IBlockContext) {
 			localctx.(*BlockContext).body = append(localctx.(*BlockContext).body, localctx.(*BlockContext)._term)
 
 		}
-		p.SetState(47)
+		p.SetState(56)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 4, p.GetParserRuleContext())
 	}
 	{
-		p.SetState(48)
-		p.Match(BundParserT__3)
+		p.SetState(57)
+		p.Match(BundParserT__2)
 	}
 
 	return localctx
@@ -935,7 +998,7 @@ func (p *BundParser) True_term() (localctx ITrue_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(50)
+		p.SetState(59)
 
 		var _m = p.Match(BundParserTRUE)
 
@@ -1040,11 +1103,326 @@ func (p *BundParser) False_term() (localctx IFalse_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(52)
+		p.SetState(61)
 
 		var _m = p.Match(BundParserFALSE)
 
 		localctx.(*False_termContext).value = _m
+	}
+
+	return localctx
+}
+
+// ICall_termContext is an interface to support dynamic dispatch.
+type ICall_termContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetValue returns the value token.
+	GetValue() antlr.Token
+
+	// SetValue sets the value token.
+	SetValue(antlr.Token)
+
+	// IsCall_termContext differentiates from other interfaces.
+	IsCall_termContext()
+}
+
+type Call_termContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+	value  antlr.Token
+}
+
+func NewEmptyCall_termContext() *Call_termContext {
+	var p = new(Call_termContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = BundParserRULE_call_term
+	return p
+}
+
+func (*Call_termContext) IsCall_termContext() {}
+
+func NewCall_termContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Call_termContext {
+	var p = new(Call_termContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = BundParserRULE_call_term
+
+	return p
+}
+
+func (s *Call_termContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Call_termContext) GetValue() antlr.Token { return s.value }
+
+func (s *Call_termContext) SetValue(v antlr.Token) { s.value = v }
+
+func (s *Call_termContext) NAME() antlr.TerminalNode {
+	return s.GetToken(BundParserNAME, 0)
+}
+
+func (s *Call_termContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *Call_termContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *Call_termContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.EnterCall_term(s)
+	}
+}
+
+func (s *Call_termContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.ExitCall_term(s)
+	}
+}
+
+func (p *BundParser) Call_term() (localctx ICall_termContext) {
+	localctx = NewCall_termContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 14, BundParserRULE_call_term)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(63)
+
+		var _m = p.Match(BundParserNAME)
+
+		localctx.(*Call_termContext).value = _m
+	}
+
+	return localctx
+}
+
+// IBeginContext is an interface to support dynamic dispatch.
+type IBeginContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetValue returns the value token.
+	GetValue() antlr.Token
+
+	// SetValue sets the value token.
+	SetValue(antlr.Token)
+
+	// IsBeginContext differentiates from other interfaces.
+	IsBeginContext()
+}
+
+type BeginContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+	value  antlr.Token
+}
+
+func NewEmptyBeginContext() *BeginContext {
+	var p = new(BeginContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = BundParserRULE_begin
+	return p
+}
+
+func (*BeginContext) IsBeginContext() {}
+
+func NewBeginContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BeginContext {
+	var p = new(BeginContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = BundParserRULE_begin
+
+	return p
+}
+
+func (s *BeginContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BeginContext) GetValue() antlr.Token { return s.value }
+
+func (s *BeginContext) SetValue(v antlr.Token) { s.value = v }
+
+func (s *BeginContext) TOBEGIN() antlr.TerminalNode {
+	return s.GetToken(BundParserTOBEGIN, 0)
+}
+
+func (s *BeginContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BeginContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BeginContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.EnterBegin(s)
+	}
+}
+
+func (s *BeginContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.ExitBegin(s)
+	}
+}
+
+func (p *BundParser) Begin() (localctx IBeginContext) {
+	localctx = NewBeginContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 16, BundParserRULE_begin)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(65)
+
+		var _m = p.Match(BundParserTOBEGIN)
+
+		localctx.(*BeginContext).value = _m
+	}
+
+	return localctx
+}
+
+// IEndContext is an interface to support dynamic dispatch.
+type IEndContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetValue returns the value token.
+	GetValue() antlr.Token
+
+	// SetValue sets the value token.
+	SetValue(antlr.Token)
+
+	// IsEndContext differentiates from other interfaces.
+	IsEndContext()
+}
+
+type EndContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+	value  antlr.Token
+}
+
+func NewEmptyEndContext() *EndContext {
+	var p = new(EndContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = BundParserRULE_end
+	return p
+}
+
+func (*EndContext) IsEndContext() {}
+
+func NewEndContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *EndContext {
+	var p = new(EndContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = BundParserRULE_end
+
+	return p
+}
+
+func (s *EndContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *EndContext) GetValue() antlr.Token { return s.value }
+
+func (s *EndContext) SetValue(v antlr.Token) { s.value = v }
+
+func (s *EndContext) TOEND() antlr.TerminalNode {
+	return s.GetToken(BundParserTOEND, 0)
+}
+
+func (s *EndContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *EndContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *EndContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.EnterEnd(s)
+	}
+}
+
+func (s *EndContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.ExitEnd(s)
+	}
+}
+
+func (p *BundParser) End() (localctx IEndContext) {
+	localctx = NewEndContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 18, BundParserRULE_end)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(67)
+
+		var _m = p.Match(BundParserTOEND)
+
+		localctx.(*EndContext).value = _m
 	}
 
 	return localctx

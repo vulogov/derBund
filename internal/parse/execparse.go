@@ -78,12 +78,23 @@ func (l *bundExecListener) EnterBlock(c *parser.BlockContext) {
 }
 
 func (l *bundExecListener) ExitBlock(c *parser.BlockContext) {
+	var val *vm.Elem
 	if l.VM.Current != nil {
 		log.Debugf("EXITING Block. Stack size: %v", l.VM.Current.Len())
 	} else {
 		log.Debugf("EXITING Block. No current stack")
 	}
+	val = nil
+	if l.VM.CanGet() {
+		val = l.VM.Get()
+	}
 	l.VM.EndNS()
+	if l.VM.IsStack() {
+		if val != nil {
+			log.Debug("Pushing value from block to upper stack")
+			l.VM.Put(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterTrue_term(c *parser.True_termContext) {
@@ -104,4 +115,19 @@ func (l *bundExecListener) EnterFalse_term(c *parser.False_termContext) {
 		return
 	}
 	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+}
+
+func (l *bundExecListener) EnterBegin(c *parser.BeginContext) {
+	log.Debugf("STACK: pushing to BEGIN")
+	l.VM.Mode = false
+}
+
+func (l *bundExecListener) EnterEnd(c *parser.EndContext) {
+	log.Debugf("STACK: pushing to END")
+	l.VM.Mode = true
+}
+
+func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {
+	log.Debugf("CALLING: %v", c.GetValue().GetText())
+	l.VM.Exec(c.GetValue().GetText())
 }

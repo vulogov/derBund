@@ -19,6 +19,9 @@ term
     | block
     | true_term
     | false_term
+    | call_term
+    | begin
+    | end
   )
 ;
 
@@ -36,6 +39,10 @@ block
 true_term:    value=TRUE ;
 false_term:   value=FALSE ;
 
+call_term:    value=NAME ;
+begin:        value=TOBEGIN;
+end:          value=TOEND ;
+
 
 
 TRUE
@@ -50,6 +57,7 @@ TRUE
 
 FALSE
   : 'false'
+  | 'False'
   | 'FALSE'
   | 'F'
   | 'no'
@@ -57,6 +65,8 @@ FALSE
   | 'NO'
   ;
 
+TOBEGIN: ':' ;
+TOEND:   ';' ;
 SLASH:   '/' ;
 
 NAME

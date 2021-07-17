@@ -29,6 +29,15 @@ type BundListener interface {
 	// EnterFalse_term is called when entering the false_term production.
 	EnterFalse_term(c *False_termContext)
 
+	// EnterCall_term is called when entering the call_term production.
+	EnterCall_term(c *Call_termContext)
+
+	// EnterBegin is called when entering the begin production.
+	EnterBegin(c *BeginContext)
+
+	// EnterEnd is called when entering the end production.
+	EnterEnd(c *EndContext)
+
 	// ExitExpressions is called when exiting the expressions production.
 	ExitExpressions(c *ExpressionsContext)
 
@@ -49,4 +58,13 @@ type BundListener interface {
 
 	// ExitFalse_term is called when exiting the false_term production.
 	ExitFalse_term(c *False_termContext)
+
+	// ExitCall_term is called when exiting the call_term production.
+	ExitCall_term(c *Call_termContext)
+
+	// ExitBegin is called when exiting the begin production.
+	ExitBegin(c *BeginContext)
+
+	// ExitEnd is called when exiting the end production.
+	ExitEnd(c *EndContext)
 }

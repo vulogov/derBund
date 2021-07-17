@@ -1,6 +1,8 @@
 package vm
 
 import (
+	"fmt"
+
 	"github.com/gammazero/deque"
 	"github.com/lrita/cmap"
 	"github.com/pieterclaerhout/go-log"
@@ -123,4 +125,30 @@ func (vm *VM) Take() *Elem {
 		res = vm.Current.PopFront()
 	}
 	return res.(*Elem)
+}
+
+func (vm *VM) Apply(name string) error {
+	return nil
+}
+
+func (vm *VM) Exec(name string) error {
+	if HasUserFunction(name, vm) {
+		return vm.Apply(name)
+	}
+	if vm.Current.Len() < 1 {
+		return fmt.Errorf("Attempt to call a function: %v on empty stack", name)
+	}
+	f, err := GetFunction(name)
+	if err != nil {
+		return err
+	}
+	val := vm.Take()
+	res, err := f(vm, val)
+	if err != nil {
+		return err
+	}
+	if !vm.Put(res) {
+		return fmt.Errorf("Attempt to call a function: %v and error storing results", name)
+	}
+	return nil
 }
