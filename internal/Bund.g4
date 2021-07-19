@@ -30,7 +30,7 @@ ns
   ;
 
 block
-  : '|' (body+=term)* '|'
+  : '(' (body+=term)* ')'
   ;
 
 //

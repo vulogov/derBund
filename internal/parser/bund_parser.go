@@ -16,7 +16,7 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 12, 72, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 13, 72, 4,
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4,
 	8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 3, 2, 7, 2, 24, 10, 2,
 	12, 2, 14, 2, 27, 11, 2, 3, 3, 3, 3, 5, 3, 31, 10, 3, 3, 4, 3, 4, 3, 4,
@@ -35,21 +35,22 @@ var parserATN = []uint16{
 	10, 2, 38, 40, 5, 20, 11, 2, 39, 32, 3, 2, 2, 2, 39, 33, 3, 2, 2, 2, 39,
 	34, 3, 2, 2, 2, 39, 35, 3, 2, 2, 2, 39, 36, 3, 2, 2, 2, 39, 37, 3, 2, 2,
 	2, 39, 38, 3, 2, 2, 2, 40, 7, 3, 2, 2, 2, 41, 42, 7, 3, 2, 2, 42, 43, 7,
-	11, 2, 2, 43, 47, 7, 8, 2, 2, 44, 46, 5, 6, 4, 2, 45, 44, 3, 2, 2, 2, 46,
+	12, 2, 2, 43, 47, 7, 9, 2, 2, 44, 46, 5, 6, 4, 2, 45, 44, 3, 2, 2, 2, 46,
 	49, 3, 2, 2, 2, 47, 45, 3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 50, 3, 2, 2,
 	2, 49, 47, 3, 2, 2, 2, 50, 51, 7, 4, 2, 2, 51, 9, 3, 2, 2, 2, 52, 56, 7,
 	5, 2, 2, 53, 55, 5, 6, 4, 2, 54, 53, 3, 2, 2, 2, 55, 58, 3, 2, 2, 2, 56,
 	54, 3, 2, 2, 2, 56, 57, 3, 2, 2, 2, 57, 59, 3, 2, 2, 2, 58, 56, 3, 2, 2,
-	2, 59, 60, 7, 5, 2, 2, 60, 11, 3, 2, 2, 2, 61, 62, 7, 6, 2, 2, 62, 13,
-	3, 2, 2, 2, 63, 64, 7, 7, 2, 2, 64, 15, 3, 2, 2, 2, 65, 66, 7, 11, 2, 2,
-	66, 17, 3, 2, 2, 2, 67, 68, 7, 8, 2, 2, 68, 19, 3, 2, 2, 2, 69, 70, 7,
-	9, 2, 2, 70, 21, 3, 2, 2, 2, 7, 25, 30, 39, 47, 56,
+	2, 59, 60, 7, 6, 2, 2, 60, 11, 3, 2, 2, 2, 61, 62, 7, 7, 2, 2, 62, 13,
+	3, 2, 2, 2, 63, 64, 7, 8, 2, 2, 64, 15, 3, 2, 2, 2, 65, 66, 7, 12, 2, 2,
+	66, 17, 3, 2, 2, 2, 67, 68, 7, 9, 2, 2, 68, 19, 3, 2, 2, 2, 69, 70, 7,
+	10, 2, 2, 70, 21, 3, 2, 2, 2, 7, 25, 30, 39, 47, 56,
 }
 var literalNames = []string{
-	"", "'['", "';;'", "'|'", "", "", "':'", "';'", "'/'",
+	"", "'['", "';;'", "'('", "')'", "", "", "':'", "';'", "'/'",
 }
 var symbolicNames = []string{
-	"", "", "", "", "TRUE", "FALSE", "TOBEGIN", "TOEND", "SLASH", "NAME", "SKIP_",
+	"", "", "", "", "", "TRUE", "FALSE", "TOBEGIN", "TOEND", "SLASH", "NAME",
+	"SKIP_",
 }
 
 var ruleNames = []string{
@@ -92,13 +93,14 @@ const (
 	BundParserT__0    = 1
 	BundParserT__1    = 2
 	BundParserT__2    = 3
-	BundParserTRUE    = 4
-	BundParserFALSE   = 5
-	BundParserTOBEGIN = 6
-	BundParserTOEND   = 7
-	BundParserSLASH   = 8
-	BundParserNAME    = 9
-	BundParserSKIP_   = 10
+	BundParserT__3    = 4
+	BundParserTRUE    = 5
+	BundParserFALSE   = 6
+	BundParserTOBEGIN = 7
+	BundParserTOEND   = 8
+	BundParserSLASH   = 9
+	BundParserNAME    = 10
+	BundParserSKIP_   = 11
 )
 
 // BundParser rules.
@@ -851,6 +853,7 @@ func (s *BlockContext) ExitRule(listener antlr.ParseTreeListener) {
 func (p *BundParser) Block() (localctx IBlockContext) {
 	localctx = NewBlockContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, BundParserRULE_block)
+	var _la int
 
 	defer func() {
 		p.ExitRule()
@@ -868,8 +871,6 @@ func (p *BundParser) Block() (localctx IBlockContext) {
 		}
 	}()
 
-	var _alt int
-
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(50)
@@ -877,27 +878,25 @@ func (p *BundParser) Block() (localctx IBlockContext) {
 	}
 	p.SetState(54)
 	p.GetErrorHandler().Sync(p)
-	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 4, p.GetParserRuleContext())
+	_la = p.GetTokenStream().LA(1)
 
-	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
-		if _alt == 1 {
-			{
-				p.SetState(51)
+	for ((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserNAME))) != 0 {
+		{
+			p.SetState(51)
 
-				var _x = p.Term()
+			var _x = p.Term()
 
-				localctx.(*BlockContext)._term = _x
-			}
-			localctx.(*BlockContext).body = append(localctx.(*BlockContext).body, localctx.(*BlockContext)._term)
-
+			localctx.(*BlockContext)._term = _x
 		}
+		localctx.(*BlockContext).body = append(localctx.(*BlockContext).body, localctx.(*BlockContext)._term)
+
 		p.SetState(56)
 		p.GetErrorHandler().Sync(p)
-		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 4, p.GetParserRuleContext())
+		_la = p.GetTokenStream().LA(1)
 	}
 	{
 		p.SetState(57)
-		p.Match(BundParserT__2)
+		p.Match(BundParserT__3)
 	}
 
 	return localctx
