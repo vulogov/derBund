@@ -84,6 +84,10 @@ func (l *bundListener) EnterFalse_term(c *parser.False_termContext) {
 	log.Infof("Value: FALSE")
 }
 
+func (l *bundListener) EnterString_term(c *parser.String_termContext) {
+	log.Infof("String Value: %v", c.GetValue().GetText())
+}
+
 func (l *bundListener) EnterBegin(c *parser.BeginContext) {
 	log.Infof("STACK: pushing to BEGIN")
 }

@@ -63,6 +63,12 @@ func (s *BaseBundListener) EnterFalse_term(ctx *False_termContext) {}
 // ExitFalse_term is called when production false_term is exited.
 func (s *BaseBundListener) ExitFalse_term(ctx *False_termContext) {}
 
+// EnterString_term is called when production string_term is entered.
+func (s *BaseBundListener) EnterString_term(ctx *String_termContext) {}
+
+// ExitString_term is called when production string_term is exited.
+func (s *BaseBundListener) ExitString_term(ctx *String_termContext) {}
+
 // EnterCall_term is called when production call_term is entered.
 func (s *BaseBundListener) EnterCall_term(ctx *Call_termContext) {}
 

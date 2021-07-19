@@ -19,6 +19,7 @@ term
     | block
     | true_term
     | false_term
+    | string_term
     | call_term
     | begin
     | end
@@ -38,6 +39,7 @@ block
 //
 true_term:    value=TRUE ;
 false_term:   value=FALSE ;
+string_term:  value=STRING ;
 
 call_term:    value=NAME ;
 begin:        value=TOBEGIN;
@@ -63,6 +65,11 @@ FALSE
   | 'no'
   | 'No'
   | 'NO'
+  ;
+
+STRING
+  : SHORT_STRING
+  | LONG_STRING
   ;
 
 TOBEGIN: ':' ;

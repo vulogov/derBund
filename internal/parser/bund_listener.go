@@ -29,6 +29,9 @@ type BundListener interface {
 	// EnterFalse_term is called when entering the false_term production.
 	EnterFalse_term(c *False_termContext)
 
+	// EnterString_term is called when entering the string_term production.
+	EnterString_term(c *String_termContext)
+
 	// EnterCall_term is called when entering the call_term production.
 	EnterCall_term(c *Call_termContext)
 
@@ -58,6 +61,9 @@ type BundListener interface {
 
 	// ExitFalse_term is called when exiting the false_term production.
 	ExitFalse_term(c *False_termContext)
+
+	// ExitString_term is called when exiting the string_term production.
+	ExitString_term(c *String_termContext)
 
 	// ExitCall_term is called when exiting the call_term production.
 	ExitCall_term(c *Call_termContext)
