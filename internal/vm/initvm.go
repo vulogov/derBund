@@ -13,4 +13,5 @@ func RegisterDataTypes() {
 	log.Debug("[ BUND ] Registering internal data types")
 	RegisterBoolean()
 	RegisterString()
+	RegisterInt()
 }

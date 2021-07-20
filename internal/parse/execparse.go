@@ -17,11 +17,13 @@ type bundExecListener struct {
 
 type bundExecErrorListener struct {
 	antlr.ErrorListener
+	code   *string
 	errors int
 }
 
 func ParserExec(name string, code string) {
 	errorListener := new(bundExecErrorListener)
+	errorListener.code = &code
 	_input := antlr.NewInputStream(code)
 	lexer := parser.NewBundLexer(_input)
 	lexer.RemoveErrorListeners()
@@ -117,6 +119,28 @@ func (l *bundExecListener) EnterFalse_term(c *parser.False_termContext) {
 	l.VM.Put(eh.FromString(c.GetValue().GetText()))
 }
 
+func (l *bundExecListener) EnterString_term(c *parser.String_termContext) {
+	log.Debugf("String Value: %v", c.GetValue().GetText())
+	eh, err := vm.GetType("str")
+	if err != nil {
+		log.Errorf("BUND type 'str' not defined: %v", err)
+		return
+	}
+	s := c.GetValue().GetText()
+	sz := len(s) - 1
+	l.VM.Put(eh.FromString(s[1:sz]))
+}
+
+func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
+	log.Debugf("64-bit Integer Value: %v", c.GetValue().GetText())
+	eh, err := vm.GetType("int")
+	if err != nil {
+		log.Errorf("BUND type 'int' not defined: %v", err)
+		return
+	}
+	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+}
+
 func (l *bundExecListener) EnterBegin(c *parser.BeginContext) {
 	log.Debugf("STACK: pushing to BEGIN")
 	l.VM.Mode = false
@@ -130,4 +154,13 @@ func (l *bundExecListener) EnterEnd(c *parser.EndContext) {
 func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {
 	log.Debugf("CALLING: %v", c.GetValue().GetText())
 	l.VM.Exec(c.GetValue().GetText())
+}
+
+func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
+	log.Debugf("STACK: Drop")
+	if l.VM.Current.Len() == 0 {
+		log.Warn("Attempt to Drop value from an empty stack")
+	} else {
+		l.VM.Take()
+	}
 }

@@ -32,6 +32,9 @@ type BundListener interface {
 	// EnterString_term is called when entering the string_term production.
 	EnterString_term(c *String_termContext)
 
+	// EnterInteger is called when entering the integer production.
+	EnterInteger(c *IntegerContext)
+
 	// EnterCall_term is called when entering the call_term production.
 	EnterCall_term(c *Call_termContext)
 
@@ -40,6 +43,9 @@ type BundListener interface {
 
 	// EnterEnd is called when entering the end production.
 	EnterEnd(c *EndContext)
+
+	// EnterDrop is called when entering the drop production.
+	EnterDrop(c *DropContext)
 
 	// ExitExpressions is called when exiting the expressions production.
 	ExitExpressions(c *ExpressionsContext)
@@ -65,6 +71,9 @@ type BundListener interface {
 	// ExitString_term is called when exiting the string_term production.
 	ExitString_term(c *String_termContext)
 
+	// ExitInteger is called when exiting the integer production.
+	ExitInteger(c *IntegerContext)
+
 	// ExitCall_term is called when exiting the call_term production.
 	ExitCall_term(c *Call_termContext)
 
@@ -73,4 +82,7 @@ type BundListener interface {
 
 	// ExitEnd is called when exiting the end production.
 	ExitEnd(c *EndContext)
+
+	// ExitDrop is called when exiting the drop production.
+	ExitDrop(c *DropContext)
 }

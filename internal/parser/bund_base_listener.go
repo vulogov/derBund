@@ -69,6 +69,12 @@ func (s *BaseBundListener) EnterString_term(ctx *String_termContext) {}
 // ExitString_term is called when production string_term is exited.
 func (s *BaseBundListener) ExitString_term(ctx *String_termContext) {}
 
+// EnterInteger is called when production integer is entered.
+func (s *BaseBundListener) EnterInteger(ctx *IntegerContext) {}
+
+// ExitInteger is called when production integer is exited.
+func (s *BaseBundListener) ExitInteger(ctx *IntegerContext) {}
+
 // EnterCall_term is called when production call_term is entered.
 func (s *BaseBundListener) EnterCall_term(ctx *Call_termContext) {}
 
@@ -86,3 +92,9 @@ func (s *BaseBundListener) EnterEnd(ctx *EndContext) {}
 
 // ExitEnd is called when production end is exited.
 func (s *BaseBundListener) ExitEnd(ctx *EndContext) {}
+
+// EnterDrop is called when production drop is entered.
+func (s *BaseBundListener) EnterDrop(ctx *DropContext) {}
+
+// ExitDrop is called when production drop is exited.
+func (s *BaseBundListener) ExitDrop(ctx *DropContext) {}

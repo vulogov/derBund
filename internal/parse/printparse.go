@@ -88,6 +88,10 @@ func (l *bundListener) EnterString_term(c *parser.String_termContext) {
 	log.Infof("String Value: %v", c.GetValue().GetText())
 }
 
+func (l *bundListener) EnterInteger(c *parser.IntegerContext) {
+	log.Infof("64-bit Integer Value: %v", c.GetValue().GetText())
+}
+
 func (l *bundListener) EnterBegin(c *parser.BeginContext) {
 	log.Infof("STACK: pushing to BEGIN")
 }
@@ -98,4 +102,8 @@ func (l *bundListener) EnterEnd(c *parser.EndContext) {
 
 func (l *bundListener) EnterCall_term(c *parser.Call_termContext) {
 	log.Infof("CALLING: %v", c.GetValue().GetText())
+}
+
+func (l *bundListener) EnterDrop(c *parser.DropContext) {
+	log.Infof("STACK: Drop")
 }

@@ -20,9 +20,11 @@ term
     | true_term
     | false_term
     | string_term
+    | integer
     | call_term
     | begin
     | end
+    | drop
   )
 ;
 
@@ -40,10 +42,12 @@ block
 true_term:    value=TRUE ;
 false_term:   value=FALSE ;
 string_term:  value=STRING ;
+integer:      value=INTEGER ;
 
 call_term:    value=NAME ;
 begin:        value=TOBEGIN;
 end:          value=TOEND ;
+drop:         value=DROP ;
 
 
 
@@ -67,6 +71,15 @@ FALSE
   | 'NO'
   ;
 
+INTEGER
+  :  (SIGN)? DECIMAL_INTEGER
+  ;
+
+DECIMAL_INTEGER
+  : NON_ZERO_DIGIT DIGIT*
+  | '0'+
+  ;
+
 STRING
   : SHORT_STRING
   | LONG_STRING
@@ -75,15 +88,24 @@ STRING
 TOBEGIN: ':' ;
 TOEND:   ';' ;
 SLASH:   '/' ;
+DROP:    ',' ;
 
 NAME
   : ID_START ID_CONTINUE*
   ;
 
-SKIP_
-  : ( SPACES | COMMENT | LINE_JOINING | CCOMMENT | BLOCK_COMMENT ) -> skip
+COMMENT
+  : '##' ~[\r\n]* -> skip
   ;
-
+BLOCK_COMMENT
+  :   '/*' .*? '*/' -> skip
+  ;
+WS
+  : [ \r\n\t]+ -> skip
+  ;
+SHEBANG
+  : '#' '!' ~('\n'|'\r')* -> channel(HIDDEN)
+  ;
 //
 // fragments
 //
@@ -139,23 +161,3 @@ fragment ID_CONTINUE
  | [0-9]
  | SLASH
  ;
-
-fragment LINE_JOINING
-  : '\\' SPACES? ( '\r'? '\n' | '\r' | '\f' )
-  ;
-
-fragment COMMENT
-  : '##' ~[\r\n\f]*
-  ;
-
-fragment BLOCK_COMMENT
-  :   '/*' .*? '*/'
-  ;
-
-fragment CCOMMENT
-  :   '//' ~[\r\n]*
-  ;
-
-fragment SPACES
-  : [ \t]+
-  ;

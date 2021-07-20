@@ -1,0 +1,7 @@
+##
+## This is a classic 'Hello World' program
+##
+[ main : ## Named namespace begins as a name between "[" and ":"
+  "Hello world" /* Let's place string on stack. At the end of the stack */
+  println       ## Call embedded function println
+;; ## And named namespace terminates with ";;"
