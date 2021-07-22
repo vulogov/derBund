@@ -17,11 +17,35 @@ type BundListener interface {
 	// EnterTerm is called when entering the term production.
 	EnterTerm(c *TermContext)
 
+	// EnterData is called when entering the data production.
+	EnterData(c *DataContext)
+
 	// EnterNs is called when entering the ns production.
 	EnterNs(c *NsContext)
 
 	// EnterBlock is called when entering the block production.
 	EnterBlock(c *BlockContext)
+
+	// EnterDatablock is called when entering the datablock production.
+	EnterDatablock(c *DatablockContext)
+
+	// EnterFloatblock is called when entering the floatblock production.
+	EnterFloatblock(c *FloatblockContext)
+
+	// EnterIntblock is called when entering the intblock production.
+	EnterIntblock(c *IntblockContext)
+
+	// EnterTrueblock is called when entering the trueblock production.
+	EnterTrueblock(c *TrueblockContext)
+
+	// EnterFalseblock is called when entering the falseblock production.
+	EnterFalseblock(c *FalseblockContext)
+
+	// EnterLambda is called when entering the lambda production.
+	EnterLambda(c *LambdaContext)
+
+	// EnterLambda_cmd is called when entering the lambda_cmd production.
+	EnterLambda_cmd(c *Lambda_cmdContext)
 
 	// EnterTrue_term is called when entering the true_term production.
 	EnterTrue_term(c *True_termContext)
@@ -35,8 +59,20 @@ type BundListener interface {
 	// EnterInteger is called when entering the integer production.
 	EnterInteger(c *IntegerContext)
 
+	// EnterFloat is called when entering the float production.
+	EnterFloat(c *FloatContext)
+
 	// EnterCall_term is called when entering the call_term production.
 	EnterCall_term(c *Call_termContext)
+
+	// EnterCall_sys is called when entering the call_sys production.
+	EnterCall_sys(c *Call_sysContext)
+
+	// EnterCmd_term is called when entering the cmd_term production.
+	EnterCmd_term(c *Cmd_termContext)
+
+	// EnterCmd_sys is called when entering the cmd_sys production.
+	EnterCmd_sys(c *Cmd_sysContext)
 
 	// EnterBegin is called when entering the begin production.
 	EnterBegin(c *BeginContext)
@@ -47,6 +83,12 @@ type BundListener interface {
 	// EnterDrop is called when entering the drop production.
 	EnterDrop(c *DropContext)
 
+	// EnterDuplicate is called when entering the duplicate production.
+	EnterDuplicate(c *DuplicateContext)
+
+	// EnterExecute_term is called when entering the execute_term production.
+	EnterExecute_term(c *Execute_termContext)
+
 	// ExitExpressions is called when exiting the expressions production.
 	ExitExpressions(c *ExpressionsContext)
 
@@ -56,11 +98,35 @@ type BundListener interface {
 	// ExitTerm is called when exiting the term production.
 	ExitTerm(c *TermContext)
 
+	// ExitData is called when exiting the data production.
+	ExitData(c *DataContext)
+
 	// ExitNs is called when exiting the ns production.
 	ExitNs(c *NsContext)
 
 	// ExitBlock is called when exiting the block production.
 	ExitBlock(c *BlockContext)
+
+	// ExitDatablock is called when exiting the datablock production.
+	ExitDatablock(c *DatablockContext)
+
+	// ExitFloatblock is called when exiting the floatblock production.
+	ExitFloatblock(c *FloatblockContext)
+
+	// ExitIntblock is called when exiting the intblock production.
+	ExitIntblock(c *IntblockContext)
+
+	// ExitTrueblock is called when exiting the trueblock production.
+	ExitTrueblock(c *TrueblockContext)
+
+	// ExitFalseblock is called when exiting the falseblock production.
+	ExitFalseblock(c *FalseblockContext)
+
+	// ExitLambda is called when exiting the lambda production.
+	ExitLambda(c *LambdaContext)
+
+	// ExitLambda_cmd is called when exiting the lambda_cmd production.
+	ExitLambda_cmd(c *Lambda_cmdContext)
 
 	// ExitTrue_term is called when exiting the true_term production.
 	ExitTrue_term(c *True_termContext)
@@ -74,8 +140,20 @@ type BundListener interface {
 	// ExitInteger is called when exiting the integer production.
 	ExitInteger(c *IntegerContext)
 
+	// ExitFloat is called when exiting the float production.
+	ExitFloat(c *FloatContext)
+
 	// ExitCall_term is called when exiting the call_term production.
 	ExitCall_term(c *Call_termContext)
+
+	// ExitCall_sys is called when exiting the call_sys production.
+	ExitCall_sys(c *Call_sysContext)
+
+	// ExitCmd_term is called when exiting the cmd_term production.
+	ExitCmd_term(c *Cmd_termContext)
+
+	// ExitCmd_sys is called when exiting the cmd_sys production.
+	ExitCmd_sys(c *Cmd_sysContext)
 
 	// ExitBegin is called when exiting the begin production.
 	ExitBegin(c *BeginContext)
@@ -85,4 +163,10 @@ type BundListener interface {
 
 	// ExitDrop is called when exiting the drop production.
 	ExitDrop(c *DropContext)
+
+	// ExitDuplicate is called when exiting the duplicate production.
+	ExitDuplicate(c *DuplicateContext)
+
+	// ExitExecute_term is called when exiting the execute_term production.
+	ExitExecute_term(c *Execute_termContext)
 }

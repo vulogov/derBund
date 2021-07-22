@@ -76,6 +76,46 @@ func (l *bundListener) ExitBlock(c *parser.BlockContext) {
 	log.Infof("EXITING Block")
 }
 
+func (l *bundListener) EnterDatablock(c *parser.DatablockContext) {
+	log.Infof("ENTERING Data Block")
+}
+
+func (l *bundListener) ExitDatablock(c *parser.DatablockContext) {
+	log.Infof("EXITING Data Block")
+}
+
+func (l *bundListener) EnterFloatblock(c *parser.FloatblockContext) {
+	log.Infof("ENTERING Float Block")
+}
+
+func (l *bundListener) ExitFloatblock(c *parser.FloatblockContext) {
+	log.Infof("EXITING Float Block")
+}
+
+func (l *bundListener) EnterIntblock(c *parser.IntblockContext) {
+	log.Infof("ENTERING Int Block")
+}
+
+func (l *bundListener) ExitIntblock(c *parser.IntblockContext) {
+	log.Infof("EXITING Int Block")
+}
+
+func (l *bundListener) EnterTrueblock(c *parser.TrueblockContext) {
+	log.Infof("ENTERING True Block")
+}
+
+func (l *bundListener) ExitTrueblock(c *parser.TrueblockContext) {
+	log.Infof("EXITING True Block")
+}
+
+func (l *bundListener) EnterFalseblock(c *parser.FalseblockContext) {
+	log.Infof("ENTERING False Block")
+}
+
+func (l *bundListener) ExitFalseblock(c *parser.FalseblockContext) {
+	log.Infof("EXITING False Block")
+}
+
 func (l *bundListener) EnterTrue_term(c *parser.True_termContext) {
 	log.Infof("Value: TRUE")
 }
@@ -92,6 +132,10 @@ func (l *bundListener) EnterInteger(c *parser.IntegerContext) {
 	log.Infof("64-bit Integer Value: %v", c.GetValue().GetText())
 }
 
+func (l *bundListener) EnterFloat(c *parser.FloatContext) {
+	log.Infof("64-bit Float Value: %v", c.GetValue().GetText())
+}
+
 func (l *bundListener) EnterBegin(c *parser.BeginContext) {
 	log.Infof("STACK: pushing to BEGIN")
 }
@@ -104,6 +148,26 @@ func (l *bundListener) EnterCall_term(c *parser.Call_termContext) {
 	log.Infof("CALLING: %v", c.GetValue().GetText())
 }
 
+func (l *bundListener) EnterCall_sys(c *parser.Call_sysContext) {
+	log.Infof("SYSTEM  SYS: %v CALL: %v", c.GetSyscmd().GetText(), c.GetValue().GetText())
+}
+
+func (l *bundListener) EnterCmd_term(c *parser.Cmd_termContext) {
+	log.Infof("COMMAND: %v", c.GetValue().GetText())
+}
+
+func (l *bundListener) EnterCmd_sys(c *parser.Cmd_sysContext) {
+	log.Infof("SYSTEM  SYS: %v COMMAND: %v", c.GetSyscmd().GetText(), c.GetValue().GetText())
+}
+
 func (l *bundListener) EnterDrop(c *parser.DropContext) {
 	log.Infof("STACK: Drop")
+}
+
+func (l *bundListener) EnterDuplicate(c *parser.DuplicateContext) {
+	log.Infof("STACK: Duplicate")
+}
+
+func (l *bundListener) EnterExecute_term(c *parser.Execute_termContext) {
+	log.Infof("STACK: Execute")
 }

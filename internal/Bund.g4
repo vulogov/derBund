@@ -17,14 +17,38 @@ root_term
 term
   : ( ns
     | block
+    | datablock
+    | floatblock
+    | intblock
+    | trueblock
+    | falseblock
     | true_term
     | false_term
     | string_term
     | integer
+    | float
     | call_term
+    | call_sys
+    | cmd_term
+    | cmd_sys
     | begin
     | end
+    | execute_term
     | drop
+    | duplicate
+  )
+;
+
+data
+  : ( true_term
+    | false_term
+    | string_term
+    | integer
+    | float
+    | call_term
+    | call_sys
+    | cmd_term
+    | cmd_sys
   )
 ;
 
@@ -36,6 +60,32 @@ block
   : '(' (body+=term)* ')'
   ;
 
+datablock
+  : '(*' (body+=data)* ')'
+  ;
+
+floatblock
+  : '(float' (body+=float)* ')'
+  ;
+
+intblock
+  : '(int' (body+=integer)* ')'
+  ;
+
+trueblock
+  : '(true' (body+=term)* ')'
+  ;
+falseblock
+  : '(false' (body+=term)* ')'
+  ;
+
+lambda
+  : '[' name=NAME ']' (body+=term)* '.'
+  ;
+lambda_cmd
+  : '[[' name=CMD ']]' (body+=term)* '.'
+  ;
+
 //
 // Various terms
 //
@@ -43,11 +93,20 @@ true_term:    value=TRUE ;
 false_term:   value=FALSE ;
 string_term:  value=STRING ;
 integer:      value=INTEGER ;
-
+float:        value=FLOAT_NUMBER ;
 call_term:    value=NAME ;
+call_sys
+  : value=NAME '.(' syscmd=(SYS|NAME) ')'
+  ;
+cmd_term:     value=CMD ;
+cmd_sys
+  : value=CMD '.(' syscmd=(SYS|NAME) ')'
+  ;
 begin:        value=TOBEGIN;
 end:          value=TOEND ;
 drop:         value=DROP ;
+duplicate:    value=DUPLICATE ;
+execute_term: value=EXECUTE;
 
 
 
@@ -80,6 +139,10 @@ DECIMAL_INTEGER
   | '0'+
   ;
 
+FLOAT_NUMBER
+  : EXPONENT_OR_POINT_FLOAT
+  ;
+
 STRING
   : SHORT_STRING
   | LONG_STRING
@@ -89,9 +152,22 @@ TOBEGIN: ':' ;
 TOEND:   ';' ;
 SLASH:   '/' ;
 DROP:    ',' ;
+DUPLICATE: '^';
 
 NAME
   : ID_START ID_CONTINUE*
+  ;
+
+CMD
+  : ('+'|'-'|'&'|'='|'<'|'>')+
+  ;
+
+SYS
+  : ('@'|'$'|'`'|'?'|'*')+
+  ;
+
+EXECUTE
+  : ('!')+
   ;
 
 COMMENT

@@ -14,4 +14,8 @@ func RegisterDataTypes() {
 	RegisterBoolean()
 	RegisterString()
 	RegisterInt()
+	RegisterFloat()
+	RegisterDblock()
+	RegisterFblock()
+	RegisterIblock()
 }

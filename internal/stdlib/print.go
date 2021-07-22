@@ -20,6 +20,7 @@ func PrintElement(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 func PrintlnElement(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 	eh, err := vm.GetType(e.Type)
 	if err != nil {
+		log.Errorf("Error getting element handler in println: %v", err)
 		return nil, err
 	}
 	fmt.Printf("%s\n", eh.ToString(e))

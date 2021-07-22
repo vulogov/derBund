@@ -1,0 +1,7 @@
+##
+## This script prints block of integer data from stack
+##
+[ main :
+  (int 1 2 3) 
+  println
+;;

@@ -11,6 +11,7 @@ import (
 type VM struct {
 	Name        string
 	Mode        bool
+	IsIgnore    deque.Deque
 	NSStack     deque.Deque
 	NS          cmap.Cmap
 	Current     *deque.Deque
@@ -20,7 +21,9 @@ type VM struct {
 
 func NewVM(name string) *VM {
 	log.Debugf("Creating VM: %v", name)
-	return &VM{Name: name, Current: nil, CurrentNS: nil, CurrentElem: nil, Mode: true}
+	res := VM{Name: name, Current: nil, CurrentNS: nil, CurrentElem: nil, Mode: true}
+	res.IsIgnore.PushBack(false)
+	return &res
 }
 
 func (vm *VM) GetNS(name string) *NS {
@@ -87,6 +90,9 @@ func (vm *VM) CanGet() bool {
 }
 
 func (vm *VM) Put(e *Elem) bool {
+	if vm.CheckIgnore() {
+		return true
+	}
 	if !vm.IsStack() {
 		log.Errorf("Attempt to Put() but Stack doesn't exists")
 		return false
@@ -101,6 +107,9 @@ func (vm *VM) Put(e *Elem) bool {
 
 func (vm *VM) Get() *Elem {
 	var res interface{}
+	if vm.CheckIgnore() {
+		return nil
+	}
 	if !vm.CanGet() {
 		log.Errorf("Attempt to Get() but Stack doesn't exists or empty")
 		return nil
@@ -115,6 +124,9 @@ func (vm *VM) Get() *Elem {
 
 func (vm *VM) Take() *Elem {
 	var res interface{}
+	if vm.CheckIgnore() {
+		return nil
+	}
 	if !vm.CanGet() {
 		log.Errorf("Attempt to Take() but Stack doesn't exists or empty")
 		return nil
@@ -132,6 +144,9 @@ func (vm *VM) Apply(name string) error {
 }
 
 func (vm *VM) Exec(name string) error {
+	if vm.CheckIgnore() {
+		return nil
+	}
 	if HasUserFunction(name, vm) {
 		return vm.Apply(name)
 	}
@@ -151,4 +166,28 @@ func (vm *VM) Exec(name string) error {
 		return fmt.Errorf("Attempt to call a function: %v and error storing results", name)
 	}
 	return nil
+}
+
+func (vm *VM) Ignore() {
+	vm.IsIgnore.PushBack(true)
+}
+
+func (vm *VM) NotIgnore() {
+	vm.IsIgnore.PushBack(false)
+}
+
+func (vm *VM) MustIgnore() bool {
+	if vm.IsIgnore.Len() == 0 {
+		return false
+	}
+	res := vm.IsIgnore.PopBack()
+	return res.(bool)
+}
+
+func (vm *VM) CheckIgnore() bool {
+	if vm.IsIgnore.Len() == 0 {
+		return false
+	}
+	res := vm.IsIgnore.Back()
+	return res.(bool)
 }

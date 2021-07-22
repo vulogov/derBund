@@ -21,7 +21,7 @@ type bundExecErrorListener struct {
 	errors int
 }
 
-func ParserExec(name string, code string) {
+func ParserExec(name string, code string) *vm.VM {
 	errorListener := new(bundExecErrorListener)
 	errorListener.code = &code
 	_input := antlr.NewInputStream(code)
@@ -36,14 +36,16 @@ func ParserExec(name string, code string) {
 	listener.VM = vm.NewVM(name)
 	if errorListener.errors > 0 {
 		log.Errorf("%v lexer errors detected.", errorListener.errors)
-		return
+		return nil
 	}
 	antlr.ParseTreeWalkerDefault.Walk(listener, p.Expressions())
 	if errorListener.errors > 0 {
 		log.Errorf("Errors detected: %v", errorListener.errors)
+		return nil
 	} else {
 		log.Debug("No errors detected")
 	}
+	return listener.VM
 }
 
 func (l *bundExecErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
@@ -141,6 +143,16 @@ func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
 	l.VM.Put(eh.FromString(c.GetValue().GetText()))
 }
 
+func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
+	log.Debugf("64-bit Float Value: %v", c.GetValue().GetText())
+	eh, err := vm.GetType("flt")
+	if err != nil {
+		log.Errorf("BUND type 'flt' not defined: %v", err)
+		return
+	}
+	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+}
+
 func (l *bundExecListener) EnterBegin(c *parser.BeginContext) {
 	log.Debugf("STACK: pushing to BEGIN")
 	l.VM.Mode = false
@@ -162,5 +174,127 @@ func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
 		log.Warn("Attempt to Drop value from an empty stack")
 	} else {
 		l.VM.Take()
+	}
+}
+
+func (l *bundExecListener) EnterDatablock(c *parser.DatablockContext) {
+	log.Debugf("ENTERING Data Block")
+	blockname := uuid.New().String()
+	l.VM.GetNS(blockname)
+}
+
+func (l *bundExecListener) ExitDatablock(c *parser.DatablockContext) {
+	if l.VM.Current != nil {
+		log.Debugf("EXITING Data Block. Stack size: %v", l.VM.Current.Len())
+		res := new(vm.Elem)
+		res.Type = "dblock"
+		res.Value = l.VM.Current
+		l.VM.EndNS()
+		if l.VM.IsStack() {
+			l.VM.Put(res)
+		}
+	} else {
+		log.Debugf("EXITING Data Block. No current stack")
+		l.VM.EndNS()
+	}
+}
+
+func (l *bundExecListener) EnterFloatblock(c *parser.FloatblockContext) {
+	log.Debugf("ENTERING Float Block")
+	blockname := uuid.New().String()
+	l.VM.GetNS(blockname)
+}
+
+func (l *bundExecListener) ExitFloatblock(c *parser.FloatblockContext) {
+	if l.VM.Current != nil {
+		log.Debugf("EXITING Float Block. Stack size: %v", l.VM.Current.Len())
+		res := new(vm.Elem)
+		res.Type = "fblock"
+		res.Value = l.VM.Current
+		l.VM.EndNS()
+		if l.VM.IsStack() {
+			l.VM.Put(res)
+		}
+	} else {
+		log.Debugf("EXITING Float Block. No current stack")
+		l.VM.EndNS()
+	}
+}
+
+func (l *bundExecListener) EnterIntblock(c *parser.IntblockContext) {
+	log.Debugf("ENTERING Int Block")
+	blockname := uuid.New().String()
+	l.VM.GetNS(blockname)
+}
+
+func (l *bundExecListener) ExitIntblock(c *parser.IntblockContext) {
+	if l.VM.Current != nil {
+		log.Debugf("EXITING Int Block. Stack size: %v", l.VM.Current.Len())
+		res := new(vm.Elem)
+		res.Type = "iblock"
+		res.Value = l.VM.Current
+		l.VM.EndNS()
+		if l.VM.IsStack() {
+			l.VM.Put(res)
+		}
+	} else {
+		log.Debugf("EXITING Int Block. No current stack")
+		l.VM.EndNS()
+	}
+}
+
+func (l *bundExecListener) EnterTrueblock(c *parser.TrueblockContext) {
+	log.Debugf("ENTERING True Block")
+	if l.VM.CanGet() {
+		e := l.VM.Get()
+		if e.Type == "bool" {
+			if e.Value.(bool) == true {
+				l.VM.NotIgnore()
+				blockname := uuid.New().String()
+				l.VM.GetNS(blockname)
+			} else {
+				log.Debugf("True Block will not be executed")
+				l.VM.Ignore()
+			}
+		} else {
+			l.VM.Ignore()
+		}
+	}
+}
+
+func (l *bundExecListener) ExitTrueblock(c *parser.TrueblockContext) {
+	log.Debugf("EXITING True Block")
+	if !l.VM.MustIgnore() {
+		if l.VM.CanGet() {
+			l.VM.EndNS()
+		}
+	}
+}
+
+func (l *bundExecListener) EnterFalseblock(c *parser.FalseblockContext) {
+	log.Debugf("ENTERING False Block")
+	if l.VM.CanGet() {
+		e := l.VM.Get()
+		if e.Type == "bool" {
+			if e.Value.(bool) == false {
+				l.VM.NotIgnore()
+				blockname := uuid.New().String()
+				l.VM.GetNS(blockname)
+			} else {
+				log.Debugf("False Block will not be executed")
+				l.VM.Ignore()
+			}
+		} else {
+			l.VM.Ignore()
+		}
+	}
+}
+
+func (l *bundExecListener) ExitFalseblock(c *parser.FalseblockContext) {
+	log.Debugf("EXITING False Block")
+	if !l.VM.MustIgnore() {
+		if l.VM.CanGet() {
+			l.VM.EndNS()
+		}
 	}
 }
