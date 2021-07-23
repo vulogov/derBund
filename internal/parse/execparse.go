@@ -258,6 +258,28 @@ func (l *bundExecListener) ExitIntblock(c *parser.IntblockContext) {
 	}
 }
 
+func (l *bundExecListener) EnterUintblock(c *parser.UintblockContext) {
+	log.Debugf("ENTERING Unsigned Int Block")
+	blockname := uuid.New().String()
+	l.VM.GetNS(blockname)
+}
+
+func (l *bundExecListener) ExitUintblock(c *parser.UintblockContext) {
+	if l.VM.Current != nil {
+		log.Debugf("EXITING Unsigned Int Block. Stack size: %v", l.VM.Current.Len())
+		res := new(vm.Elem)
+		res.Type = "uiblock"
+		res.Value = l.VM.Current
+		l.VM.EndNS()
+		if l.VM.IsStack() {
+			l.VM.Put(res)
+		}
+	} else {
+		log.Debugf("EXITING Unsigned Int Block. No current stack")
+		l.VM.EndNS()
+	}
+}
+
 func (l *bundExecListener) EnterTrueblock(c *parser.TrueblockContext) {
 	log.Debugf("ENTERING True Block")
 	if l.VM.CanGet() {

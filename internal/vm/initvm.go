@@ -19,4 +19,5 @@ func RegisterDataTypes() {
 	RegisterDblock()
 	RegisterFblock()
 	RegisterIblock()
+	RegisterUIblock()
 }
