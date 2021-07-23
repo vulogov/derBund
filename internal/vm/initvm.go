@@ -16,6 +16,8 @@ func RegisterDataTypes() {
 	RegisterInt()
 	RegisterUInt()
 	RegisterFloat()
+	RegisterUFloat()
+	RegisterCpx()
 	RegisterDblock()
 	RegisterFblock()
 	RegisterIblock()

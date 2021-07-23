@@ -163,6 +163,26 @@ func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
 	l.VM.Put(eh.FromString(c.GetValue().GetText()))
 }
 
+func (l *bundExecListener) EnterComplex_term(c *parser.Complex_termContext) {
+	log.Debugf("128-bit Complex Value: %v", c.GetValue().GetText())
+	eh, err := vm.GetType("cpx")
+	if err != nil {
+		log.Errorf("BUND type 'cpx' not defined: %v", err)
+		return
+	}
+	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+}
+
+func (l *bundExecListener) EnterUfloat(c *parser.UfloatContext) {
+	log.Debugf("64-bit Unsigned Float Value: %v", c.GetValue().GetText()[1:])
+	eh, err := vm.GetType("uflt")
+	if err != nil {
+		log.Errorf("BUND type 'uflt' not defined: %v", err)
+		return
+	}
+	l.VM.Put(eh.FromString(c.GetValue().GetText()[1:]))
+}
+
 func (l *bundExecListener) EnterBegin(c *parser.BeginContext) {
 	log.Debugf("STACK: pushing to BEGIN")
 	l.VM.Mode = false

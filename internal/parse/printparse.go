@@ -141,11 +141,19 @@ func (l *bundListener) EnterInteger(c *parser.IntegerContext) {
 }
 
 func (l *bundListener) EnterUinteger(c *parser.UintegerContext) {
-	log.Infof("64-bit Unsigned Integer Value: %v", c.GetValue().GetText())
+	log.Infof("64-bit Unsigned Integer Value: %v", c.GetValue().GetText()[1:])
 }
 
 func (l *bundListener) EnterFloat(c *parser.FloatContext) {
 	log.Infof("64-bit Float Value: %v", c.GetValue().GetText())
+}
+
+func (l *bundListener) EnterUfloat(c *parser.UfloatContext) {
+	log.Infof("64-bit Unsigned Float Value: %v", c.GetValue().GetText()[1:])
+}
+
+func (l *bundListener) EnterComplex_term(c *parser.Complex_termContext) {
+	log.Infof("128-bit Complex Value: %v", c.GetValue().GetText())
 }
 
 func (l *bundListener) EnterBegin(c *parser.BeginContext) {

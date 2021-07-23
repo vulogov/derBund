@@ -29,6 +29,8 @@ term
     | integer
     | uinteger
     | float
+    | ufloat
+    | complex_term
     | call_term
     | call_sys
     | cmd_term
@@ -47,7 +49,10 @@ data
     | false_term
     | string_term
     | integer
+    | uinteger
     | float
+    | ufloat
+    | complex_term
     | call_term
     | call_sys
     | cmd_term
@@ -102,6 +107,9 @@ string_term:  value=STRING ;
 integer:      value=INTEGER ;
 uinteger:     value=UINTEGER ;
 float:        value=FLOAT_NUMBER ;
+ufloat:       value=UFLOAT_NUMBER ;
+allfloat:     value=(FLOAT_NUMBER|UFLOAT_NUMBER) ;
+complex_term: value=COMPLEX_NUMBER ;
 call_term:    value=NAME ;
 call_sys
   : value=NAME '.(' syscmd=(SYS|NAME) ')'
@@ -155,6 +163,14 @@ DECIMAL_INTEGER
 
 FLOAT_NUMBER
   : EXPONENT_OR_POINT_FLOAT
+  ;
+
+UFLOAT_NUMBER
+  : EXPONENT_OR_POINT_UFLOAT
+  ;
+
+COMPLEX_NUMBER
+  : '(' FLOAT_NUMBER FLOAT_NUMBER 'i)'
   ;
 
 STRING
@@ -215,6 +231,11 @@ fragment DIGIT
 fragment EXPONENT_OR_POINT_FLOAT
   : (SIGN)? ([0-9]+ | POINT_FLOAT) [eE] [+-]? [0-9]+
   | (SIGN)? POINT_FLOAT
+  ;
+
+fragment EXPONENT_OR_POINT_UFLOAT
+  : ('U'|'u') ([0-9]+ | POINT_FLOAT) [eE] [+-]? [0-9]+
+  | ('U'|'u') POINT_FLOAT
   ;
 
 fragment POINT_FLOAT
