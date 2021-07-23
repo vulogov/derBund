@@ -35,6 +35,9 @@ type BundListener interface {
 	// EnterIntblock is called when entering the intblock production.
 	EnterIntblock(c *IntblockContext)
 
+	// EnterUintblock is called when entering the uintblock production.
+	EnterUintblock(c *UintblockContext)
+
 	// EnterTrueblock is called when entering the trueblock production.
 	EnterTrueblock(c *TrueblockContext)
 
@@ -58,6 +61,9 @@ type BundListener interface {
 
 	// EnterInteger is called when entering the integer production.
 	EnterInteger(c *IntegerContext)
+
+	// EnterUinteger is called when entering the uinteger production.
+	EnterUinteger(c *UintegerContext)
 
 	// EnterFloat is called when entering the float production.
 	EnterFloat(c *FloatContext)
@@ -119,6 +125,9 @@ type BundListener interface {
 	// ExitIntblock is called when exiting the intblock production.
 	ExitIntblock(c *IntblockContext)
 
+	// ExitUintblock is called when exiting the uintblock production.
+	ExitUintblock(c *UintblockContext)
+
 	// ExitTrueblock is called when exiting the trueblock production.
 	ExitTrueblock(c *TrueblockContext)
 
@@ -142,6 +151,9 @@ type BundListener interface {
 
 	// ExitInteger is called when exiting the integer production.
 	ExitInteger(c *IntegerContext)
+
+	// ExitUinteger is called when exiting the uinteger production.
+	ExitUinteger(c *UintegerContext)
 
 	// ExitFloat is called when exiting the float production.
 	ExitFloat(c *FloatContext)

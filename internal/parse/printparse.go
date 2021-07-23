@@ -100,6 +100,14 @@ func (l *bundListener) ExitIntblock(c *parser.IntblockContext) {
 	log.Infof("EXITING Int Block")
 }
 
+func (l *bundListener) EnterUintblock(c *parser.UintblockContext) {
+	log.Infof("ENTERING UInt Block")
+}
+
+func (l *bundListener) ExitUintblock(c *parser.UintblockContext) {
+	log.Infof("EXITING UInt Block")
+}
+
 func (l *bundListener) EnterTrueblock(c *parser.TrueblockContext) {
 	log.Infof("ENTERING True Block")
 }
@@ -130,6 +138,10 @@ func (l *bundListener) EnterString_term(c *parser.String_termContext) {
 
 func (l *bundListener) EnterInteger(c *parser.IntegerContext) {
 	log.Infof("64-bit Integer Value: %v", c.GetValue().GetText())
+}
+
+func (l *bundListener) EnterUinteger(c *parser.UintegerContext) {
+	log.Infof("64-bit Unsigned Integer Value: %v", c.GetValue().GetText())
 }
 
 func (l *bundListener) EnterFloat(c *parser.FloatContext) {

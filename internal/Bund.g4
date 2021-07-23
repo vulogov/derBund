@@ -20,12 +20,14 @@ term
     | datablock
     | floatblock
     | intblock
+    | uintblock
     | trueblock
     | falseblock
     | true_term
     | false_term
     | string_term
     | integer
+    | uinteger
     | float
     | call_term
     | call_sys
@@ -73,6 +75,10 @@ intblock
   : '(int' (body+=integer)* ')'
   ;
 
+uintblock
+  : '(uint' (body+=uinteger)* ')'
+  ;
+
 trueblock
   : '(true' (body+=term)* ')'
   ;
@@ -94,6 +100,7 @@ true_term:    value=TRUE ;
 false_term:   value=FALSE ;
 string_term:  value=STRING ;
 integer:      value=INTEGER ;
+uinteger:     value=UINTEGER ;
 float:        value=FLOAT_NUMBER ;
 call_term:    value=NAME ;
 call_sys
@@ -135,6 +142,11 @@ FALSE
 INTEGER
   :  (SIGN)? DECIMAL_INTEGER
   ;
+
+UINTEGER
+  :  ('U'|'u') DECIMAL_INTEGER
+  ;
+
 
 DECIMAL_INTEGER
   : NON_ZERO_DIGIT DIGIT*

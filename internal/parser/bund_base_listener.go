@@ -75,6 +75,12 @@ func (s *BaseBundListener) EnterIntblock(ctx *IntblockContext) {}
 // ExitIntblock is called when production intblock is exited.
 func (s *BaseBundListener) ExitIntblock(ctx *IntblockContext) {}
 
+// EnterUintblock is called when production uintblock is entered.
+func (s *BaseBundListener) EnterUintblock(ctx *UintblockContext) {}
+
+// ExitUintblock is called when production uintblock is exited.
+func (s *BaseBundListener) ExitUintblock(ctx *UintblockContext) {}
+
 // EnterTrueblock is called when production trueblock is entered.
 func (s *BaseBundListener) EnterTrueblock(ctx *TrueblockContext) {}
 
@@ -122,6 +128,12 @@ func (s *BaseBundListener) EnterInteger(ctx *IntegerContext) {}
 
 // ExitInteger is called when production integer is exited.
 func (s *BaseBundListener) ExitInteger(ctx *IntegerContext) {}
+
+// EnterUinteger is called when production uinteger is entered.
+func (s *BaseBundListener) EnterUinteger(ctx *UintegerContext) {}
+
+// ExitUinteger is called when production uinteger is exited.
+func (s *BaseBundListener) ExitUinteger(ctx *UintegerContext) {}
 
 // EnterFloat is called when production float is entered.
 func (s *BaseBundListener) EnterFloat(ctx *FloatContext) {}

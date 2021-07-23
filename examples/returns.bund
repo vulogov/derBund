@@ -1,0 +1,15 @@
+[ main:
+   [ inner/block :
+      1
+      $
+      2
+      3
+      $
+      [ inner/inner/block :
+        42
+        $
+      ;;
+      $
+   ;;
+   println , println , println
+;;

@@ -143,6 +143,16 @@ func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
 	l.VM.Put(eh.FromString(c.GetValue().GetText()))
 }
 
+func (l *bundExecListener) EnterUinteger(c *parser.UintegerContext) {
+	log.Debugf("64-bit Unsigned Integer Value: %v", c.GetValue().GetText())
+	eh, err := vm.GetType("uint")
+	if err != nil {
+		log.Errorf("BUND type 'uint' not defined: %v", err)
+		return
+	}
+	l.VM.Put(eh.FromString(c.GetValue().GetText()[1:]))
+}
+
 func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
 	log.Debugf("64-bit Float Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("flt")
