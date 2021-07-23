@@ -10,6 +10,7 @@ type NS struct {
 	Name  string
 	Stack deque.Deque
 	Fun   cmap.Cmap
+	Ops   cmap.Cmap
 }
 
 func NewNS(name string) *NS {

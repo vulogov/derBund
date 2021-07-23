@@ -143,6 +143,32 @@ func (vm *VM) Apply(name string) error {
 	return nil
 }
 
+func (vm *VM) Op(name string) error {
+	if vm.CheckIgnore() {
+		return nil
+	}
+	if HasUserFunction(name, vm) {
+		return vm.Apply(name)
+	}
+	if vm.Current.Len() < 2 {
+		return fmt.Errorf("Attempt to call an operation: %v on empty stack", name)
+	}
+	f, err := GetOperator(name)
+	if err != nil {
+		return err
+	}
+	val1 := vm.Take()
+	val2 := vm.Take()
+	res, err := f(vm, val1, val2)
+	if err != nil {
+		return err
+	}
+	if !vm.Put(res) {
+		return fmt.Errorf("Attempt to call a function: %v and error storing results", name)
+	}
+	return nil
+}
+
 func (vm *VM) Exec(name string) error {
 	if vm.CheckIgnore() {
 		return nil

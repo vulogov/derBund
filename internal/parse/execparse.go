@@ -168,6 +168,11 @@ func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {
 	l.VM.Exec(c.GetValue().GetText())
 }
 
+func (l *bundExecListener) EnterCmd_term(c *parser.Cmd_termContext) {
+	log.Debugf("OPERATOR: %v", c.GetValue().GetText())
+	l.VM.Op(c.GetValue().GetText())
+}
+
 func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
 	log.Debugf("STACK: Drop")
 	if l.VM.Current.Len() == 0 {
@@ -296,5 +301,33 @@ func (l *bundExecListener) ExitFalseblock(c *parser.FalseblockContext) {
 		if l.VM.CanGet() {
 			l.VM.EndNS()
 		}
+	}
+}
+
+func (l *bundExecListener) EnterReturn_term(c *parser.Return_termContext) {
+	if l.VM.MustIgnore() {
+		return
+	}
+	log.Debugf("STACK: Return")
+	if l.VM.NSStack.Len() < 1 {
+		log.Errorf("Namespace stack is too shallow for RETURN operation: %v", l.VM.NSStack.Len())
+		return
+	}
+	nsr := l.VM.NSStack.Back().(*vm.NS)
+	log.Debugf("Return push to %v", nsr.Name)
+	cmd := c.GetValue().GetText()
+	var e *vm.Elem
+	switch cmd {
+	case "$":
+		e = l.VM.Take()
+	case "$$":
+		e = l.VM.Get()
+	default:
+		log.Errorf("I do not know how to do this RETURN operation: %v", cmd)
+	}
+	if l.VM.Mode {
+		nsr.Stack.PushBack(e)
+	} else {
+		nsr.Stack.PushFront(e)
 	}
 }

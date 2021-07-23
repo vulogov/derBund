@@ -6,5 +6,6 @@ import (
 
 func InitSTDLIB() {
 	log.Debug("[ BUND ] bund.InitSTDLIB() reached")
-	InitPrintFunctions()
+	InitEmbeddedOperators()
+	InitFUNCTIONS()
 }

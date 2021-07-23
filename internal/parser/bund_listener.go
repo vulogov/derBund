@@ -89,6 +89,9 @@ type BundListener interface {
 	// EnterExecute_term is called when entering the execute_term production.
 	EnterExecute_term(c *Execute_termContext)
 
+	// EnterReturn_term is called when entering the return_term production.
+	EnterReturn_term(c *Return_termContext)
+
 	// ExitExpressions is called when exiting the expressions production.
 	ExitExpressions(c *ExpressionsContext)
 
@@ -169,4 +172,7 @@ type BundListener interface {
 
 	// ExitExecute_term is called when exiting the execute_term production.
 	ExitExecute_term(c *Execute_termContext)
+
+	// ExitReturn_term is called when exiting the return_term production.
+	ExitReturn_term(c *Return_termContext)
 }

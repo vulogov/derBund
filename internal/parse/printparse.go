@@ -153,7 +153,7 @@ func (l *bundListener) EnterCall_sys(c *parser.Call_sysContext) {
 }
 
 func (l *bundListener) EnterCmd_term(c *parser.Cmd_termContext) {
-	log.Infof("COMMAND: %v", c.GetValue().GetText())
+	log.Infof("OPERATOR: %v", c.GetValue().GetText())
 }
 
 func (l *bundListener) EnterCmd_sys(c *parser.Cmd_sysContext) {
@@ -170,4 +170,8 @@ func (l *bundListener) EnterDuplicate(c *parser.DuplicateContext) {
 
 func (l *bundListener) EnterExecute_term(c *parser.Execute_termContext) {
 	log.Infof("STACK: Execute")
+}
+
+func (l *bundListener) EnterReturn_term(c *parser.Return_termContext) {
+	log.Infof("STACK: Return")
 }

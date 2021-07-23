@@ -34,6 +34,7 @@ term
     | begin
     | end
     | execute_term
+    | return_term
     | drop
     | duplicate
   )
@@ -106,7 +107,8 @@ begin:        value=TOBEGIN;
 end:          value=TOEND ;
 drop:         value=DROP ;
 duplicate:    value=DUPLICATE ;
-execute_term: value=EXECUTE;
+execute_term: value=EXECUTE ;
+return_term:  value=RETURN ;
 
 
 
@@ -163,11 +165,15 @@ CMD
   ;
 
 SYS
-  : ('@'|'$'|'`'|'?'|'*')+
+  : ('@'|'`'|'?'|'*')+
   ;
 
 EXECUTE
   : ('!')+
+  ;
+
+RETURN
+  : ('$')+
   ;
 
 COMMENT
