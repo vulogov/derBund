@@ -241,26 +241,42 @@ func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("64-bit Float Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("flt")
 	if err != nil {
 		log.Errorf("BUND type 'flt' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+	val := eh.FromString(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debugf("64-bit Float Value: %v", c.GetValue().GetText())
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterComplex_term(c *parser.Complex_termContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("128-bit Complex Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("cpx")
 	if err != nil {
 		log.Errorf("BUND type 'cpx' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+	val := eh.FromString(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debugf("128-bit Complex Value: %v", c.GetValue().GetText())
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterUfloat(c *parser.UfloatContext) {

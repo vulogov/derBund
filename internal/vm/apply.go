@@ -31,6 +31,12 @@ func Apply(name string, vm *VM) error {
 		case "uint":
 			log.Debugf("UInt64: %v", cmd.Value.(uint64))
 			vm.Put(cmd)
+		case "flt":
+			log.Debugf("Float64: %v", cmd.Value.(float64))
+			vm.Put(cmd)
+		case "cpx":
+			log.Debugf("Complex128: %v", cmd.Value.(complex128))
+			vm.Put(cmd)
 		case "NS":
 			log.Debugf("ENTERING Namespace: %v", cmd.Value.(string))
 			vm.GetNS(cmd.Value.(string))
