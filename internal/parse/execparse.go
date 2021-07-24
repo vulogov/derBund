@@ -155,20 +155,27 @@ func (l *bundExecListener) EnterFalse_term(c *parser.False_termContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debug("Value: FALSE")
 	eh, err := vm.GetType("bool")
 	if err != nil {
 		log.Errorf("BUND type 'bool' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+	val := eh.FromString(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debug("Value: FALSE")
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterString_term(c *parser.String_termContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("String Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("str")
 	if err != nil {
 		log.Errorf("BUND type 'str' not defined: %v", err)
@@ -176,7 +183,16 @@ func (l *bundExecListener) EnterString_term(c *parser.String_termContext) {
 	}
 	s := c.GetValue().GetText()
 	sz := len(s) - 1
-	l.VM.Put(eh.FromString(s[1:sz]))
+	val := eh.FromString(s[1:sz])
+	if !l.VM.InLambda() {
+		log.Debugf("String Value: %v", c.GetValue().GetText())
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
@@ -264,8 +280,15 @@ func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("CALLING: %v", c.GetValue().GetText())
-	l.VM.Exec(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debugf("CALLING: %v", c.GetValue().GetText())
+		l.VM.Exec(c.GetValue().GetText())
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "CALL", Value: c.GetValue().GetText()})
+		}
+	}
 }
 
 func (l *bundExecListener) EnterCmd_term(c *parser.Cmd_termContext) {
@@ -500,10 +523,11 @@ func (l *bundExecListener) ExitLambda(c *parser.LambdaContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("LAMBDA(fin): %v", c.GetName().GetText())
 	if !l.VM.IsStack() {
 		log.Errorf("Attempt to close Lambda function with empty context")
 		return
 	}
+	ls := l.VM.CurrentLambda()
 	l.VM.CurrentNS.CloseLambda()
+	log.Debugf("LAMBDA(fin): %v, size: %v", c.GetName().GetText(), ls.Len())
 }

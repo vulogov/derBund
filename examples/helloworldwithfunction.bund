@@ -1,0 +1,4 @@
+[ main :
+   [ HelloWorld ] "Hello World! Привет мир !" println .
+   HelloWorld
+;;

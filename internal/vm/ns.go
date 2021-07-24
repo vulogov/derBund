@@ -34,8 +34,8 @@ func (ns *NS) GetLambda(name string) *deque.Deque {
 		log.Debugf("Creating LAMBDA in %v: %v", ns.Name, name)
 		res = new(deque.Deque)
 		ns.Fun.Store(name, res)
+		ns.LambdasStack.PushBack(name)
 	}
-	ns.LambdasStack.PushBack(name)
 	return res
 }
 
@@ -52,6 +52,7 @@ func (ns *NS) CloseLambda() bool {
 		log.Errorf("Attempt to close Lambda fuction on empty Lambdas stack")
 		return false
 	}
-	ns.LambdasStack.PopBack()
+	ln := ns.LambdasStack.PopBack().(string)
+	log.Debugf("Closing lambda %v. Stack size: %v", ln, ns.LambdasStack.Len())
 	return true
 }

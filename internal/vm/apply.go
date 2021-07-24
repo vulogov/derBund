@@ -21,6 +21,12 @@ func Apply(name string, vm *VM) error {
 		case "bool":
 			log.Debugf("Value: %v", cmd.Value.(bool))
 			vm.Put(cmd)
+		case "str":
+			log.Debugf("String: %v", cmd.Value.(string))
+			vm.Put(cmd)
+		case "CALL":
+			log.Debugf("Calling: %v", cmd.Value.(string))
+			vm.Exec(cmd.Value.(string))
 		}
 	}
 	return nil
