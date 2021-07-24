@@ -283,29 +283,51 @@ func (l *bundExecListener) EnterUfloat(c *parser.UfloatContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("64-bit Unsigned Float Value: %v", c.GetValue().GetText()[1:])
 	eh, err := vm.GetType("uflt")
 	if err != nil {
 		log.Errorf("BUND type 'uflt' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()[1:]))
+	val := eh.FromString(c.GetValue().GetText()[1:])
+	if !l.VM.InLambda() {
+		log.Debugf("64-bit Unsigned Float Value: %v", c.GetValue().GetText()[1:])
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterBegin(c *parser.BeginContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("STACK: pushing to BEGIN")
-	l.VM.Mode = false
+	if !l.VM.InLambda() {
+		log.Debugf("STACK: pushing to BEGIN")
+		l.VM.Mode = false
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "MODE", Value: false})
+		}
+	}
 }
 
 func (l *bundExecListener) EnterEnd(c *parser.EndContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("STACK: pushing to END")
-	l.VM.Mode = true
+	if !l.VM.InLambda() {
+		log.Debugf("STACK: pushing to END")
+		l.VM.Mode = true
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "MODE", Value: true})
+		}
+	}
 }
 
 func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {

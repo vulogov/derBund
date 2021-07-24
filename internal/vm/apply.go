@@ -34,6 +34,9 @@ func Apply(name string, vm *VM) error {
 		case "flt":
 			log.Debugf("Float64: %v", cmd.Value.(float64))
 			vm.Put(cmd)
+		case "uflt":
+			log.Debugf("UFloat64: %v", cmd.Value.(float64))
+			vm.Put(cmd)
 		case "cpx":
 			log.Debugf("Complex128: %v", cmd.Value.(complex128))
 			vm.Put(cmd)
@@ -52,6 +55,9 @@ func Apply(name string, vm *VM) error {
 		case "CALL":
 			log.Debugf("Calling: %v", cmd.Value.(string))
 			vm.Exec(cmd.Value.(string))
+		case "MODE":
+			log.Debugf("Stack MODE: %v", cmd.Value.(bool))
+			vm.Mode = cmd.Value.(bool)
 		}
 	}
 	return nil
