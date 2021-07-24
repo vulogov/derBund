@@ -199,26 +199,42 @@ func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("64-bit Integer Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("int")
 	if err != nil {
 		log.Errorf("BUND type 'int' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+	val := eh.FromString(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debugf("64-bit Integer Value: %v", c.GetValue().GetText())
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterUinteger(c *parser.UintegerContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("64-bit Unsigned Integer Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("uint")
 	if err != nil {
 		log.Errorf("BUND type 'uint' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()[1:]))
+	val := eh.FromString(c.GetValue().GetText()[1:])
+	if !l.VM.InLambda() {
+		log.Debugf("64-bit Unsigned Integer Value: %v", c.GetValue().GetText())
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
