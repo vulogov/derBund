@@ -17,6 +17,7 @@ root_term
 term
   : ( ns
     | block
+    | lambda
     | datablock
     | floatblock
     | intblock

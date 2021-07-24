@@ -66,52 +66,95 @@ func (l *bundExecErrorListener) ReportContextSensitivity(recognizer antlr.Parser
 }
 
 func (l *bundExecListener) EnterNs(c *parser.NsContext) {
-	log.Debugf("ENTERING Namespace: %v", c.GetName().GetText())
-	l.VM.GetNS(c.GetName().GetText())
+	if l.VM.MustIgnore() {
+		return
+	}
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING Namespace: %v", c.GetName().GetText())
+		l.VM.GetNS(c.GetName().GetText())
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "NS", Value: c.GetName().GetText()})
+		}
+	}
 }
 
 func (l *bundExecListener) ExitNs(c *parser.NsContext) {
-	log.Debugf("EXITING Namespace: %v", c.GetName().GetText())
-	l.VM.EndNS()
+	if l.VM.MustIgnore() {
+		return
+	}
+	if !l.VM.InLambda() {
+		log.Debugf("EXITING Namespace: %v", c.GetName().GetText())
+		l.VM.EndNS()
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitNS", Value: c.GetName().GetText()})
+		}
+	}
 }
 
 func (l *bundExecListener) EnterBlock(c *parser.BlockContext) {
-	log.Debugf("ENTERING Block")
+	if l.VM.MustIgnore() {
+		return
+	}
 	blockname := uuid.New().String()
-	l.VM.GetNS(blockname)
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING Block")
+		l.VM.GetNS(blockname)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "BLOCK", Value: blockname})
+		}
+	}
 }
 
 func (l *bundExecListener) ExitBlock(c *parser.BlockContext) {
-	var val *vm.Elem
-	if l.VM.Current != nil {
-		log.Debugf("EXITING Block. Stack size: %v", l.VM.Current.Len())
+	if l.VM.MustIgnore() {
+		return
+	}
+	if !l.VM.InLambda() {
+		if l.VM.Current != nil {
+			log.Debugf("EXITING Block. Stack size: %v", l.VM.Current.Len())
+		} else {
+			log.Debugf("EXITING Block. No current stack")
+		}
+		l.VM.EndNS()
 	} else {
-		log.Debugf("EXITING Block. No current stack")
-	}
-	val = nil
-	if l.VM.CanGet() {
-		val = l.VM.Get()
-	}
-	l.VM.EndNS()
-	if l.VM.IsStack() {
-		if val != nil {
-			log.Debug("Pushing value from block to upper stack")
-			l.VM.Put(val)
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitBLOCK", Value: nil})
 		}
 	}
 }
 
 func (l *bundExecListener) EnterTrue_term(c *parser.True_termContext) {
-	log.Debug("Value: TRUE")
+	if l.VM.CheckIgnore() {
+		return
+	}
 	eh, err := vm.GetType("bool")
 	if err != nil {
 		log.Errorf("BUND type 'bool' not defined: %v", err)
 		return
 	}
-	l.VM.Put(eh.FromString(c.GetValue().GetText()))
+	val := eh.FromString(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debug("Value: TRUE")
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
 }
 
 func (l *bundExecListener) EnterFalse_term(c *parser.False_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debug("Value: FALSE")
 	eh, err := vm.GetType("bool")
 	if err != nil {
@@ -122,6 +165,9 @@ func (l *bundExecListener) EnterFalse_term(c *parser.False_termContext) {
 }
 
 func (l *bundExecListener) EnterString_term(c *parser.String_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("String Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("str")
 	if err != nil {
@@ -134,6 +180,9 @@ func (l *bundExecListener) EnterString_term(c *parser.String_termContext) {
 }
 
 func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("64-bit Integer Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("int")
 	if err != nil {
@@ -144,6 +193,9 @@ func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
 }
 
 func (l *bundExecListener) EnterUinteger(c *parser.UintegerContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("64-bit Unsigned Integer Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("uint")
 	if err != nil {
@@ -154,6 +206,9 @@ func (l *bundExecListener) EnterUinteger(c *parser.UintegerContext) {
 }
 
 func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("64-bit Float Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("flt")
 	if err != nil {
@@ -164,6 +219,9 @@ func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
 }
 
 func (l *bundExecListener) EnterComplex_term(c *parser.Complex_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("128-bit Complex Value: %v", c.GetValue().GetText())
 	eh, err := vm.GetType("cpx")
 	if err != nil {
@@ -174,6 +232,9 @@ func (l *bundExecListener) EnterComplex_term(c *parser.Complex_termContext) {
 }
 
 func (l *bundExecListener) EnterUfloat(c *parser.UfloatContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("64-bit Unsigned Float Value: %v", c.GetValue().GetText()[1:])
 	eh, err := vm.GetType("uflt")
 	if err != nil {
@@ -184,26 +245,41 @@ func (l *bundExecListener) EnterUfloat(c *parser.UfloatContext) {
 }
 
 func (l *bundExecListener) EnterBegin(c *parser.BeginContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("STACK: pushing to BEGIN")
 	l.VM.Mode = false
 }
 
 func (l *bundExecListener) EnterEnd(c *parser.EndContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("STACK: pushing to END")
 	l.VM.Mode = true
 }
 
 func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("CALLING: %v", c.GetValue().GetText())
 	l.VM.Exec(c.GetValue().GetText())
 }
 
 func (l *bundExecListener) EnterCmd_term(c *parser.Cmd_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("OPERATOR: %v", c.GetValue().GetText())
 	l.VM.Op(c.GetValue().GetText())
 }
 
 func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("STACK: Drop")
 	if l.VM.Current.Len() == 0 {
 		log.Warn("Attempt to Drop value from an empty stack")
@@ -213,12 +289,18 @@ func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
 }
 
 func (l *bundExecListener) EnterDatablock(c *parser.DatablockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("ENTERING Data Block")
 	blockname := uuid.New().String()
 	l.VM.GetNS(blockname)
 }
 
 func (l *bundExecListener) ExitDatablock(c *parser.DatablockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	if l.VM.Current != nil {
 		log.Debugf("EXITING Data Block. Stack size: %v", l.VM.Current.Len())
 		res := new(vm.Elem)
@@ -235,12 +317,18 @@ func (l *bundExecListener) ExitDatablock(c *parser.DatablockContext) {
 }
 
 func (l *bundExecListener) EnterFloatblock(c *parser.FloatblockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("ENTERING Float Block")
 	blockname := uuid.New().String()
 	l.VM.GetNS(blockname)
 }
 
 func (l *bundExecListener) ExitFloatblock(c *parser.FloatblockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	if l.VM.Current != nil {
 		log.Debugf("EXITING Float Block. Stack size: %v", l.VM.Current.Len())
 		res := new(vm.Elem)
@@ -257,12 +345,18 @@ func (l *bundExecListener) ExitFloatblock(c *parser.FloatblockContext) {
 }
 
 func (l *bundExecListener) EnterIntblock(c *parser.IntblockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("ENTERING Int Block")
 	blockname := uuid.New().String()
 	l.VM.GetNS(blockname)
 }
 
 func (l *bundExecListener) ExitIntblock(c *parser.IntblockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	if l.VM.Current != nil {
 		log.Debugf("EXITING Int Block. Stack size: %v", l.VM.Current.Len())
 		res := new(vm.Elem)
@@ -279,12 +373,18 @@ func (l *bundExecListener) ExitIntblock(c *parser.IntblockContext) {
 }
 
 func (l *bundExecListener) EnterUintblock(c *parser.UintblockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	log.Debugf("ENTERING Unsigned Int Block")
 	blockname := uuid.New().String()
 	l.VM.GetNS(blockname)
 }
 
 func (l *bundExecListener) ExitUintblock(c *parser.UintblockContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
 	if l.VM.Current != nil {
 		log.Debugf("EXITING Unsigned Int Block. Stack size: %v", l.VM.Current.Len())
 		res := new(vm.Elem)
@@ -310,8 +410,8 @@ func (l *bundExecListener) EnterTrueblock(c *parser.TrueblockContext) {
 				blockname := uuid.New().String()
 				l.VM.GetNS(blockname)
 			} else {
-				log.Debugf("True Block will not be executed")
 				l.VM.Ignore()
+				log.Debugf("True Block will not be executed: %v", l.VM.CheckIgnore())
 			}
 		} else {
 			l.VM.Ignore()
@@ -357,7 +457,7 @@ func (l *bundExecListener) ExitFalseblock(c *parser.FalseblockContext) {
 }
 
 func (l *bundExecListener) EnterReturn_term(c *parser.Return_termContext) {
-	if l.VM.MustIgnore() {
+	if l.VM.CheckIgnore() {
 		return
 	}
 	log.Debugf("STACK: Return")
@@ -382,4 +482,28 @@ func (l *bundExecListener) EnterReturn_term(c *parser.Return_termContext) {
 	} else {
 		nsr.Stack.PushFront(e)
 	}
+}
+
+func (l *bundExecListener) EnterLambda(c *parser.LambdaContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	log.Debugf("LAMBDA(start): %v", c.GetName().GetText())
+	if !l.VM.IsStack() {
+		log.Errorf("Attempt of defining Lambda function with empty context")
+		return
+	}
+	l.VM.CurrentNS.GetLambda(c.GetName().GetText())
+}
+
+func (l *bundExecListener) ExitLambda(c *parser.LambdaContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	log.Debugf("LAMBDA(fin): %v", c.GetName().GetText())
+	if !l.VM.IsStack() {
+		log.Errorf("Attempt to close Lambda function with empty context")
+		return
+	}
+	l.VM.CurrentNS.CloseLambda()
 }

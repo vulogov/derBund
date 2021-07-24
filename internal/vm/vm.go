@@ -90,9 +90,6 @@ func (vm *VM) CanGet() bool {
 }
 
 func (vm *VM) Put(e *Elem) bool {
-	if vm.CheckIgnore() {
-		return true
-	}
 	if !vm.IsStack() {
 		log.Errorf("Attempt to Put() but Stack doesn't exists")
 		return false
@@ -107,9 +104,7 @@ func (vm *VM) Put(e *Elem) bool {
 
 func (vm *VM) Get() *Elem {
 	var res interface{}
-	if vm.CheckIgnore() {
-		return nil
-	}
+
 	if !vm.CanGet() {
 		log.Errorf("Attempt to Get() but Stack doesn't exists or empty")
 		return nil
@@ -124,9 +119,7 @@ func (vm *VM) Get() *Elem {
 
 func (vm *VM) Take() *Elem {
 	var res interface{}
-	if vm.CheckIgnore() {
-		return nil
-	}
+
 	if !vm.CanGet() {
 		log.Errorf("Attempt to Take() but Stack doesn't exists or empty")
 		return nil
@@ -140,13 +133,14 @@ func (vm *VM) Take() *Elem {
 }
 
 func (vm *VM) Apply(name string) error {
-	return nil
+	err := Apply(name, vm)
+	if err != nil {
+		log.Errorf("Apply(): %v", err)
+	}
+	return err
 }
 
 func (vm *VM) Op(name string) error {
-	if vm.CheckIgnore() {
-		return nil
-	}
 	if HasUserFunction(name, vm) {
 		return vm.Apply(name)
 	}
@@ -170,9 +164,6 @@ func (vm *VM) Op(name string) error {
 }
 
 func (vm *VM) Exec(name string) error {
-	if vm.CheckIgnore() {
-		return nil
-	}
 	if HasUserFunction(name, vm) {
 		return vm.Apply(name)
 	}
@@ -216,4 +207,24 @@ func (vm *VM) CheckIgnore() bool {
 	}
 	res := vm.IsIgnore.Back()
 	return res.(bool)
+}
+
+func (vm *VM) CurrentLambda() *deque.Deque {
+	if !vm.IsStack() {
+		log.Errorf("Attempt to CurrentLambda() but NS doesn't exists")
+		return nil
+	}
+	return vm.CurrentNS.CurrentLambda()
+}
+
+func (vm *VM) InLambda() bool {
+	if !vm.IsStack() {
+		log.Debugf("Attempt to InLambda() but Stack doesn't exists")
+		return false
+	}
+	if vm.CurrentNS.LambdasStack.Len() > 0 {
+		log.Debugf("We are in InLambda(%v)", vm.CurrentNS.LambdasStack.Back().(string))
+		return true
+	}
+	return false
 }

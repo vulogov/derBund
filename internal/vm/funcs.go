@@ -46,7 +46,11 @@ func AddSys(name string, fn BundSysfun) bool {
 }
 
 func HasUserFunction(name string, vm *VM) bool {
-	return false
+	if !vm.IsStack() {
+		log.Errorf("Attempt to HasUserFunction(%v) on empty context", name)
+		return false
+	}
+	return vm.CurrentNS.HasLambda(name)
 }
 
 func GetFunction(name string) (BundFunction, error) {

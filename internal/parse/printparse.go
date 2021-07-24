@@ -1,8 +1,6 @@
 package parse
 
 import (
-	// "strconv"
-
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"github.com/pieterclaerhout/go-log"
 
@@ -194,4 +192,12 @@ func (l *bundListener) EnterExecute_term(c *parser.Execute_termContext) {
 
 func (l *bundListener) EnterReturn_term(c *parser.Return_termContext) {
 	log.Infof("STACK: Return")
+}
+
+func (l *bundListener) EnterLambda(c *parser.LambdaContext) {
+	log.Infof("LAMBDA(start): %v", c.GetName().GetText())
+}
+
+func (l *bundListener) ExitLambda(c *parser.LambdaContext) {
+	log.Infof("LAMBDA(fin): %v", c.GetName().GetText())
 }
