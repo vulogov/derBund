@@ -349,19 +349,37 @@ func (l *bundExecListener) EnterCmd_term(c *parser.Cmd_termContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("OPERATOR: %v", c.GetValue().GetText())
-	l.VM.Op(c.GetValue().GetText())
+	if !l.VM.InLambda() {
+		log.Debugf("OPERATOR: %v", c.GetValue().GetText())
+		l.VM.Op(c.GetValue().GetText())
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "OP", Value: c.GetValue().GetText()})
+		}
+	}
 }
 
 func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("STACK: Drop")
-	if l.VM.Current.Len() == 0 {
-		log.Warn("Attempt to Drop value from an empty stack")
+	if !l.VM.InLambda() {
+		log.Debugf("STACK: Drop")
+		if l.VM.IsStack() {
+			if l.VM.Current.Len() == 0 {
+				log.Warn("Attempt to Drop value from an empty stack")
+			} else {
+				l.VM.Take()
+			}
+		} else {
+			log.Error("Attempt to Drop value with empty context")
+		}
 	} else {
-		l.VM.Take()
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "DROP", Value: nil})
+		}
 	}
 }
 

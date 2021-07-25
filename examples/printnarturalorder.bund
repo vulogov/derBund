@@ -1,0 +1,4 @@
+(
+  [ PrintAB ] : 'A' 'B' ;  println , println .
+  PrintAB
+)

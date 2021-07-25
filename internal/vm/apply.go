@@ -55,6 +55,20 @@ func Apply(name string, vm *VM) error {
 		case "CALL":
 			log.Debugf("Calling: %v", cmd.Value.(string))
 			vm.Exec(cmd.Value.(string))
+		case "OP":
+			log.Debugf("Operator: %v", cmd.Value.(string))
+			vm.Op(cmd.Value.(string))
+		case "DROP":
+			log.Debugf("STACK: Drop")
+			if vm.IsStack() {
+				if vm.Current.Len() == 0 {
+					log.Warn("Attempt to Drop value from an empty stack")
+				} else {
+					vm.Take()
+				}
+			} else {
+				log.Error("Attempt to Drop value with empty context")
+			}
 		case "MODE":
 			log.Debugf("Stack MODE: %v", cmd.Value.(bool))
 			vm.Mode = cmd.Value.(bool)
