@@ -72,6 +72,23 @@ func Apply(name string, vm *VM) error {
 		case "MODE":
 			log.Debugf("Stack MODE: %v", cmd.Value.(bool))
 			vm.Mode = cmd.Value.(bool)
+		case "DBLOCK":
+			log.Debugf("Initialize DBlock")
+			vm.GetNS(cmd.Value.(string))
+		case "exitDBLOCK":
+			if vm.Current != nil {
+				log.Debugf("Create Data Block. Stack size: %v", vm.Current.Len())
+				res := new(Elem)
+				res.Type = "dblock"
+				res.Value = vm.Current
+				vm.EndNS()
+				if vm.IsStack() {
+					vm.Put(res)
+				}
+			} else {
+				log.Debugf("Close Data Block. No current stack")
+				vm.EndNS()
+			}
 		}
 	}
 	return nil
