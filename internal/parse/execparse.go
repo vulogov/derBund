@@ -569,27 +569,34 @@ func (l *bundExecListener) EnterReturn_term(c *parser.Return_termContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("STACK: Return")
-	if l.VM.NSStack.Len() < 1 {
-		log.Errorf("Namespace stack is too shallow for RETURN operation: %v", l.VM.NSStack.Len())
-		return
-	}
-	nsr := l.VM.NSStack.Back().(*vm.NS)
-	log.Debugf("Return push to %v", nsr.Name)
 	cmd := c.GetValue().GetText()
-	var e *vm.Elem
-	switch cmd {
-	case "$":
-		e = l.VM.Take()
-	case "$$":
-		e = l.VM.Get()
-	default:
-		log.Errorf("I do not know how to do this RETURN operation: %v", cmd)
-	}
-	if l.VM.Mode {
-		nsr.Stack.PushBack(e)
+	if !l.VM.InLambda() {
+		log.Debugf("STACK: Return")
+		if l.VM.NSStack.Len() < 1 {
+			log.Errorf("Namespace stack is too shallow for RETURN operation: %v", l.VM.NSStack.Len())
+			return
+		}
+		nsr := l.VM.NSStack.Back().(*vm.NS)
+		log.Debugf("Return push to %v", nsr.Name)
+		var e *vm.Elem
+		switch cmd {
+		case "$":
+			e = l.VM.Take()
+		case "$$":
+			e = l.VM.Get()
+		default:
+			log.Errorf("I do not know how to do this RETURN operation: %v", cmd)
+		}
+		if l.VM.Mode {
+			nsr.Stack.PushBack(e)
+		} else {
+			nsr.Stack.PushFront(e)
+		}
 	} else {
-		nsr.Stack.PushFront(e)
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "RETURN", Value: cmd})
+		}
 	}
 }
 

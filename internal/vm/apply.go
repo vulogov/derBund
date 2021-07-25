@@ -72,6 +72,28 @@ func Apply(name string, vm *VM) error {
 		case "MODE":
 			log.Debugf("Stack MODE: %v", cmd.Value.(bool))
 			vm.Mode = cmd.Value.(bool)
+		case "RETURN":
+			log.Debugf("STACK: Return")
+			if vm.NSStack.Len() < 1 {
+				log.Errorf("Namespace stack is too shallow for RETURN operation: %v", vm.NSStack.Len())
+				break
+			}
+			nsr := vm.NSStack.Back().(*NS)
+			log.Debugf("Return push to %v", nsr.Name)
+			var e *Elem
+			switch cmd.Value.(string) {
+			case "$":
+				e = vm.Take()
+			case "$$":
+				e = vm.Get()
+			default:
+				log.Errorf("I do not know how to do this RETURN operation: %v", cmd.Value.(string))
+			}
+			if vm.Mode {
+				nsr.Stack.PushBack(e)
+			} else {
+				nsr.Stack.PushFront(e)
+			}
 		case "DBLOCK":
 			log.Debugf("Initialize DBlock")
 			vm.GetNS(cmd.Value.(string))
