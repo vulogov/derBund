@@ -16,7 +16,7 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 40, 262,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 41, 262,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
 	9, 13, 4, 14, 9, 14, 4, 15, 9, 15, 4, 16, 9, 16, 4, 17, 9, 17, 4, 18, 9,
@@ -140,8 +140,8 @@ var symbolicNames = []string{
 	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "TRUE",
 	"FALSE", "INTEGER", "UINTEGER", "DECIMAL_INTEGER", "FLOAT_NUMBER", "UFLOAT_NUMBER",
 	"COMPLEX_NUMBER", "STRING", "TOBEGIN", "TOEND", "SLASH", "DROP", "DUPLICATE",
-	"NAME", "CMD", "SYS", "EXECUTE", "RETURN", "COMMENT", "BLOCK_COMMENT",
-	"WS", "SHEBANG",
+	"NAME", "CMD", "SYS", "EXECUTE", "RETURN", "LAMBDA_TERMINATION", "COMMENT",
+	"BLOCK_COMMENT", "WS", "SHEBANG",
 }
 
 var ruleNames = []string{
@@ -184,45 +184,46 @@ func NewBundParser(input antlr.TokenStream) *BundParser {
 
 // BundParser tokens.
 const (
-	BundParserEOF             = antlr.TokenEOF
-	BundParserT__0            = 1
-	BundParserT__1            = 2
-	BundParserT__2            = 3
-	BundParserT__3            = 4
-	BundParserT__4            = 5
-	BundParserT__5            = 6
-	BundParserT__6            = 7
-	BundParserT__7            = 8
-	BundParserT__8            = 9
-	BundParserT__9            = 10
-	BundParserT__10           = 11
-	BundParserT__11           = 12
-	BundParserT__12           = 13
-	BundParserT__13           = 14
-	BundParserT__14           = 15
-	BundParserTRUE            = 16
-	BundParserFALSE           = 17
-	BundParserINTEGER         = 18
-	BundParserUINTEGER        = 19
-	BundParserDECIMAL_INTEGER = 20
-	BundParserFLOAT_NUMBER    = 21
-	BundParserUFLOAT_NUMBER   = 22
-	BundParserCOMPLEX_NUMBER  = 23
-	BundParserSTRING          = 24
-	BundParserTOBEGIN         = 25
-	BundParserTOEND           = 26
-	BundParserSLASH           = 27
-	BundParserDROP            = 28
-	BundParserDUPLICATE       = 29
-	BundParserNAME            = 30
-	BundParserCMD             = 31
-	BundParserSYS             = 32
-	BundParserEXECUTE         = 33
-	BundParserRETURN          = 34
-	BundParserCOMMENT         = 35
-	BundParserBLOCK_COMMENT   = 36
-	BundParserWS              = 37
-	BundParserSHEBANG         = 38
+	BundParserEOF                = antlr.TokenEOF
+	BundParserT__0               = 1
+	BundParserT__1               = 2
+	BundParserT__2               = 3
+	BundParserT__3               = 4
+	BundParserT__4               = 5
+	BundParserT__5               = 6
+	BundParserT__6               = 7
+	BundParserT__7               = 8
+	BundParserT__8               = 9
+	BundParserT__9               = 10
+	BundParserT__10              = 11
+	BundParserT__11              = 12
+	BundParserT__12              = 13
+	BundParserT__13              = 14
+	BundParserT__14              = 15
+	BundParserTRUE               = 16
+	BundParserFALSE              = 17
+	BundParserINTEGER            = 18
+	BundParserUINTEGER           = 19
+	BundParserDECIMAL_INTEGER    = 20
+	BundParserFLOAT_NUMBER       = 21
+	BundParserUFLOAT_NUMBER      = 22
+	BundParserCOMPLEX_NUMBER     = 23
+	BundParserSTRING             = 24
+	BundParserTOBEGIN            = 25
+	BundParserTOEND              = 26
+	BundParserSLASH              = 27
+	BundParserDROP               = 28
+	BundParserDUPLICATE          = 29
+	BundParserNAME               = 30
+	BundParserCMD                = 31
+	BundParserSYS                = 32
+	BundParserEXECUTE            = 33
+	BundParserRETURN             = 34
+	BundParserLAMBDA_TERMINATION = 35
+	BundParserCOMMENT            = 36
+	BundParserBLOCK_COMMENT      = 37
+	BundParserWS                 = 38
+	BundParserSHEBANG            = 39
 )
 
 // BundParser rules.

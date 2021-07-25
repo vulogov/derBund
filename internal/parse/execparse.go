@@ -610,6 +610,7 @@ func (l *bundExecListener) EnterLambda(c *parser.LambdaContext) {
 		return
 	}
 	l.VM.CurrentNS.GetLambda(c.GetName().GetText())
+	l.VM.CurrentNS.InLambda(c.GetName().GetText())
 }
 
 func (l *bundExecListener) ExitLambda(c *parser.LambdaContext) {
@@ -620,7 +621,9 @@ func (l *bundExecListener) ExitLambda(c *parser.LambdaContext) {
 		log.Errorf("Attempt to close Lambda function with empty context")
 		return
 	}
+
 	ls := l.VM.CurrentLambda()
 	l.VM.CurrentNS.CloseLambda()
 	log.Debugf("LAMBDA(fin): %v, size: %v", c.GetName().GetText(), ls.Len())
+
 }

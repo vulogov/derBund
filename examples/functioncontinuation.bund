@@ -1,0 +1,7 @@
+(
+  [fun] : 'Begin to define function and push this to stack' ; .
+  'Push something to stack from outside function'
+  [fun] : 'Continue to define function "fun" and push something more to stack' ; .
+  fun
+  println,println,println
+)
