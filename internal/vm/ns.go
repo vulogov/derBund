@@ -41,7 +41,7 @@ func (ns *NS) GetLambda(name string) *deque.Deque {
 func (ns *NS) InLambda(name string) bool {
 	if _, ok := ns.Fun.Load(name); ok {
 		ns.LambdasStack.PushBack(name)
-		log.Debugf("We are go8ing in Lambda(%v)", name)
+		log.Debugf("We are going in Lambda(%v)", name)
 		return true
 	}
 	log.Errorf("Attempt to go in Lambda(%v) failed", name)

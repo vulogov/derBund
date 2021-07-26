@@ -429,27 +429,41 @@ func (l *bundExecListener) EnterFloatblock(c *parser.FloatblockContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("ENTERING Float Block")
 	blockname := uuid.New().String()
-	l.VM.GetNS(blockname)
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING Float Block")
+		l.VM.GetNS(blockname)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "FBLOCK", Value: blockname})
+		}
+	}
 }
 
 func (l *bundExecListener) ExitFloatblock(c *parser.FloatblockContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	if l.VM.Current != nil {
-		log.Debugf("EXITING Float Block. Stack size: %v", l.VM.Current.Len())
-		res := new(vm.Elem)
-		res.Type = "fblock"
-		res.Value = l.VM.Current
-		l.VM.EndNS()
-		if l.VM.IsStack() {
-			l.VM.Put(res)
+	if !l.VM.InLambda() {
+		if l.VM.Current != nil {
+			log.Debugf("EXITING Float Block. Stack size: %v", l.VM.Current.Len())
+			res := new(vm.Elem)
+			res.Type = "fblock"
+			res.Value = l.VM.Current
+			l.VM.EndNS()
+			if l.VM.IsStack() {
+				l.VM.Put(res)
+			}
+		} else {
+			log.Debugf("EXITING Float Block. No current stack")
+			l.VM.EndNS()
 		}
 	} else {
-		log.Debugf("EXITING Float Block. No current stack")
-		l.VM.EndNS()
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitFBLOCK", Value: nil})
+		}
 	}
 }
 

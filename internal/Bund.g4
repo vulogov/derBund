@@ -205,10 +205,6 @@ RETURN
   : ('$')+
   ;
 
-LAMBDA_TERMINATION
-  : ('.')+
-  ;
-
 COMMENT
   : '##' ~[\r\n]* -> skip
   ;
