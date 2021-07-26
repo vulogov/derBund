@@ -201,3 +201,11 @@ func (l *bundListener) EnterLambda(c *parser.LambdaContext) {
 func (l *bundListener) ExitLambda(c *parser.LambdaContext) {
 	log.Infof("LAMBDA(fin): %v", c.GetName().GetText())
 }
+
+func (l *bundListener) EnterAlambda(c *parser.AlambdaContext) {
+	log.Infof("ALAMBDA(start)")
+}
+
+func (l *bundListener) ExitAlambda(c *parser.AlambdaContext) {
+	log.Infof("ALAMBDA(fin)")
+}

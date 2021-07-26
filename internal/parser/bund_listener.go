@@ -47,6 +47,9 @@ type BundListener interface {
 	// EnterLambda is called when entering the lambda production.
 	EnterLambda(c *LambdaContext)
 
+	// EnterAlambda is called when entering the alambda production.
+	EnterAlambda(c *AlambdaContext)
+
 	// EnterLambda_cmd is called when entering the lambda_cmd production.
 	EnterLambda_cmd(c *Lambda_cmdContext)
 
@@ -145,6 +148,9 @@ type BundListener interface {
 
 	// ExitLambda is called when exiting the lambda production.
 	ExitLambda(c *LambdaContext)
+
+	// ExitAlambda is called when exiting the alambda production.
+	ExitAlambda(c *AlambdaContext)
 
 	// ExitLambda_cmd is called when exiting the lambda_cmd production.
 	ExitLambda_cmd(c *Lambda_cmdContext)

@@ -48,10 +48,18 @@ func (ns *NS) InLambda(name string) bool {
 	return false
 }
 
+func (ns *NS) NameOfCurrentLambda() string {
+	if ns.LambdasStack.Len() < 1 {
+		log.Errorf("Attempt to get Lambda function name on empty Lambdas stack")
+		return ""
+	}
+	return ns.LambdasStack.Back().(string)
+}
+
 func (ns *NS) CurrentLambda() *deque.Deque {
 	var res *deque.Deque
 	if ns.LambdasStack.Len() < 1 {
-		log.Errorf("Attempt to select Lambda fuction on empty Lambdas stack")
+		log.Errorf("Attempt to select Lambda function on empty Lambdas stack")
 		return nil
 	}
 	name := ns.LambdasStack.Back().(string)

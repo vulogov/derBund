@@ -18,6 +18,7 @@ term
   : ( ns
     | block
     | lambda
+    | alambda
     | datablock
     | floatblock
     | intblock
@@ -95,6 +96,12 @@ falseblock
 lambda
   : '[' name=NAME ']' (body+=term)* '.'
   ;
+
+alambda
+  : '[]' (body+=term)* '.'
+  ;
+
+
 lambda_cmd
   : '[[' name=CMD ']]' (body+=term)* '.'
   ;

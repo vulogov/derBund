@@ -99,6 +99,12 @@ func (s *BaseBundListener) EnterLambda(ctx *LambdaContext) {}
 // ExitLambda is called when production lambda is exited.
 func (s *BaseBundListener) ExitLambda(ctx *LambdaContext) {}
 
+// EnterAlambda is called when production alambda is entered.
+func (s *BaseBundListener) EnterAlambda(ctx *AlambdaContext) {}
+
+// ExitAlambda is called when production alambda is exited.
+func (s *BaseBundListener) ExitAlambda(ctx *AlambdaContext) {}
+
 // EnterLambda_cmd is called when production lambda_cmd is entered.
 func (s *BaseBundListener) EnterLambda_cmd(ctx *Lambda_cmdContext) {}
 

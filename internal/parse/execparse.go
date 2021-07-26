@@ -471,27 +471,41 @@ func (l *bundExecListener) EnterIntblock(c *parser.IntblockContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("ENTERING Int Block")
 	blockname := uuid.New().String()
-	l.VM.GetNS(blockname)
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING Int Block")
+		l.VM.GetNS(blockname)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "IBLOCK", Value: blockname})
+		}
+	}
 }
 
 func (l *bundExecListener) ExitIntblock(c *parser.IntblockContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	if l.VM.Current != nil {
-		log.Debugf("EXITING Int Block. Stack size: %v", l.VM.Current.Len())
-		res := new(vm.Elem)
-		res.Type = "iblock"
-		res.Value = l.VM.Current
-		l.VM.EndNS()
-		if l.VM.IsStack() {
-			l.VM.Put(res)
+	if !l.VM.InLambda() {
+		if l.VM.Current != nil {
+			log.Debugf("EXITING Int Block. Stack size: %v", l.VM.Current.Len())
+			res := new(vm.Elem)
+			res.Type = "iblock"
+			res.Value = l.VM.Current
+			l.VM.EndNS()
+			if l.VM.IsStack() {
+				l.VM.Put(res)
+			}
+		} else {
+			log.Debugf("EXITING Int Block. No current stack")
+			l.VM.EndNS()
 		}
 	} else {
-		log.Debugf("EXITING Int Block. No current stack")
-		l.VM.EndNS()
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitIBLOCK", Value: nil})
+		}
 	}
 }
 
@@ -640,4 +654,42 @@ func (l *bundExecListener) ExitLambda(c *parser.LambdaContext) {
 	l.VM.CurrentNS.CloseLambda()
 	log.Debugf("LAMBDA(fin): %v, size: %v", c.GetName().GetText(), ls.Len())
 
+}
+
+func (l *bundExecListener) EnterAlambda(c *parser.AlambdaContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	if !l.VM.IsStack() {
+		log.Errorf("Attempt of defining Lambda function with empty context")
+		return
+	}
+	lambdaname := uuid.New().String()
+	log.Debugf("ALAMBDA(start): %v", lambdaname)
+	l.VM.CurrentNS.GetLambda(lambdaname)
+	l.VM.CurrentNS.InLambda(lambdaname)
+}
+
+func (l *bundExecListener) ExitAlambda(c *parser.AlambdaContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	if !l.VM.IsStack() {
+		log.Errorf("Attempt to close Lambda function with empty context")
+		return
+	}
+	name := l.VM.CurrentNS.NameOfCurrentLambda()
+	if name == "" {
+		log.Errorf("Attempt to close Lambda function with no Lambda function")
+		return
+	}
+	res := new(vm.Elem)
+	res.Type = "CALL"
+	res.Value = name
+	ls := l.VM.CurrentLambda()
+	l.VM.CurrentNS.CloseLambda()
+	if l.VM.IsStack() {
+		l.VM.Put(res)
+	}
+	log.Debugf("ALAMBDA(fin): %v, size: %v", name, ls.Len())
 }

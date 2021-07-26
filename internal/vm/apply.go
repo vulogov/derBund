@@ -128,6 +128,23 @@ func Apply(name string, vm *VM) error {
 				log.Debugf("EXITING Float Block. No current stack")
 				vm.EndNS()
 			}
+		case "IBLOCK":
+			log.Debugf("ENTERING Int Block")
+			vm.GetNS(cmd.Value.(string))
+		case "exitIBLOCK":
+			if vm.Current != nil {
+				log.Debugf("EXITING Int Block. Stack size: %v", vm.Current.Len())
+				res := new(Elem)
+				res.Type = "iblock"
+				res.Value = vm.Current
+				vm.EndNS()
+				if vm.IsStack() {
+					vm.Put(res)
+				}
+			} else {
+				log.Debugf("EXITING Int Block. No current stack")
+				vm.EndNS()
+			}
 		default:
 			log.Errorf("Unknown OP-block: %v", cmd)
 		}
