@@ -30,8 +30,8 @@ func AddOperator(name string, fn BundOperator) bool {
 		log.Warnf("Operator %v already registered", name)
 		return true
 	}
-	BundFunctions.Store(name, fn)
-	log.Debugf("Register BUND operator: %v", name)
+	BundOperators.Store(name, fn)
+	log.Debugf("[ BUND ] Register BUND operator: %v", name)
 	return true
 }
 

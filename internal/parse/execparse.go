@@ -195,6 +195,29 @@ func (l *bundExecListener) EnterString_term(c *parser.String_termContext) {
 	}
 }
 
+func (l *bundExecListener) EnterGlob_term(c *parser.Glob_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	eh, err := vm.GetType("glob")
+	if err != nil {
+		log.Errorf("BUND type 'glob' not defined: %v", err)
+		return
+	}
+	s := c.GetValue().GetText()
+	sz := len(s) - 1
+	val := eh.FromString(s[2:sz])
+	if !l.VM.InLambda() {
+		log.Debugf("GLOB Value: %v", val)
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
+}
+
 func (l *bundExecListener) EnterInteger(c *parser.IntegerContext) {
 	if l.VM.CheckIgnore() {
 		return
@@ -351,7 +374,10 @@ func (l *bundExecListener) EnterCmd_term(c *parser.Cmd_termContext) {
 	}
 	if !l.VM.InLambda() {
 		log.Debugf("OPERATOR: %v", c.GetValue().GetText())
-		l.VM.Op(c.GetValue().GetText())
+		err := l.VM.Op(c.GetValue().GetText())
+		if err != nil {
+			log.Errorf("Operator: %v, Error: %v", c.GetValue().GetText(), err)
+		}
 	} else {
 		ls := l.VM.CurrentLambda()
 		if ls != nil {

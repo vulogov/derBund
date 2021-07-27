@@ -17,6 +17,7 @@ const (
 	Gt  = 1
 	Ls  = -1
 	IDK = -2
+	Ne  = 2
 )
 
 type ToStringFun func(e *Elem) string

@@ -24,4 +24,5 @@ func RegisterDataTypes() {
 	RegisterUIblock()
 	RegisterFun()
 	RegisterFuna()
+	RegisterGlob()
 }

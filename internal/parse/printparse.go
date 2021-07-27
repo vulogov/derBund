@@ -142,6 +142,10 @@ func (l *bundListener) EnterString_term(c *parser.String_termContext) {
 	log.Infof("String Value: %v", c.GetValue().GetText())
 }
 
+func (l *bundListener) EnterGlob_term(c *parser.Glob_termContext) {
+	log.Infof("GLOB Value: %v", c.GetValue().GetText())
+}
+
 func (l *bundListener) EnterInteger(c *parser.IntegerContext) {
 	log.Infof("64-bit Integer Value: %v", c.GetValue().GetText())
 }

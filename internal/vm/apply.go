@@ -25,6 +25,9 @@ func Apply(name string, vm *VM) error {
 		case "str":
 			log.Debugf("String: %v", cmd.Value.(string))
 			vm.Put(cmd)
+		case "glob":
+			log.Debugf("GLOB: %v", cmd.Value.(string))
+			vm.Put(cmd)
 		case "int":
 			log.Debugf("Int64: %v", cmd.Value.(int64))
 			vm.Put(cmd)
@@ -208,17 +211,17 @@ func Apply(name string, vm *VM) error {
 					vm.EndNS()
 				}
 			}
-    case "IGNOREBLOCK":
-      log.Debugf("ENTERING Ignore Block")
-  		l.VM.Ignore()
-  		l.VM.GetNS(blockname)
-    case "exitIGNOREBLOCK":
-      log.Debugf("EXITING Ignore Block")
-  		if !l.VM.MustIgnore() {
-  			if l.VM.CanGet() {
-  				l.VM.EndNS()
-  			}
-  		}
+		case "IGNOREBLOCK":
+			log.Debugf("ENTERING Ignore Block")
+			vm.Ignore()
+			vm.GetNS(cmd.Value.(string))
+		case "exitIGNOREBLOCK":
+			log.Debugf("EXITING Ignore Block")
+			if !vm.MustIgnore() {
+				if vm.CanGet() {
+					vm.EndNS()
+				}
+			}
 		default:
 			log.Errorf("Unknown OP-block: %v", cmd)
 		}

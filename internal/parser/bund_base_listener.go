@@ -135,6 +135,12 @@ func (s *BaseBundListener) EnterString_term(ctx *String_termContext) {}
 // ExitString_term is called when production string_term is exited.
 func (s *BaseBundListener) ExitString_term(ctx *String_termContext) {}
 
+// EnterGlob_term is called when production glob_term is entered.
+func (s *BaseBundListener) EnterGlob_term(ctx *Glob_termContext) {}
+
+// ExitGlob_term is called when production glob_term is exited.
+func (s *BaseBundListener) ExitGlob_term(ctx *Glob_termContext) {}
+
 // EnterInteger is called when production integer is entered.
 func (s *BaseBundListener) EnterInteger(ctx *IntegerContext) {}
 

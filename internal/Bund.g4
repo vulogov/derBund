@@ -29,6 +29,7 @@ term
     | true_term
     | false_term
     | string_term
+    | glob_term
     | integer
     | uinteger
     | float
@@ -117,6 +118,7 @@ lambda_cmd
 true_term:    value=TRUE ;
 false_term:   value=FALSE ;
 string_term:  value=STRING ;
+glob_term:    value=GLOB ;
 integer:      value=INTEGER ;
 uinteger:     value=UINTEGER ;
 float:        value=FLOAT_NUMBER ;
@@ -190,6 +192,11 @@ STRING
   : SHORT_STRING
   | LONG_STRING
   ;
+
+GLOB
+  : GLOB_PATTERN
+  ;
+
 
 TOBEGIN: ':' ;
 TOEND:   ';' ;
@@ -277,6 +284,11 @@ fragment LONG_STRING
 fragment LONG_STRING_ITEM
   : ~'\\'
   | '\\' (RN | .)
+  ;
+
+fragment GLOB_PATTERN
+  : 'g\'' ('\\' (RN | .) | ~[\\\r\n'])* '\''
+  | 'g"'  ('\\' (RN | .) | ~[\\\r\n"])* '"'
   ;
 
 fragment ID_START

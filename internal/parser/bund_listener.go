@@ -65,6 +65,9 @@ type BundListener interface {
 	// EnterString_term is called when entering the string_term production.
 	EnterString_term(c *String_termContext)
 
+	// EnterGlob_term is called when entering the glob_term production.
+	EnterGlob_term(c *Glob_termContext)
+
 	// EnterInteger is called when entering the integer production.
 	EnterInteger(c *IntegerContext)
 
@@ -169,6 +172,9 @@ type BundListener interface {
 
 	// ExitString_term is called when exiting the string_term production.
 	ExitString_term(c *String_termContext)
+
+	// ExitGlob_term is called when exiting the glob_term production.
+	ExitGlob_term(c *Glob_termContext)
 
 	// ExitInteger is called when exiting the integer production.
 	ExitInteger(c *IntegerContext)

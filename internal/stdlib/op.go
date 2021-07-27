@@ -7,4 +7,5 @@ import (
 func InitEmbeddedOperators() {
 	log.Debug("[ BUND ] bund.InitEmbeddedOperators() reached")
 	InitCMPOperators()
+	InitGPMOperators()
 }
