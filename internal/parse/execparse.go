@@ -360,6 +360,34 @@ func (l *bundExecListener) EnterCmd_term(c *parser.Cmd_termContext) {
 	}
 }
 
+func (l *bundExecListener) EnterDuplicate(c *parser.DuplicateContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	if !l.VM.InLambda() {
+		log.Debugf("STACK: Duplicate")
+		if l.VM.IsStack() {
+			if l.VM.Current.Len() == 0 {
+				log.Errorf("Nothing to duplicate if stack is empty")
+				return
+			}
+			orig := l.VM.Get()
+			eh, err := vm.GetType(orig.Type)
+			if err != nil {
+				log.Errorf("I do not know how to duplicate %v", orig.Type)
+				return
+			}
+			dst := eh.Duplicate(orig)
+			l.VM.Put(dst)
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "DUPLICATE", Value: nil})
+		}
+	}
+}
+
 func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
 	if l.VM.CheckIgnore() {
 		return
@@ -381,6 +409,46 @@ func (l *bundExecListener) EnterDrop(c *parser.DropContext) {
 			ls.PushBack(&vm.Elem{Type: "DROP", Value: nil})
 		}
 	}
+}
+
+func (l *bundExecListener) EnterExecute_term(c *parser.Execute_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	if !l.VM.InLambda() {
+		log.Debugf("STACK: Execute: %v", c.GetValue().GetText())
+		if l.VM.IsStack() {
+			if l.VM.Current.Len() == 0 {
+				log.Warn("You can not Execute on empty Stack")
+				return
+			} else {
+				cmd := l.VM.Get()
+				if cmd.Type == "CALL" || cmd.Type == "ACALL" {
+					switch c.GetValue().GetText() {
+					case "!":
+						l.VM.Take()
+						l.VM.Exec(cmd.Value.(string))
+					case "!!":
+						l.VM.Exec(cmd.Value.(string))
+					default:
+						log.Errorf("I do not know how to execute %v", c.GetValue().GetText())
+						return
+					}
+				} else {
+					log.Errorf("Request for Execute did not find executable context, but found %v", cmd.Type)
+					return
+				}
+			}
+		} else {
+			log.Error("Attempt to Execute  with empty context")
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "EXECUTE", Value: c.GetValue().GetText()})
+		}
+	}
+
 }
 
 func (l *bundExecListener) EnterDatablock(c *parser.DatablockContext) {
@@ -513,82 +581,154 @@ func (l *bundExecListener) EnterUintblock(c *parser.UintblockContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	log.Debugf("ENTERING Unsigned Int Block")
 	blockname := uuid.New().String()
-	l.VM.GetNS(blockname)
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING Unsigned Int Block")
+		l.VM.GetNS(blockname)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "UIBLOCK", Value: blockname})
+		}
+	}
 }
 
 func (l *bundExecListener) ExitUintblock(c *parser.UintblockContext) {
 	if l.VM.CheckIgnore() {
 		return
 	}
-	if l.VM.Current != nil {
-		log.Debugf("EXITING Unsigned Int Block. Stack size: %v", l.VM.Current.Len())
-		res := new(vm.Elem)
-		res.Type = "uiblock"
-		res.Value = l.VM.Current
-		l.VM.EndNS()
-		if l.VM.IsStack() {
-			l.VM.Put(res)
+	if !l.VM.InLambda() {
+		if l.VM.Current != nil {
+			log.Debugf("EXITING Unsigned Int Block. Stack size: %v", l.VM.Current.Len())
+			res := new(vm.Elem)
+			res.Type = "uiblock"
+			res.Value = l.VM.Current
+			l.VM.EndNS()
+			if l.VM.IsStack() {
+				l.VM.Put(res)
+			}
+		} else {
+			log.Debugf("EXITING Unsigned Int Block. No current stack")
+			l.VM.EndNS()
 		}
 	} else {
-		log.Debugf("EXITING Unsigned Int Block. No current stack")
-		l.VM.EndNS()
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitUIBLOCK", Value: nil})
+		}
 	}
 }
 
 func (l *bundExecListener) EnterTrueblock(c *parser.TrueblockContext) {
-	log.Debugf("ENTERING True Block")
-	if l.VM.CanGet() {
-		e := l.VM.Get()
-		if e.Type == "bool" {
-			if e.Value.(bool) == true {
-				l.VM.NotIgnore()
-				blockname := uuid.New().String()
-				l.VM.GetNS(blockname)
+	blockname := uuid.New().String()
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING True Block")
+		if l.VM.CanGet() {
+			e := l.VM.Get()
+			if e.Type == "bool" {
+				if e.Value.(bool) == true {
+					l.VM.NotIgnore()
+					l.VM.GetNS(blockname)
+				} else {
+					l.VM.Ignore()
+					log.Debugf("True Block will not be executed: %v", l.VM.CheckIgnore())
+				}
 			} else {
 				l.VM.Ignore()
-				log.Debugf("True Block will not be executed: %v", l.VM.CheckIgnore())
 			}
-		} else {
-			l.VM.Ignore()
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "TRUEBLOCK", Value: blockname})
 		}
 	}
 }
 
 func (l *bundExecListener) ExitTrueblock(c *parser.TrueblockContext) {
-	log.Debugf("EXITING True Block")
-	if !l.VM.MustIgnore() {
-		if l.VM.CanGet() {
-			l.VM.EndNS()
+	if !l.VM.InLambda() {
+		log.Debugf("EXITING True Block")
+		if !l.VM.MustIgnore() {
+			if l.VM.CanGet() {
+				l.VM.EndNS()
+			}
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitTRUEBLOCK", Value: nil})
 		}
 	}
 }
 
 func (l *bundExecListener) EnterFalseblock(c *parser.FalseblockContext) {
-	log.Debugf("ENTERING False Block")
-	if l.VM.CanGet() {
-		e := l.VM.Get()
-		if e.Type == "bool" {
-			if e.Value.(bool) == false {
-				l.VM.NotIgnore()
-				blockname := uuid.New().String()
-				l.VM.GetNS(blockname)
+	blockname := uuid.New().String()
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING False Block")
+		if l.VM.CanGet() {
+			e := l.VM.Get()
+			if e.Type == "bool" {
+				if e.Value.(bool) == false {
+					l.VM.NotIgnore()
+					l.VM.GetNS(blockname)
+				} else {
+					log.Debugf("False Block will not be executed")
+					l.VM.Ignore()
+				}
 			} else {
-				log.Debugf("False Block will not be executed")
 				l.VM.Ignore()
 			}
-		} else {
-			l.VM.Ignore()
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "FALSEBLOCK", Value: blockname})
 		}
 	}
 }
 
 func (l *bundExecListener) ExitFalseblock(c *parser.FalseblockContext) {
-	log.Debugf("EXITING False Block")
-	if !l.VM.MustIgnore() {
-		if l.VM.CanGet() {
-			l.VM.EndNS()
+	if !l.VM.InLambda() {
+		log.Debugf("EXITING False Block")
+		if !l.VM.MustIgnore() {
+			if l.VM.CanGet() {
+				l.VM.EndNS()
+			}
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitFALSEBLOCK", Value: nil})
+		}
+	}
+}
+
+func (l *bundExecListener) EnterIgnoreblock(c *parser.IgnoreblockContext) {
+	blockname := uuid.New().String()
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING Ignore Block")
+		l.VM.Ignore()
+		l.VM.GetNS(blockname)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "IGNOREBLOCK", Value: blockname})
+		}
+	}
+}
+
+func (l *bundExecListener) ExitIgnoreblock(c *parser.IgnoreblockContext) {
+	if !l.VM.InLambda() {
+		log.Debugf("EXITING Ignore Block")
+		if !l.VM.MustIgnore() {
+			if l.VM.CanGet() {
+				l.VM.EndNS()
+			}
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitIGNOREBLOCK", Value: nil})
 		}
 	}
 }
@@ -684,7 +824,7 @@ func (l *bundExecListener) ExitAlambda(c *parser.AlambdaContext) {
 		return
 	}
 	res := new(vm.Elem)
-	res.Type = "CALL"
+	res.Type = "ACALL"
 	res.Value = name
 	ls := l.VM.CurrentLambda()
 	l.VM.CurrentNS.CloseLambda()

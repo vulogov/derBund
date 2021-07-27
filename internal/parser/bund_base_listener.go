@@ -93,6 +93,12 @@ func (s *BaseBundListener) EnterFalseblock(ctx *FalseblockContext) {}
 // ExitFalseblock is called when production falseblock is exited.
 func (s *BaseBundListener) ExitFalseblock(ctx *FalseblockContext) {}
 
+// EnterIgnoreblock is called when production ignoreblock is entered.
+func (s *BaseBundListener) EnterIgnoreblock(ctx *IgnoreblockContext) {}
+
+// ExitIgnoreblock is called when production ignoreblock is exited.
+func (s *BaseBundListener) ExitIgnoreblock(ctx *IgnoreblockContext) {}
+
 // EnterLambda is called when production lambda is entered.
 func (s *BaseBundListener) EnterLambda(ctx *LambdaContext) {}
 

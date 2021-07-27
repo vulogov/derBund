@@ -38,7 +38,7 @@ func RegisterType(t string, ts ToStringFun, fs FromStringFun, cf CompareFun, df 
 	if _, ok := BundTypes.Load(t); ok {
 		return true
 	}
-	BundTypes.Store(t, &ElemHandler{Type: t, ToString: ts, FromString: fs, Compare: cf})
+	BundTypes.Store(t, &ElemHandler{Type: t, ToString: ts, FromString: fs, Compare: cf, Duplicate: df})
 	log.Debugf("Register BUND datatype: %v", t)
 	return true
 }

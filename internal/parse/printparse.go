@@ -122,6 +122,14 @@ func (l *bundListener) ExitFalseblock(c *parser.FalseblockContext) {
 	log.Infof("EXITING False Block")
 }
 
+func (l *bundListener) EnterIgnoreblock(c *parser.IgnoreblockContext) {
+	log.Infof("ENTERING Ignore Block")
+}
+
+func (l *bundListener) ExitIgnoreblock(c *parser.IgnoreblockContext) {
+	log.Infof("EXITING Ignore Block")
+}
+
 func (l *bundListener) EnterTrue_term(c *parser.True_termContext) {
 	log.Infof("Value: TRUE")
 }

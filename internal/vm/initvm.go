@@ -23,4 +23,5 @@ func RegisterDataTypes() {
 	RegisterIblock()
 	RegisterUIblock()
 	RegisterFun()
+	RegisterFuna()
 }

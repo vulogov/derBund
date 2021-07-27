@@ -44,6 +44,9 @@ type BundListener interface {
 	// EnterFalseblock is called when entering the falseblock production.
 	EnterFalseblock(c *FalseblockContext)
 
+	// EnterIgnoreblock is called when entering the ignoreblock production.
+	EnterIgnoreblock(c *IgnoreblockContext)
+
 	// EnterLambda is called when entering the lambda production.
 	EnterLambda(c *LambdaContext)
 
@@ -145,6 +148,9 @@ type BundListener interface {
 
 	// ExitFalseblock is called when exiting the falseblock production.
 	ExitFalseblock(c *FalseblockContext)
+
+	// ExitIgnoreblock is called when exiting the ignoreblock production.
+	ExitIgnoreblock(c *IgnoreblockContext)
 
 	// ExitLambda is called when exiting the lambda production.
 	ExitLambda(c *LambdaContext)

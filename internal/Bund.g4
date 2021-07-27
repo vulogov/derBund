@@ -25,6 +25,7 @@ term
     | uintblock
     | trueblock
     | falseblock
+    | ignoreblock
     | true_term
     | false_term
     | string_term
@@ -91,6 +92,10 @@ trueblock
   ;
 falseblock
   : '(false' (body+=term)* ')'
+  ;
+
+ignoreblock
+  : '(ignore' (body+=term)* ')'
   ;
 
 lambda

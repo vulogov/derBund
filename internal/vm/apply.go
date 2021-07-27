@@ -145,6 +145,80 @@ func Apply(name string, vm *VM) error {
 				log.Debugf("EXITING Int Block. No current stack")
 				vm.EndNS()
 			}
+		case "UIBLOCK":
+			log.Debugf("ENTERING Unsigned Int Block")
+			vm.GetNS(cmd.Value.(string))
+		case "exitUIBLOCK":
+			if vm.Current != nil {
+				log.Debugf("EXITING Unsigned Int Block. Stack size: %v", vm.Current.Len())
+				res := new(Elem)
+				res.Type = "uiblock"
+				res.Value = vm.Current
+				vm.EndNS()
+				if vm.IsStack() {
+					vm.Put(res)
+				}
+			} else {
+				log.Debugf("EXITING Unsigned Int Block. No current stack")
+				vm.EndNS()
+			}
+		case "TRUEBLOCK":
+			log.Debugf("ENTERING True Block")
+			if vm.CanGet() {
+				e := vm.Get()
+				if e.Type == "bool" {
+					if e.Value.(bool) == true {
+						vm.NotIgnore()
+						vm.GetNS(cmd.Value.(string))
+					} else {
+						vm.Ignore()
+						log.Debugf("True Block will not be executed: %v", vm.CheckIgnore())
+					}
+				} else {
+					vm.Ignore()
+				}
+			}
+		case "exitTRUEBLOCK":
+			log.Debugf("EXITING True Block")
+			if !vm.MustIgnore() {
+				if vm.CanGet() {
+					vm.EndNS()
+				}
+			}
+		case "FALSEBLOCK":
+			log.Debugf("ENTERING False Block")
+			if vm.CanGet() {
+				e := vm.Get()
+				if e.Type == "bool" {
+					if e.Value.(bool) == false {
+						vm.NotIgnore()
+						vm.GetNS(cmd.Value.(string))
+					} else {
+						log.Debugf("False Block will not be executed")
+						vm.Ignore()
+					}
+				} else {
+					vm.Ignore()
+				}
+			}
+		case "exitFALSEBLOCK":
+			log.Debugf("EXITING False Block")
+			if !vm.MustIgnore() {
+				if vm.CanGet() {
+					vm.EndNS()
+				}
+			}
+    case "IGNOREBLOCK":
+      log.Debugf("ENTERING Ignore Block")
+  		l.VM.Ignore()
+  		l.VM.GetNS(blockname)
+    case "exitIGNOREBLOCK":
+      log.Debugf("EXITING Ignore Block")
+  		if !l.VM.MustIgnore() {
+  			if l.VM.CanGet() {
+  				l.VM.EndNS()
+  			}
+  		}
 		default:
 			log.Errorf("Unknown OP-block: %v", cmd)
 		}
