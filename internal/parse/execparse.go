@@ -2,6 +2,7 @@ package parse
 
 import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"github.com/gammazero/deque"
 	"github.com/google/uuid"
 	"github.com/pieterclaerhout/go-log"
 
@@ -755,6 +756,51 @@ func (l *bundExecListener) ExitIgnoreblock(c *parser.IgnoreblockContext) {
 		ls := l.VM.CurrentLambda()
 		if ls != nil {
 			ls.PushBack(&vm.Elem{Type: "exitIGNOREBLOCK", Value: nil})
+		}
+	}
+}
+
+func (l *bundExecListener) EnterCblock(c *parser.CblockContext) {
+	blockname := uuid.New().String()
+	if !l.VM.InLambda() {
+		log.Debugf("ENTERING CBlock: %v", blockname)
+		l.VM.GetNS(blockname)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "CBLOCK", Value: blockname})
+		}
+	}
+}
+
+func (l *bundExecListener) ExitCblock(c *parser.CblockContext) {
+	var val *vm.Elem
+	var q deque.Deque
+	if !l.VM.InLambda() {
+		log.Debugf("EXIT CBlock")
+		if l.VM.NSStack.Len() < 1 {
+			log.Errorf("Stack is too shallow for a block matching: %v", l.VM.NSStack.Len())
+			l.VM.EndNS()
+			return
+		}
+		if l.VM.NSStack.Len() == 1 {
+			q = l.VM.RootNS.Stack
+		} else {
+			q = l.VM.NSStack.At(1).(deque.Deque)
+		}
+		if l.VM.Mode {
+			val = q.Back().(*vm.Elem)
+		} else {
+			val = q.Front().(*vm.Elem)
+		}
+		res := vm.CblockMatch(l.VM.Current, val)
+		l.VM.EndNS()
+		log.Debugf("Match block result: %v", res)
+		l.VM.Put(&vm.Elem{Type: "bool", Value: res})
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "exitCBLOCK", Value: nil})
 		}
 	}
 }

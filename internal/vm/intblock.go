@@ -3,6 +3,7 @@ package vm
 import (
 	"github.com/gammazero/deque"
 	"github.com/pieterclaerhout/go-log"
+	"gonum.org/v1/gonum/floats"
 )
 
 func IblockToString(e *Elem) string {
@@ -31,7 +32,12 @@ func IblockFromString(d string) *Elem {
 }
 
 func IblockCompare(e1 *Elem, e2 *Elem) int {
-	return IDK
+	ar1 := BlockToArray(e1)
+	ar2 := BlockToArray(e2)
+	if floats.Equal(ar1, ar2) == true {
+		return Eq
+	}
+	return Ne
 }
 
 func IblockDup(e *Elem) *Elem {

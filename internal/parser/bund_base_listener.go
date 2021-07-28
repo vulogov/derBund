@@ -57,6 +57,12 @@ func (s *BaseBundListener) EnterBlock(ctx *BlockContext) {}
 // ExitBlock is called when production block is exited.
 func (s *BaseBundListener) ExitBlock(ctx *BlockContext) {}
 
+// EnterCblock is called when production cblock is entered.
+func (s *BaseBundListener) EnterCblock(ctx *CblockContext) {}
+
+// ExitCblock is called when production cblock is exited.
+func (s *BaseBundListener) ExitCblock(ctx *CblockContext) {}
+
 // EnterDatablock is called when production datablock is entered.
 func (s *BaseBundListener) EnterDatablock(ctx *DatablockContext) {}
 

@@ -16,150 +16,156 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 43, 291,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 44, 303,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
 	9, 13, 4, 14, 9, 14, 4, 15, 9, 15, 4, 16, 9, 16, 4, 17, 9, 17, 4, 18, 9,
 	18, 4, 19, 9, 19, 4, 20, 9, 20, 4, 21, 9, 21, 4, 22, 9, 22, 4, 23, 9, 23,
 	4, 24, 9, 24, 4, 25, 9, 25, 4, 26, 9, 26, 4, 27, 9, 27, 4, 28, 9, 28, 4,
 	29, 9, 29, 4, 30, 9, 30, 4, 31, 9, 31, 4, 32, 9, 32, 4, 33, 9, 33, 4, 34,
-	9, 34, 4, 35, 9, 35, 4, 36, 9, 36, 4, 37, 9, 37, 3, 2, 7, 2, 76, 10, 2,
-	12, 2, 14, 2, 79, 11, 2, 3, 3, 3, 3, 5, 3, 83, 10, 3, 3, 4, 3, 4, 3, 4,
-	3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4,
-	3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4,
-	3, 4, 3, 4, 3, 4, 5, 4, 115, 10, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5,
-	3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 129, 10, 5, 3, 6, 3, 6, 3, 6,
-	3, 6, 7, 6, 135, 10, 6, 12, 6, 14, 6, 138, 11, 6, 3, 6, 3, 6, 3, 7, 3,
-	7, 7, 7, 144, 10, 7, 12, 7, 14, 7, 147, 11, 7, 3, 7, 3, 7, 3, 8, 3, 8,
-	7, 8, 153, 10, 8, 12, 8, 14, 8, 156, 11, 8, 3, 8, 3, 8, 3, 9, 3, 9, 7,
-	9, 162, 10, 9, 12, 9, 14, 9, 165, 11, 9, 3, 9, 3, 9, 3, 10, 3, 10, 7, 10,
-	171, 10, 10, 12, 10, 14, 10, 174, 11, 10, 3, 10, 3, 10, 3, 11, 3, 11, 7,
-	11, 180, 10, 11, 12, 11, 14, 11, 183, 11, 11, 3, 11, 3, 11, 3, 12, 3, 12,
-	7, 12, 189, 10, 12, 12, 12, 14, 12, 192, 11, 12, 3, 12, 3, 12, 3, 13, 3,
-	13, 7, 13, 198, 10, 13, 12, 13, 14, 13, 201, 11, 13, 3, 13, 3, 13, 3, 14,
-	3, 14, 7, 14, 207, 10, 14, 12, 14, 14, 14, 210, 11, 14, 3, 14, 3, 14, 3,
-	15, 3, 15, 3, 15, 3, 15, 7, 15, 218, 10, 15, 12, 15, 14, 15, 221, 11, 15,
-	3, 15, 3, 15, 3, 16, 3, 16, 7, 16, 227, 10, 16, 12, 16, 14, 16, 230, 11,
-	16, 3, 16, 3, 16, 3, 17, 3, 17, 3, 17, 3, 17, 7, 17, 238, 10, 17, 12, 17,
-	14, 17, 241, 11, 17, 3, 17, 3, 17, 3, 18, 3, 18, 3, 19, 3, 19, 3, 20, 3,
-	20, 3, 21, 3, 21, 3, 22, 3, 22, 3, 23, 3, 23, 3, 24, 3, 24, 3, 25, 3, 25,
-	3, 26, 3, 26, 3, 27, 3, 27, 3, 28, 3, 28, 3, 29, 3, 29, 3, 29, 3, 29, 3,
-	29, 3, 30, 3, 30, 3, 31, 3, 31, 3, 31, 3, 31, 3, 31, 3, 32, 3, 32, 3, 33,
-	3, 33, 3, 34, 3, 34, 3, 35, 3, 35, 3, 36, 3, 36, 3, 37, 3, 37, 3, 37, 2,
-	2, 38, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34,
-	36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70,
-	72, 2, 4, 3, 2, 25, 26, 4, 2, 35, 35, 37, 37, 2, 308, 2, 77, 3, 2, 2, 2,
-	4, 82, 3, 2, 2, 2, 6, 114, 3, 2, 2, 2, 8, 128, 3, 2, 2, 2, 10, 130, 3,
-	2, 2, 2, 12, 141, 3, 2, 2, 2, 14, 150, 3, 2, 2, 2, 16, 159, 3, 2, 2, 2,
-	18, 168, 3, 2, 2, 2, 20, 177, 3, 2, 2, 2, 22, 186, 3, 2, 2, 2, 24, 195,
-	3, 2, 2, 2, 26, 204, 3, 2, 2, 2, 28, 213, 3, 2, 2, 2, 30, 224, 3, 2, 2,
-	2, 32, 233, 3, 2, 2, 2, 34, 244, 3, 2, 2, 2, 36, 246, 3, 2, 2, 2, 38, 248,
-	3, 2, 2, 2, 40, 250, 3, 2, 2, 2, 42, 252, 3, 2, 2, 2, 44, 254, 3, 2, 2,
-	2, 46, 256, 3, 2, 2, 2, 48, 258, 3, 2, 2, 2, 50, 260, 3, 2, 2, 2, 52, 262,
-	3, 2, 2, 2, 54, 264, 3, 2, 2, 2, 56, 266, 3, 2, 2, 2, 58, 271, 3, 2, 2,
-	2, 60, 273, 3, 2, 2, 2, 62, 278, 3, 2, 2, 2, 64, 280, 3, 2, 2, 2, 66, 282,
-	3, 2, 2, 2, 68, 284, 3, 2, 2, 2, 70, 286, 3, 2, 2, 2, 72, 288, 3, 2, 2,
-	2, 74, 76, 5, 4, 3, 2, 75, 74, 3, 2, 2, 2, 76, 79, 3, 2, 2, 2, 77, 75,
-	3, 2, 2, 2, 77, 78, 3, 2, 2, 2, 78, 3, 3, 2, 2, 2, 79, 77, 3, 2, 2, 2,
-	80, 83, 5, 10, 6, 2, 81, 83, 5, 12, 7, 2, 82, 80, 3, 2, 2, 2, 82, 81, 3,
-	2, 2, 2, 83, 5, 3, 2, 2, 2, 84, 115, 5, 10, 6, 2, 85, 115, 5, 12, 7, 2,
-	86, 115, 5, 28, 15, 2, 87, 115, 5, 30, 16, 2, 88, 115, 5, 14, 8, 2, 89,
-	115, 5, 16, 9, 2, 90, 115, 5, 18, 10, 2, 91, 115, 5, 20, 11, 2, 92, 115,
-	5, 22, 12, 2, 93, 115, 5, 24, 13, 2, 94, 115, 5, 26, 14, 2, 95, 115, 5,
-	34, 18, 2, 96, 115, 5, 36, 19, 2, 97, 115, 5, 38, 20, 2, 98, 115, 5, 40,
-	21, 2, 99, 115, 5, 42, 22, 2, 100, 115, 5, 44, 23, 2, 101, 115, 5, 46,
-	24, 2, 102, 115, 5, 48, 25, 2, 103, 115, 5, 52, 27, 2, 104, 115, 5, 54,
-	28, 2, 105, 115, 5, 56, 29, 2, 106, 115, 5, 58, 30, 2, 107, 115, 5, 60,
-	31, 2, 108, 115, 5, 62, 32, 2, 109, 115, 5, 64, 33, 2, 110, 115, 5, 70,
-	36, 2, 111, 115, 5, 72, 37, 2, 112, 115, 5, 66, 34, 2, 113, 115, 5, 68,
-	35, 2, 114, 84, 3, 2, 2, 2, 114, 85, 3, 2, 2, 2, 114, 86, 3, 2, 2, 2, 114,
-	87, 3, 2, 2, 2, 114, 88, 3, 2, 2, 2, 114, 89, 3, 2, 2, 2, 114, 90, 3, 2,
-	2, 2, 114, 91, 3, 2, 2, 2, 114, 92, 3, 2, 2, 2, 114, 93, 3, 2, 2, 2, 114,
-	94, 3, 2, 2, 2, 114, 95, 3, 2, 2, 2, 114, 96, 3, 2, 2, 2, 114, 97, 3, 2,
-	2, 2, 114, 98, 3, 2, 2, 2, 114, 99, 3, 2, 2, 2, 114, 100, 3, 2, 2, 2, 114,
-	101, 3, 2, 2, 2, 114, 102, 3, 2, 2, 2, 114, 103, 3, 2, 2, 2, 114, 104,
-	3, 2, 2, 2, 114, 105, 3, 2, 2, 2, 114, 106, 3, 2, 2, 2, 114, 107, 3, 2,
-	2, 2, 114, 108, 3, 2, 2, 2, 114, 109, 3, 2, 2, 2, 114, 110, 3, 2, 2, 2,
-	114, 111, 3, 2, 2, 2, 114, 112, 3, 2, 2, 2, 114, 113, 3, 2, 2, 2, 115,
-	7, 3, 2, 2, 2, 116, 129, 5, 34, 18, 2, 117, 129, 5, 36, 19, 2, 118, 129,
-	5, 38, 20, 2, 119, 129, 5, 42, 22, 2, 120, 129, 5, 44, 23, 2, 121, 129,
-	5, 46, 24, 2, 122, 129, 5, 48, 25, 2, 123, 129, 5, 52, 27, 2, 124, 129,
-	5, 54, 28, 2, 125, 129, 5, 56, 29, 2, 126, 129, 5, 58, 30, 2, 127, 129,
-	5, 60, 31, 2, 128, 116, 3, 2, 2, 2, 128, 117, 3, 2, 2, 2, 128, 118, 3,
-	2, 2, 2, 128, 119, 3, 2, 2, 2, 128, 120, 3, 2, 2, 2, 128, 121, 3, 2, 2,
-	2, 128, 122, 3, 2, 2, 2, 128, 123, 3, 2, 2, 2, 128, 124, 3, 2, 2, 2, 128,
-	125, 3, 2, 2, 2, 128, 126, 3, 2, 2, 2, 128, 127, 3, 2, 2, 2, 129, 9, 3,
-	2, 2, 2, 130, 131, 7, 3, 2, 2, 131, 132, 7, 35, 2, 2, 132, 136, 7, 30,
-	2, 2, 133, 135, 5, 6, 4, 2, 134, 133, 3, 2, 2, 2, 135, 138, 3, 2, 2, 2,
-	136, 134, 3, 2, 2, 2, 136, 137, 3, 2, 2, 2, 137, 139, 3, 2, 2, 2, 138,
-	136, 3, 2, 2, 2, 139, 140, 7, 4, 2, 2, 140, 11, 3, 2, 2, 2, 141, 145, 7,
-	5, 2, 2, 142, 144, 5, 6, 4, 2, 143, 142, 3, 2, 2, 2, 144, 147, 3, 2, 2,
-	2, 145, 143, 3, 2, 2, 2, 145, 146, 3, 2, 2, 2, 146, 148, 3, 2, 2, 2, 147,
-	145, 3, 2, 2, 2, 148, 149, 7, 6, 2, 2, 149, 13, 3, 2, 2, 2, 150, 154, 7,
-	7, 2, 2, 151, 153, 5, 8, 5, 2, 152, 151, 3, 2, 2, 2, 153, 156, 3, 2, 2,
-	2, 154, 152, 3, 2, 2, 2, 154, 155, 3, 2, 2, 2, 155, 157, 3, 2, 2, 2, 156,
-	154, 3, 2, 2, 2, 157, 158, 7, 6, 2, 2, 158, 15, 3, 2, 2, 2, 159, 163, 7,
-	8, 2, 2, 160, 162, 5, 46, 24, 2, 161, 160, 3, 2, 2, 2, 162, 165, 3, 2,
-	2, 2, 163, 161, 3, 2, 2, 2, 163, 164, 3, 2, 2, 2, 164, 166, 3, 2, 2, 2,
-	165, 163, 3, 2, 2, 2, 166, 167, 7, 6, 2, 2, 167, 17, 3, 2, 2, 2, 168, 172,
-	7, 9, 2, 2, 169, 171, 5, 42, 22, 2, 170, 169, 3, 2, 2, 2, 171, 174, 3,
-	2, 2, 2, 172, 170, 3, 2, 2, 2, 172, 173, 3, 2, 2, 2, 173, 175, 3, 2, 2,
-	2, 174, 172, 3, 2, 2, 2, 175, 176, 7, 6, 2, 2, 176, 19, 3, 2, 2, 2, 177,
-	181, 7, 10, 2, 2, 178, 180, 5, 44, 23, 2, 179, 178, 3, 2, 2, 2, 180, 183,
-	3, 2, 2, 2, 181, 179, 3, 2, 2, 2, 181, 182, 3, 2, 2, 2, 182, 184, 3, 2,
-	2, 2, 183, 181, 3, 2, 2, 2, 184, 185, 7, 6, 2, 2, 185, 21, 3, 2, 2, 2,
-	186, 190, 7, 11, 2, 2, 187, 189, 5, 6, 4, 2, 188, 187, 3, 2, 2, 2, 189,
-	192, 3, 2, 2, 2, 190, 188, 3, 2, 2, 2, 190, 191, 3, 2, 2, 2, 191, 193,
-	3, 2, 2, 2, 192, 190, 3, 2, 2, 2, 193, 194, 7, 6, 2, 2, 194, 23, 3, 2,
-	2, 2, 195, 199, 7, 12, 2, 2, 196, 198, 5, 6, 4, 2, 197, 196, 3, 2, 2, 2,
-	198, 201, 3, 2, 2, 2, 199, 197, 3, 2, 2, 2, 199, 200, 3, 2, 2, 2, 200,
-	202, 3, 2, 2, 2, 201, 199, 3, 2, 2, 2, 202, 203, 7, 6, 2, 2, 203, 25, 3,
-	2, 2, 2, 204, 208, 7, 13, 2, 2, 205, 207, 5, 6, 4, 2, 206, 205, 3, 2, 2,
-	2, 207, 210, 3, 2, 2, 2, 208, 206, 3, 2, 2, 2, 208, 209, 3, 2, 2, 2, 209,
-	211, 3, 2, 2, 2, 210, 208, 3, 2, 2, 2, 211, 212, 7, 6, 2, 2, 212, 27, 3,
-	2, 2, 2, 213, 214, 7, 3, 2, 2, 214, 215, 7, 35, 2, 2, 215, 219, 7, 14,
-	2, 2, 216, 218, 5, 6, 4, 2, 217, 216, 3, 2, 2, 2, 218, 221, 3, 2, 2, 2,
-	219, 217, 3, 2, 2, 2, 219, 220, 3, 2, 2, 2, 220, 222, 3, 2, 2, 2, 221,
-	219, 3, 2, 2, 2, 222, 223, 7, 15, 2, 2, 223, 29, 3, 2, 2, 2, 224, 228,
-	7, 16, 2, 2, 225, 227, 5, 6, 4, 2, 226, 225, 3, 2, 2, 2, 227, 230, 3, 2,
-	2, 2, 228, 226, 3, 2, 2, 2, 228, 229, 3, 2, 2, 2, 229, 231, 3, 2, 2, 2,
-	230, 228, 3, 2, 2, 2, 231, 232, 7, 15, 2, 2, 232, 31, 3, 2, 2, 2, 233,
-	234, 7, 17, 2, 2, 234, 235, 7, 36, 2, 2, 235, 239, 7, 18, 2, 2, 236, 238,
-	5, 6, 4, 2, 237, 236, 3, 2, 2, 2, 238, 241, 3, 2, 2, 2, 239, 237, 3, 2,
-	2, 2, 239, 240, 3, 2, 2, 2, 240, 242, 3, 2, 2, 2, 241, 239, 3, 2, 2, 2,
-	242, 243, 7, 15, 2, 2, 243, 33, 3, 2, 2, 2, 244, 245, 7, 20, 2, 2, 245,
-	35, 3, 2, 2, 2, 246, 247, 7, 21, 2, 2, 247, 37, 3, 2, 2, 2, 248, 249, 7,
-	28, 2, 2, 249, 39, 3, 2, 2, 2, 250, 251, 7, 29, 2, 2, 251, 41, 3, 2, 2,
-	2, 252, 253, 7, 22, 2, 2, 253, 43, 3, 2, 2, 2, 254, 255, 7, 23, 2, 2, 255,
-	45, 3, 2, 2, 2, 256, 257, 7, 25, 2, 2, 257, 47, 3, 2, 2, 2, 258, 259, 7,
-	26, 2, 2, 259, 49, 3, 2, 2, 2, 260, 261, 9, 2, 2, 2, 261, 51, 3, 2, 2,
-	2, 262, 263, 7, 27, 2, 2, 263, 53, 3, 2, 2, 2, 264, 265, 7, 35, 2, 2, 265,
-	55, 3, 2, 2, 2, 266, 267, 7, 35, 2, 2, 267, 268, 7, 19, 2, 2, 268, 269,
-	9, 3, 2, 2, 269, 270, 7, 6, 2, 2, 270, 57, 3, 2, 2, 2, 271, 272, 7, 36,
-	2, 2, 272, 59, 3, 2, 2, 2, 273, 274, 7, 36, 2, 2, 274, 275, 7, 19, 2, 2,
-	275, 276, 9, 3, 2, 2, 276, 277, 7, 6, 2, 2, 277, 61, 3, 2, 2, 2, 278, 279,
-	7, 30, 2, 2, 279, 63, 3, 2, 2, 2, 280, 281, 7, 31, 2, 2, 281, 65, 3, 2,
-	2, 2, 282, 283, 7, 33, 2, 2, 283, 67, 3, 2, 2, 2, 284, 285, 7, 34, 2, 2,
-	285, 69, 3, 2, 2, 2, 286, 287, 7, 38, 2, 2, 287, 71, 3, 2, 2, 2, 288, 289,
-	7, 39, 2, 2, 289, 73, 3, 2, 2, 2, 18, 77, 82, 114, 128, 136, 145, 154,
-	163, 172, 181, 190, 199, 208, 219, 228, 239,
+	9, 34, 4, 35, 9, 35, 4, 36, 9, 36, 4, 37, 9, 37, 4, 38, 9, 38, 3, 2, 7,
+	2, 78, 10, 2, 12, 2, 14, 2, 81, 11, 2, 3, 3, 3, 3, 5, 3, 85, 10, 3, 3,
+	4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3,
+	4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3,
+	4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 5, 4, 118, 10, 4, 3, 5, 3, 5, 3,
+	5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 133,
+	10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 7, 6, 139, 10, 6, 12, 6, 14, 6, 142, 11,
+	6, 3, 6, 3, 6, 3, 7, 3, 7, 7, 7, 148, 10, 7, 12, 7, 14, 7, 151, 11, 7,
+	3, 7, 3, 7, 3, 8, 3, 8, 6, 8, 157, 10, 8, 13, 8, 14, 8, 158, 3, 8, 3, 8,
+	3, 9, 3, 9, 7, 9, 165, 10, 9, 12, 9, 14, 9, 168, 11, 9, 3, 9, 3, 9, 3,
+	10, 3, 10, 7, 10, 174, 10, 10, 12, 10, 14, 10, 177, 11, 10, 3, 10, 3, 10,
+	3, 11, 3, 11, 7, 11, 183, 10, 11, 12, 11, 14, 11, 186, 11, 11, 3, 11, 3,
+	11, 3, 12, 3, 12, 7, 12, 192, 10, 12, 12, 12, 14, 12, 195, 11, 12, 3, 12,
+	3, 12, 3, 13, 3, 13, 7, 13, 201, 10, 13, 12, 13, 14, 13, 204, 11, 13, 3,
+	13, 3, 13, 3, 14, 3, 14, 7, 14, 210, 10, 14, 12, 14, 14, 14, 213, 11, 14,
+	3, 14, 3, 14, 3, 15, 3, 15, 7, 15, 219, 10, 15, 12, 15, 14, 15, 222, 11,
+	15, 3, 15, 3, 15, 3, 16, 3, 16, 3, 16, 3, 16, 7, 16, 230, 10, 16, 12, 16,
+	14, 16, 233, 11, 16, 3, 16, 3, 16, 3, 17, 3, 17, 7, 17, 239, 10, 17, 12,
+	17, 14, 17, 242, 11, 17, 3, 17, 3, 17, 3, 18, 3, 18, 3, 18, 3, 18, 7, 18,
+	250, 10, 18, 12, 18, 14, 18, 253, 11, 18, 3, 18, 3, 18, 3, 19, 3, 19, 3,
+	20, 3, 20, 3, 21, 3, 21, 3, 22, 3, 22, 3, 23, 3, 23, 3, 24, 3, 24, 3, 25,
+	3, 25, 3, 26, 3, 26, 3, 27, 3, 27, 3, 28, 3, 28, 3, 29, 3, 29, 3, 30, 3,
+	30, 3, 30, 3, 30, 3, 30, 3, 31, 3, 31, 3, 32, 3, 32, 3, 32, 3, 32, 3, 32,
+	3, 33, 3, 33, 3, 34, 3, 34, 3, 35, 3, 35, 3, 36, 3, 36, 3, 37, 3, 37, 3,
+	38, 3, 38, 3, 38, 2, 2, 39, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24,
+	26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60,
+	62, 64, 66, 68, 70, 72, 74, 2, 4, 3, 2, 26, 27, 4, 2, 36, 36, 38, 38, 2,
+	322, 2, 79, 3, 2, 2, 2, 4, 84, 3, 2, 2, 2, 6, 117, 3, 2, 2, 2, 8, 132,
+	3, 2, 2, 2, 10, 134, 3, 2, 2, 2, 12, 145, 3, 2, 2, 2, 14, 154, 3, 2, 2,
+	2, 16, 162, 3, 2, 2, 2, 18, 171, 3, 2, 2, 2, 20, 180, 3, 2, 2, 2, 22, 189,
+	3, 2, 2, 2, 24, 198, 3, 2, 2, 2, 26, 207, 3, 2, 2, 2, 28, 216, 3, 2, 2,
+	2, 30, 225, 3, 2, 2, 2, 32, 236, 3, 2, 2, 2, 34, 245, 3, 2, 2, 2, 36, 256,
+	3, 2, 2, 2, 38, 258, 3, 2, 2, 2, 40, 260, 3, 2, 2, 2, 42, 262, 3, 2, 2,
+	2, 44, 264, 3, 2, 2, 2, 46, 266, 3, 2, 2, 2, 48, 268, 3, 2, 2, 2, 50, 270,
+	3, 2, 2, 2, 52, 272, 3, 2, 2, 2, 54, 274, 3, 2, 2, 2, 56, 276, 3, 2, 2,
+	2, 58, 278, 3, 2, 2, 2, 60, 283, 3, 2, 2, 2, 62, 285, 3, 2, 2, 2, 64, 290,
+	3, 2, 2, 2, 66, 292, 3, 2, 2, 2, 68, 294, 3, 2, 2, 2, 70, 296, 3, 2, 2,
+	2, 72, 298, 3, 2, 2, 2, 74, 300, 3, 2, 2, 2, 76, 78, 5, 4, 3, 2, 77, 76,
+	3, 2, 2, 2, 78, 81, 3, 2, 2, 2, 79, 77, 3, 2, 2, 2, 79, 80, 3, 2, 2, 2,
+	80, 3, 3, 2, 2, 2, 81, 79, 3, 2, 2, 2, 82, 85, 5, 10, 6, 2, 83, 85, 5,
+	12, 7, 2, 84, 82, 3, 2, 2, 2, 84, 83, 3, 2, 2, 2, 85, 5, 3, 2, 2, 2, 86,
+	118, 5, 10, 6, 2, 87, 118, 5, 12, 7, 2, 88, 118, 5, 30, 16, 2, 89, 118,
+	5, 32, 17, 2, 90, 118, 5, 14, 8, 2, 91, 118, 5, 16, 9, 2, 92, 118, 5, 18,
+	10, 2, 93, 118, 5, 20, 11, 2, 94, 118, 5, 22, 12, 2, 95, 118, 5, 24, 13,
+	2, 96, 118, 5, 26, 14, 2, 97, 118, 5, 28, 15, 2, 98, 118, 5, 36, 19, 2,
+	99, 118, 5, 38, 20, 2, 100, 118, 5, 40, 21, 2, 101, 118, 5, 42, 22, 2,
+	102, 118, 5, 44, 23, 2, 103, 118, 5, 46, 24, 2, 104, 118, 5, 48, 25, 2,
+	105, 118, 5, 50, 26, 2, 106, 118, 5, 54, 28, 2, 107, 118, 5, 56, 29, 2,
+	108, 118, 5, 58, 30, 2, 109, 118, 5, 60, 31, 2, 110, 118, 5, 62, 32, 2,
+	111, 118, 5, 64, 33, 2, 112, 118, 5, 66, 34, 2, 113, 118, 5, 72, 37, 2,
+	114, 118, 5, 74, 38, 2, 115, 118, 5, 68, 35, 2, 116, 118, 5, 70, 36, 2,
+	117, 86, 3, 2, 2, 2, 117, 87, 3, 2, 2, 2, 117, 88, 3, 2, 2, 2, 117, 89,
+	3, 2, 2, 2, 117, 90, 3, 2, 2, 2, 117, 91, 3, 2, 2, 2, 117, 92, 3, 2, 2,
+	2, 117, 93, 3, 2, 2, 2, 117, 94, 3, 2, 2, 2, 117, 95, 3, 2, 2, 2, 117,
+	96, 3, 2, 2, 2, 117, 97, 3, 2, 2, 2, 117, 98, 3, 2, 2, 2, 117, 99, 3, 2,
+	2, 2, 117, 100, 3, 2, 2, 2, 117, 101, 3, 2, 2, 2, 117, 102, 3, 2, 2, 2,
+	117, 103, 3, 2, 2, 2, 117, 104, 3, 2, 2, 2, 117, 105, 3, 2, 2, 2, 117,
+	106, 3, 2, 2, 2, 117, 107, 3, 2, 2, 2, 117, 108, 3, 2, 2, 2, 117, 109,
+	3, 2, 2, 2, 117, 110, 3, 2, 2, 2, 117, 111, 3, 2, 2, 2, 117, 112, 3, 2,
+	2, 2, 117, 113, 3, 2, 2, 2, 117, 114, 3, 2, 2, 2, 117, 115, 3, 2, 2, 2,
+	117, 116, 3, 2, 2, 2, 118, 7, 3, 2, 2, 2, 119, 133, 5, 36, 19, 2, 120,
+	133, 5, 38, 20, 2, 121, 133, 5, 40, 21, 2, 122, 133, 5, 44, 23, 2, 123,
+	133, 5, 46, 24, 2, 124, 133, 5, 48, 25, 2, 125, 133, 5, 50, 26, 2, 126,
+	133, 5, 54, 28, 2, 127, 133, 5, 56, 29, 2, 128, 133, 5, 58, 30, 2, 129,
+	133, 5, 60, 31, 2, 130, 133, 5, 62, 32, 2, 131, 133, 5, 42, 22, 2, 132,
+	119, 3, 2, 2, 2, 132, 120, 3, 2, 2, 2, 132, 121, 3, 2, 2, 2, 132, 122,
+	3, 2, 2, 2, 132, 123, 3, 2, 2, 2, 132, 124, 3, 2, 2, 2, 132, 125, 3, 2,
+	2, 2, 132, 126, 3, 2, 2, 2, 132, 127, 3, 2, 2, 2, 132, 128, 3, 2, 2, 2,
+	132, 129, 3, 2, 2, 2, 132, 130, 3, 2, 2, 2, 132, 131, 3, 2, 2, 2, 133,
+	9, 3, 2, 2, 2, 134, 135, 7, 3, 2, 2, 135, 136, 7, 36, 2, 2, 136, 140, 7,
+	31, 2, 2, 137, 139, 5, 6, 4, 2, 138, 137, 3, 2, 2, 2, 139, 142, 3, 2, 2,
+	2, 140, 138, 3, 2, 2, 2, 140, 141, 3, 2, 2, 2, 141, 143, 3, 2, 2, 2, 142,
+	140, 3, 2, 2, 2, 143, 144, 7, 4, 2, 2, 144, 11, 3, 2, 2, 2, 145, 149, 7,
+	5, 2, 2, 146, 148, 5, 6, 4, 2, 147, 146, 3, 2, 2, 2, 148, 151, 3, 2, 2,
+	2, 149, 147, 3, 2, 2, 2, 149, 150, 3, 2, 2, 2, 150, 152, 3, 2, 2, 2, 151,
+	149, 3, 2, 2, 2, 152, 153, 7, 6, 2, 2, 153, 13, 3, 2, 2, 2, 154, 156, 7,
+	7, 2, 2, 155, 157, 5, 8, 5, 2, 156, 155, 3, 2, 2, 2, 157, 158, 3, 2, 2,
+	2, 158, 156, 3, 2, 2, 2, 158, 159, 3, 2, 2, 2, 159, 160, 3, 2, 2, 2, 160,
+	161, 7, 6, 2, 2, 161, 15, 3, 2, 2, 2, 162, 166, 7, 8, 2, 2, 163, 165, 5,
+	8, 5, 2, 164, 163, 3, 2, 2, 2, 165, 168, 3, 2, 2, 2, 166, 164, 3, 2, 2,
+	2, 166, 167, 3, 2, 2, 2, 167, 169, 3, 2, 2, 2, 168, 166, 3, 2, 2, 2, 169,
+	170, 7, 6, 2, 2, 170, 17, 3, 2, 2, 2, 171, 175, 7, 9, 2, 2, 172, 174, 5,
+	48, 25, 2, 173, 172, 3, 2, 2, 2, 174, 177, 3, 2, 2, 2, 175, 173, 3, 2,
+	2, 2, 175, 176, 3, 2, 2, 2, 176, 178, 3, 2, 2, 2, 177, 175, 3, 2, 2, 2,
+	178, 179, 7, 6, 2, 2, 179, 19, 3, 2, 2, 2, 180, 184, 7, 10, 2, 2, 181,
+	183, 5, 44, 23, 2, 182, 181, 3, 2, 2, 2, 183, 186, 3, 2, 2, 2, 184, 182,
+	3, 2, 2, 2, 184, 185, 3, 2, 2, 2, 185, 187, 3, 2, 2, 2, 186, 184, 3, 2,
+	2, 2, 187, 188, 7, 6, 2, 2, 188, 21, 3, 2, 2, 2, 189, 193, 7, 11, 2, 2,
+	190, 192, 5, 46, 24, 2, 191, 190, 3, 2, 2, 2, 192, 195, 3, 2, 2, 2, 193,
+	191, 3, 2, 2, 2, 193, 194, 3, 2, 2, 2, 194, 196, 3, 2, 2, 2, 195, 193,
+	3, 2, 2, 2, 196, 197, 7, 6, 2, 2, 197, 23, 3, 2, 2, 2, 198, 202, 7, 12,
+	2, 2, 199, 201, 5, 6, 4, 2, 200, 199, 3, 2, 2, 2, 201, 204, 3, 2, 2, 2,
+	202, 200, 3, 2, 2, 2, 202, 203, 3, 2, 2, 2, 203, 205, 3, 2, 2, 2, 204,
+	202, 3, 2, 2, 2, 205, 206, 7, 6, 2, 2, 206, 25, 3, 2, 2, 2, 207, 211, 7,
+	13, 2, 2, 208, 210, 5, 6, 4, 2, 209, 208, 3, 2, 2, 2, 210, 213, 3, 2, 2,
+	2, 211, 209, 3, 2, 2, 2, 211, 212, 3, 2, 2, 2, 212, 214, 3, 2, 2, 2, 213,
+	211, 3, 2, 2, 2, 214, 215, 7, 6, 2, 2, 215, 27, 3, 2, 2, 2, 216, 220, 7,
+	14, 2, 2, 217, 219, 5, 6, 4, 2, 218, 217, 3, 2, 2, 2, 219, 222, 3, 2, 2,
+	2, 220, 218, 3, 2, 2, 2, 220, 221, 3, 2, 2, 2, 221, 223, 3, 2, 2, 2, 222,
+	220, 3, 2, 2, 2, 223, 224, 7, 6, 2, 2, 224, 29, 3, 2, 2, 2, 225, 226, 7,
+	3, 2, 2, 226, 227, 7, 36, 2, 2, 227, 231, 7, 15, 2, 2, 228, 230, 5, 6,
+	4, 2, 229, 228, 3, 2, 2, 2, 230, 233, 3, 2, 2, 2, 231, 229, 3, 2, 2, 2,
+	231, 232, 3, 2, 2, 2, 232, 234, 3, 2, 2, 2, 233, 231, 3, 2, 2, 2, 234,
+	235, 7, 16, 2, 2, 235, 31, 3, 2, 2, 2, 236, 240, 7, 17, 2, 2, 237, 239,
+	5, 6, 4, 2, 238, 237, 3, 2, 2, 2, 239, 242, 3, 2, 2, 2, 240, 238, 3, 2,
+	2, 2, 240, 241, 3, 2, 2, 2, 241, 243, 3, 2, 2, 2, 242, 240, 3, 2, 2, 2,
+	243, 244, 7, 16, 2, 2, 244, 33, 3, 2, 2, 2, 245, 246, 7, 18, 2, 2, 246,
+	247, 7, 37, 2, 2, 247, 251, 7, 19, 2, 2, 248, 250, 5, 6, 4, 2, 249, 248,
+	3, 2, 2, 2, 250, 253, 3, 2, 2, 2, 251, 249, 3, 2, 2, 2, 251, 252, 3, 2,
+	2, 2, 252, 254, 3, 2, 2, 2, 253, 251, 3, 2, 2, 2, 254, 255, 7, 16, 2, 2,
+	255, 35, 3, 2, 2, 2, 256, 257, 7, 21, 2, 2, 257, 37, 3, 2, 2, 2, 258, 259,
+	7, 22, 2, 2, 259, 39, 3, 2, 2, 2, 260, 261, 7, 29, 2, 2, 261, 41, 3, 2,
+	2, 2, 262, 263, 7, 30, 2, 2, 263, 43, 3, 2, 2, 2, 264, 265, 7, 23, 2, 2,
+	265, 45, 3, 2, 2, 2, 266, 267, 7, 24, 2, 2, 267, 47, 3, 2, 2, 2, 268, 269,
+	7, 26, 2, 2, 269, 49, 3, 2, 2, 2, 270, 271, 7, 27, 2, 2, 271, 51, 3, 2,
+	2, 2, 272, 273, 9, 2, 2, 2, 273, 53, 3, 2, 2, 2, 274, 275, 7, 28, 2, 2,
+	275, 55, 3, 2, 2, 2, 276, 277, 7, 36, 2, 2, 277, 57, 3, 2, 2, 2, 278, 279,
+	7, 36, 2, 2, 279, 280, 7, 20, 2, 2, 280, 281, 9, 3, 2, 2, 281, 282, 7,
+	6, 2, 2, 282, 59, 3, 2, 2, 2, 283, 284, 7, 37, 2, 2, 284, 61, 3, 2, 2,
+	2, 285, 286, 7, 37, 2, 2, 286, 287, 7, 20, 2, 2, 287, 288, 9, 3, 2, 2,
+	288, 289, 7, 6, 2, 2, 289, 63, 3, 2, 2, 2, 290, 291, 7, 31, 2, 2, 291,
+	65, 3, 2, 2, 2, 292, 293, 7, 32, 2, 2, 293, 67, 3, 2, 2, 2, 294, 295, 7,
+	34, 2, 2, 295, 69, 3, 2, 2, 2, 296, 297, 7, 35, 2, 2, 297, 71, 3, 2, 2,
+	2, 298, 299, 7, 39, 2, 2, 299, 73, 3, 2, 2, 2, 300, 301, 7, 40, 2, 2, 301,
+	75, 3, 2, 2, 2, 19, 79, 84, 117, 132, 140, 149, 158, 166, 175, 184, 193,
+	202, 211, 220, 231, 240, 251,
 }
 var literalNames = []string{
-	"", "'['", "';;'", "'('", "')'", "'(*'", "'(float'", "'(int'", "'(uint'",
-	"'(true'", "'(false'", "'(ignore'", "']'", "'.'", "'[]'", "'[['", "']]'",
-	"'.('", "", "", "", "", "", "", "", "", "", "", "':'", "';'", "'/'", "','",
-	"'^'",
+	"", "'['", "';;'", "'('", "')'", "'(?'", "'(*'", "'(float'", "'(int'",
+	"'(uint'", "'(true'", "'(false'", "'(ignore'", "']'", "'.'", "'[]'", "'[['",
+	"']]'", "'.('", "", "", "", "", "", "", "", "", "", "", "':'", "';'", "'/'",
+	"','", "'^'",
 }
 var symbolicNames = []string{
 	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-	"TRUE", "FALSE", "INTEGER", "UINTEGER", "DECIMAL_INTEGER", "FLOAT_NUMBER",
+	"", "TRUE", "FALSE", "INTEGER", "UINTEGER", "DECIMAL_INTEGER", "FLOAT_NUMBER",
 	"UFLOAT_NUMBER", "COMPLEX_NUMBER", "STRING", "GLOB", "TOBEGIN", "TOEND",
 	"SLASH", "DROP", "DUPLICATE", "NAME", "CMD", "SYS", "EXECUTE", "RETURN",
 	"COMMENT", "BLOCK_COMMENT", "WS", "SHEBANG",
 }
 
 var ruleNames = []string{
-	"expressions", "root_term", "term", "data", "ns", "block", "datablock",
+	"expressions", "root_term", "term", "data", "ns", "block", "cblock", "datablock",
 	"floatblock", "intblock", "uintblock", "trueblock", "falseblock", "ignoreblock",
 	"lambda", "alambda", "lambda_cmd", "true_term", "false_term", "string_term",
 	"glob_term", "integer", "uinteger", "float", "ufloat", "allfloat", "complex_term",
@@ -216,30 +222,31 @@ const (
 	BundParserT__14           = 15
 	BundParserT__15           = 16
 	BundParserT__16           = 17
-	BundParserTRUE            = 18
-	BundParserFALSE           = 19
-	BundParserINTEGER         = 20
-	BundParserUINTEGER        = 21
-	BundParserDECIMAL_INTEGER = 22
-	BundParserFLOAT_NUMBER    = 23
-	BundParserUFLOAT_NUMBER   = 24
-	BundParserCOMPLEX_NUMBER  = 25
-	BundParserSTRING          = 26
-	BundParserGLOB            = 27
-	BundParserTOBEGIN         = 28
-	BundParserTOEND           = 29
-	BundParserSLASH           = 30
-	BundParserDROP            = 31
-	BundParserDUPLICATE       = 32
-	BundParserNAME            = 33
-	BundParserCMD             = 34
-	BundParserSYS             = 35
-	BundParserEXECUTE         = 36
-	BundParserRETURN          = 37
-	BundParserCOMMENT         = 38
-	BundParserBLOCK_COMMENT   = 39
-	BundParserWS              = 40
-	BundParserSHEBANG         = 41
+	BundParserT__17           = 18
+	BundParserTRUE            = 19
+	BundParserFALSE           = 20
+	BundParserINTEGER         = 21
+	BundParserUINTEGER        = 22
+	BundParserDECIMAL_INTEGER = 23
+	BundParserFLOAT_NUMBER    = 24
+	BundParserUFLOAT_NUMBER   = 25
+	BundParserCOMPLEX_NUMBER  = 26
+	BundParserSTRING          = 27
+	BundParserGLOB            = 28
+	BundParserTOBEGIN         = 29
+	BundParserTOEND           = 30
+	BundParserSLASH           = 31
+	BundParserDROP            = 32
+	BundParserDUPLICATE       = 33
+	BundParserNAME            = 34
+	BundParserCMD             = 35
+	BundParserSYS             = 36
+	BundParserEXECUTE         = 37
+	BundParserRETURN          = 38
+	BundParserCOMMENT         = 39
+	BundParserBLOCK_COMMENT   = 40
+	BundParserWS              = 41
+	BundParserSHEBANG         = 42
 )
 
 // BundParser rules.
@@ -250,36 +257,37 @@ const (
 	BundParserRULE_data         = 3
 	BundParserRULE_ns           = 4
 	BundParserRULE_block        = 5
-	BundParserRULE_datablock    = 6
-	BundParserRULE_floatblock   = 7
-	BundParserRULE_intblock     = 8
-	BundParserRULE_uintblock    = 9
-	BundParserRULE_trueblock    = 10
-	BundParserRULE_falseblock   = 11
-	BundParserRULE_ignoreblock  = 12
-	BundParserRULE_lambda       = 13
-	BundParserRULE_alambda      = 14
-	BundParserRULE_lambda_cmd   = 15
-	BundParserRULE_true_term    = 16
-	BundParserRULE_false_term   = 17
-	BundParserRULE_string_term  = 18
-	BundParserRULE_glob_term    = 19
-	BundParserRULE_integer      = 20
-	BundParserRULE_uinteger     = 21
-	BundParserRULE_float        = 22
-	BundParserRULE_ufloat       = 23
-	BundParserRULE_allfloat     = 24
-	BundParserRULE_complex_term = 25
-	BundParserRULE_call_term    = 26
-	BundParserRULE_call_sys     = 27
-	BundParserRULE_cmd_term     = 28
-	BundParserRULE_cmd_sys      = 29
-	BundParserRULE_begin        = 30
-	BundParserRULE_end          = 31
-	BundParserRULE_drop         = 32
-	BundParserRULE_duplicate    = 33
-	BundParserRULE_execute_term = 34
-	BundParserRULE_return_term  = 35
+	BundParserRULE_cblock       = 6
+	BundParserRULE_datablock    = 7
+	BundParserRULE_floatblock   = 8
+	BundParserRULE_intblock     = 9
+	BundParserRULE_uintblock    = 10
+	BundParserRULE_trueblock    = 11
+	BundParserRULE_falseblock   = 12
+	BundParserRULE_ignoreblock  = 13
+	BundParserRULE_lambda       = 14
+	BundParserRULE_alambda      = 15
+	BundParserRULE_lambda_cmd   = 16
+	BundParserRULE_true_term    = 17
+	BundParserRULE_false_term   = 18
+	BundParserRULE_string_term  = 19
+	BundParserRULE_glob_term    = 20
+	BundParserRULE_integer      = 21
+	BundParserRULE_uinteger     = 22
+	BundParserRULE_float        = 23
+	BundParserRULE_ufloat       = 24
+	BundParserRULE_allfloat     = 25
+	BundParserRULE_complex_term = 26
+	BundParserRULE_call_term    = 27
+	BundParserRULE_call_sys     = 28
+	BundParserRULE_cmd_term     = 29
+	BundParserRULE_cmd_sys      = 30
+	BundParserRULE_begin        = 31
+	BundParserRULE_end          = 32
+	BundParserRULE_drop         = 33
+	BundParserRULE_duplicate    = 34
+	BundParserRULE_execute_term = 35
+	BundParserRULE_return_term  = 36
 )
 
 // IExpressionsContext is an interface to support dynamic dispatch.
@@ -385,17 +393,17 @@ func (p *BundParser) Expressions() (localctx IExpressionsContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(75)
+	p.SetState(77)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for _la == BundParserT__0 || _la == BundParserT__2 {
 		{
-			p.SetState(72)
+			p.SetState(74)
 			p.Root_term()
 		}
 
-		p.SetState(77)
+		p.SetState(79)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -502,19 +510,19 @@ func (p *BundParser) Root_term() (localctx IRoot_termContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(80)
+	p.SetState(82)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case BundParserT__0:
 		{
-			p.SetState(78)
+			p.SetState(80)
 			p.Ns()
 		}
 
 	case BundParserT__2:
 		{
-			p.SetState(79)
+			p.SetState(81)
 			p.Block()
 		}
 
@@ -601,6 +609,16 @@ func (s *TermContext) Alambda() IAlambdaContext {
 	}
 
 	return t.(IAlambdaContext)
+}
+
+func (s *TermContext) Cblock() ICblockContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICblockContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ICblockContext)
 }
 
 func (s *TermContext) Datablock() IDatablockContext {
@@ -904,186 +922,192 @@ func (p *BundParser) Term() (localctx ITermContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(112)
+	p.SetState(115)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext()) {
 	case 1:
 		{
-			p.SetState(82)
+			p.SetState(84)
 			p.Ns()
 		}
 
 	case 2:
 		{
-			p.SetState(83)
+			p.SetState(85)
 			p.Block()
 		}
 
 	case 3:
 		{
-			p.SetState(84)
+			p.SetState(86)
 			p.Lambda()
 		}
 
 	case 4:
 		{
-			p.SetState(85)
+			p.SetState(87)
 			p.Alambda()
 		}
 
 	case 5:
 		{
-			p.SetState(86)
-			p.Datablock()
+			p.SetState(88)
+			p.Cblock()
 		}
 
 	case 6:
 		{
-			p.SetState(87)
-			p.Floatblock()
+			p.SetState(89)
+			p.Datablock()
 		}
 
 	case 7:
 		{
-			p.SetState(88)
-			p.Intblock()
+			p.SetState(90)
+			p.Floatblock()
 		}
 
 	case 8:
 		{
-			p.SetState(89)
-			p.Uintblock()
+			p.SetState(91)
+			p.Intblock()
 		}
 
 	case 9:
 		{
-			p.SetState(90)
-			p.Trueblock()
+			p.SetState(92)
+			p.Uintblock()
 		}
 
 	case 10:
 		{
-			p.SetState(91)
-			p.Falseblock()
+			p.SetState(93)
+			p.Trueblock()
 		}
 
 	case 11:
 		{
-			p.SetState(92)
-			p.Ignoreblock()
+			p.SetState(94)
+			p.Falseblock()
 		}
 
 	case 12:
 		{
-			p.SetState(93)
-			p.True_term()
+			p.SetState(95)
+			p.Ignoreblock()
 		}
 
 	case 13:
 		{
-			p.SetState(94)
-			p.False_term()
+			p.SetState(96)
+			p.True_term()
 		}
 
 	case 14:
 		{
-			p.SetState(95)
-			p.String_term()
+			p.SetState(97)
+			p.False_term()
 		}
 
 	case 15:
 		{
-			p.SetState(96)
-			p.Glob_term()
+			p.SetState(98)
+			p.String_term()
 		}
 
 	case 16:
 		{
-			p.SetState(97)
-			p.Integer()
+			p.SetState(99)
+			p.Glob_term()
 		}
 
 	case 17:
 		{
-			p.SetState(98)
-			p.Uinteger()
+			p.SetState(100)
+			p.Integer()
 		}
 
 	case 18:
 		{
-			p.SetState(99)
-			p.Float()
+			p.SetState(101)
+			p.Uinteger()
 		}
 
 	case 19:
 		{
-			p.SetState(100)
-			p.Ufloat()
+			p.SetState(102)
+			p.Float()
 		}
 
 	case 20:
 		{
-			p.SetState(101)
-			p.Complex_term()
+			p.SetState(103)
+			p.Ufloat()
 		}
 
 	case 21:
 		{
-			p.SetState(102)
-			p.Call_term()
+			p.SetState(104)
+			p.Complex_term()
 		}
 
 	case 22:
 		{
-			p.SetState(103)
-			p.Call_sys()
+			p.SetState(105)
+			p.Call_term()
 		}
 
 	case 23:
 		{
-			p.SetState(104)
-			p.Cmd_term()
+			p.SetState(106)
+			p.Call_sys()
 		}
 
 	case 24:
 		{
-			p.SetState(105)
-			p.Cmd_sys()
+			p.SetState(107)
+			p.Cmd_term()
 		}
 
 	case 25:
 		{
-			p.SetState(106)
-			p.Begin()
+			p.SetState(108)
+			p.Cmd_sys()
 		}
 
 	case 26:
 		{
-			p.SetState(107)
-			p.End()
+			p.SetState(109)
+			p.Begin()
 		}
 
 	case 27:
 		{
-			p.SetState(108)
-			p.Execute_term()
+			p.SetState(110)
+			p.End()
 		}
 
 	case 28:
 		{
-			p.SetState(109)
-			p.Return_term()
+			p.SetState(111)
+			p.Execute_term()
 		}
 
 	case 29:
 		{
-			p.SetState(110)
-			p.Drop()
+			p.SetState(112)
+			p.Return_term()
 		}
 
 	case 30:
 		{
-			p.SetState(111)
+			p.SetState(113)
+			p.Drop()
+		}
+
+	case 31:
+		{
+			p.SetState(114)
 			p.Duplicate()
 		}
 
@@ -1250,6 +1274,16 @@ func (s *DataContext) Cmd_sys() ICmd_sysContext {
 	return t.(ICmd_sysContext)
 }
 
+func (s *DataContext) Glob_term() IGlob_termContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IGlob_termContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IGlob_termContext)
+}
+
 func (s *DataContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -1291,79 +1325,85 @@ func (p *BundParser) Data() (localctx IDataContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(126)
+	p.SetState(130)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext()) {
 	case 1:
 		{
-			p.SetState(114)
+			p.SetState(117)
 			p.True_term()
 		}
 
 	case 2:
 		{
-			p.SetState(115)
+			p.SetState(118)
 			p.False_term()
 		}
 
 	case 3:
 		{
-			p.SetState(116)
+			p.SetState(119)
 			p.String_term()
 		}
 
 	case 4:
 		{
-			p.SetState(117)
+			p.SetState(120)
 			p.Integer()
 		}
 
 	case 5:
 		{
-			p.SetState(118)
+			p.SetState(121)
 			p.Uinteger()
 		}
 
 	case 6:
 		{
-			p.SetState(119)
+			p.SetState(122)
 			p.Float()
 		}
 
 	case 7:
 		{
-			p.SetState(120)
+			p.SetState(123)
 			p.Ufloat()
 		}
 
 	case 8:
 		{
-			p.SetState(121)
+			p.SetState(124)
 			p.Complex_term()
 		}
 
 	case 9:
 		{
-			p.SetState(122)
+			p.SetState(125)
 			p.Call_term()
 		}
 
 	case 10:
 		{
-			p.SetState(123)
+			p.SetState(126)
 			p.Call_sys()
 		}
 
 	case 11:
 		{
-			p.SetState(124)
+			p.SetState(127)
 			p.Cmd_term()
 		}
 
 	case 12:
 		{
-			p.SetState(125)
+			p.SetState(128)
 			p.Cmd_sys()
+		}
+
+	case 13:
+		{
+			p.SetState(129)
+			p.Glob_term()
 		}
 
 	}
@@ -1516,27 +1556,27 @@ func (p *BundParser) Ns() (localctx INsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(128)
+		p.SetState(132)
 		p.Match(BundParserT__0)
 	}
 	{
-		p.SetState(129)
+		p.SetState(133)
 
 		var _m = p.Match(BundParserNAME)
 
 		localctx.(*NsContext).name = _m
 	}
 	{
-		p.SetState(130)
+		p.SetState(134)
 		p.Match(BundParserTOBEGIN)
 	}
-	p.SetState(134)
+	p.SetState(138)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(131)
+			p.SetState(135)
 
 			var _x = p.Term()
 
@@ -1544,12 +1584,12 @@ func (p *BundParser) Ns() (localctx INsContext) {
 		}
 		localctx.(*NsContext).body = append(localctx.(*NsContext).body, localctx.(*NsContext)._term)
 
-		p.SetState(136)
+		p.SetState(140)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(137)
+		p.SetState(141)
 		p.Match(BundParserT__1)
 	}
 
@@ -1682,16 +1722,16 @@ func (p *BundParser) Block() (localctx IBlockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(139)
+		p.SetState(143)
 		p.Match(BundParserT__2)
 	}
-	p.SetState(143)
+	p.SetState(147)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(140)
+			p.SetState(144)
 
 			var _x = p.Term()
 
@@ -1699,12 +1739,167 @@ func (p *BundParser) Block() (localctx IBlockContext) {
 		}
 		localctx.(*BlockContext).body = append(localctx.(*BlockContext).body, localctx.(*BlockContext)._term)
 
-		p.SetState(145)
+		p.SetState(149)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(146)
+		p.SetState(150)
+		p.Match(BundParserT__3)
+	}
+
+	return localctx
+}
+
+// ICblockContext is an interface to support dynamic dispatch.
+type ICblockContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Get_data returns the _data rule contexts.
+	Get_data() IDataContext
+
+	// Set_data sets the _data rule contexts.
+	Set_data(IDataContext)
+
+	// GetBody returns the body rule context list.
+	GetBody() []IDataContext
+
+	// SetBody sets the body rule context list.
+	SetBody([]IDataContext)
+
+	// IsCblockContext differentiates from other interfaces.
+	IsCblockContext()
+}
+
+type CblockContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+	_data  IDataContext
+	body   []IDataContext
+}
+
+func NewEmptyCblockContext() *CblockContext {
+	var p = new(CblockContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = BundParserRULE_cblock
+	return p
+}
+
+func (*CblockContext) IsCblockContext() {}
+
+func NewCblockContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *CblockContext {
+	var p = new(CblockContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = BundParserRULE_cblock
+
+	return p
+}
+
+func (s *CblockContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *CblockContext) Get_data() IDataContext { return s._data }
+
+func (s *CblockContext) Set_data(v IDataContext) { s._data = v }
+
+func (s *CblockContext) GetBody() []IDataContext { return s.body }
+
+func (s *CblockContext) SetBody(v []IDataContext) { s.body = v }
+
+func (s *CblockContext) AllData() []IDataContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IDataContext)(nil)).Elem())
+	var tst = make([]IDataContext, len(ts))
+
+	for i, t := range ts {
+		if t != nil {
+			tst[i] = t.(IDataContext)
+		}
+	}
+
+	return tst
+}
+
+func (s *CblockContext) Data(i int) IDataContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDataContext)(nil)).Elem(), i)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IDataContext)
+}
+
+func (s *CblockContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *CblockContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *CblockContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.EnterCblock(s)
+	}
+}
+
+func (s *CblockContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(BundListener); ok {
+		listenerT.ExitCblock(s)
+	}
+}
+
+func (p *BundParser) Cblock() (localctx ICblockContext) {
+	localctx = NewCblockContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 12, BundParserRULE_cblock)
+	var _la int
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(152)
+		p.Match(BundParserT__4)
+	}
+	p.SetState(154)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = (((_la-19)&-(0x1f+1)) == 0 && ((1<<uint((_la-19)))&((1<<(BundParserTRUE-19))|(1<<(BundParserFALSE-19))|(1<<(BundParserINTEGER-19))|(1<<(BundParserUINTEGER-19))|(1<<(BundParserFLOAT_NUMBER-19))|(1<<(BundParserUFLOAT_NUMBER-19))|(1<<(BundParserCOMPLEX_NUMBER-19))|(1<<(BundParserSTRING-19))|(1<<(BundParserGLOB-19))|(1<<(BundParserNAME-19))|(1<<(BundParserCMD-19)))) != 0) {
+		{
+			p.SetState(153)
+
+			var _x = p.Data()
+
+			localctx.(*CblockContext)._data = _x
+		}
+		localctx.(*CblockContext).body = append(localctx.(*CblockContext).body, localctx.(*CblockContext)._data)
+
+		p.SetState(156)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
+	}
+	{
+		p.SetState(158)
 		p.Match(BundParserT__3)
 	}
 
@@ -1816,7 +2011,7 @@ func (s *DatablockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Datablock() (localctx IDatablockContext) {
 	localctx = NewDatablockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 12, BundParserRULE_datablock)
+	p.EnterRule(localctx, 14, BundParserRULE_datablock)
 	var _la int
 
 	defer func() {
@@ -1837,16 +2032,16 @@ func (p *BundParser) Datablock() (localctx IDatablockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(148)
-		p.Match(BundParserT__4)
+		p.SetState(160)
+		p.Match(BundParserT__5)
 	}
-	p.SetState(152)
+	p.SetState(164)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for ((_la-18)&-(0x1f+1)) == 0 && ((1<<uint((_la-18)))&((1<<(BundParserTRUE-18))|(1<<(BundParserFALSE-18))|(1<<(BundParserINTEGER-18))|(1<<(BundParserUINTEGER-18))|(1<<(BundParserFLOAT_NUMBER-18))|(1<<(BundParserUFLOAT_NUMBER-18))|(1<<(BundParserCOMPLEX_NUMBER-18))|(1<<(BundParserSTRING-18))|(1<<(BundParserNAME-18))|(1<<(BundParserCMD-18)))) != 0 {
+	for ((_la-19)&-(0x1f+1)) == 0 && ((1<<uint((_la-19)))&((1<<(BundParserTRUE-19))|(1<<(BundParserFALSE-19))|(1<<(BundParserINTEGER-19))|(1<<(BundParserUINTEGER-19))|(1<<(BundParserFLOAT_NUMBER-19))|(1<<(BundParserUFLOAT_NUMBER-19))|(1<<(BundParserCOMPLEX_NUMBER-19))|(1<<(BundParserSTRING-19))|(1<<(BundParserGLOB-19))|(1<<(BundParserNAME-19))|(1<<(BundParserCMD-19)))) != 0 {
 		{
-			p.SetState(149)
+			p.SetState(161)
 
 			var _x = p.Data()
 
@@ -1854,12 +2049,12 @@ func (p *BundParser) Datablock() (localctx IDatablockContext) {
 		}
 		localctx.(*DatablockContext).body = append(localctx.(*DatablockContext).body, localctx.(*DatablockContext)._data)
 
-		p.SetState(154)
+		p.SetState(166)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(155)
+		p.SetState(167)
 		p.Match(BundParserT__3)
 	}
 
@@ -1971,7 +2166,7 @@ func (s *FloatblockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Floatblock() (localctx IFloatblockContext) {
 	localctx = NewFloatblockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 14, BundParserRULE_floatblock)
+	p.EnterRule(localctx, 16, BundParserRULE_floatblock)
 	var _la int
 
 	defer func() {
@@ -1992,16 +2187,16 @@ func (p *BundParser) Floatblock() (localctx IFloatblockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(157)
-		p.Match(BundParserT__5)
+		p.SetState(169)
+		p.Match(BundParserT__6)
 	}
-	p.SetState(161)
+	p.SetState(173)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for _la == BundParserFLOAT_NUMBER {
 		{
-			p.SetState(158)
+			p.SetState(170)
 
 			var _x = p.Float()
 
@@ -2009,12 +2204,12 @@ func (p *BundParser) Floatblock() (localctx IFloatblockContext) {
 		}
 		localctx.(*FloatblockContext).body = append(localctx.(*FloatblockContext).body, localctx.(*FloatblockContext)._float)
 
-		p.SetState(163)
+		p.SetState(175)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(164)
+		p.SetState(176)
 		p.Match(BundParserT__3)
 	}
 
@@ -2126,7 +2321,7 @@ func (s *IntblockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Intblock() (localctx IIntblockContext) {
 	localctx = NewIntblockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 16, BundParserRULE_intblock)
+	p.EnterRule(localctx, 18, BundParserRULE_intblock)
 	var _la int
 
 	defer func() {
@@ -2147,16 +2342,16 @@ func (p *BundParser) Intblock() (localctx IIntblockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(166)
-		p.Match(BundParserT__6)
+		p.SetState(178)
+		p.Match(BundParserT__7)
 	}
-	p.SetState(170)
+	p.SetState(182)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for _la == BundParserINTEGER {
 		{
-			p.SetState(167)
+			p.SetState(179)
 
 			var _x = p.Integer()
 
@@ -2164,12 +2359,12 @@ func (p *BundParser) Intblock() (localctx IIntblockContext) {
 		}
 		localctx.(*IntblockContext).body = append(localctx.(*IntblockContext).body, localctx.(*IntblockContext)._integer)
 
-		p.SetState(172)
+		p.SetState(184)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(173)
+		p.SetState(185)
 		p.Match(BundParserT__3)
 	}
 
@@ -2281,7 +2476,7 @@ func (s *UintblockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Uintblock() (localctx IUintblockContext) {
 	localctx = NewUintblockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 18, BundParserRULE_uintblock)
+	p.EnterRule(localctx, 20, BundParserRULE_uintblock)
 	var _la int
 
 	defer func() {
@@ -2302,16 +2497,16 @@ func (p *BundParser) Uintblock() (localctx IUintblockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(175)
-		p.Match(BundParserT__7)
+		p.SetState(187)
+		p.Match(BundParserT__8)
 	}
-	p.SetState(179)
+	p.SetState(191)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for _la == BundParserUINTEGER {
 		{
-			p.SetState(176)
+			p.SetState(188)
 
 			var _x = p.Uinteger()
 
@@ -2319,12 +2514,12 @@ func (p *BundParser) Uintblock() (localctx IUintblockContext) {
 		}
 		localctx.(*UintblockContext).body = append(localctx.(*UintblockContext).body, localctx.(*UintblockContext)._uinteger)
 
-		p.SetState(181)
+		p.SetState(193)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(182)
+		p.SetState(194)
 		p.Match(BundParserT__3)
 	}
 
@@ -2436,7 +2631,7 @@ func (s *TrueblockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Trueblock() (localctx ITrueblockContext) {
 	localctx = NewTrueblockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 20, BundParserRULE_trueblock)
+	p.EnterRule(localctx, 22, BundParserRULE_trueblock)
 	var _la int
 
 	defer func() {
@@ -2457,16 +2652,16 @@ func (p *BundParser) Trueblock() (localctx ITrueblockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(184)
-		p.Match(BundParserT__8)
+		p.SetState(196)
+		p.Match(BundParserT__9)
 	}
-	p.SetState(188)
+	p.SetState(200)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(185)
+			p.SetState(197)
 
 			var _x = p.Term()
 
@@ -2474,12 +2669,12 @@ func (p *BundParser) Trueblock() (localctx ITrueblockContext) {
 		}
 		localctx.(*TrueblockContext).body = append(localctx.(*TrueblockContext).body, localctx.(*TrueblockContext)._term)
 
-		p.SetState(190)
+		p.SetState(202)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(191)
+		p.SetState(203)
 		p.Match(BundParserT__3)
 	}
 
@@ -2591,7 +2786,7 @@ func (s *FalseblockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Falseblock() (localctx IFalseblockContext) {
 	localctx = NewFalseblockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 22, BundParserRULE_falseblock)
+	p.EnterRule(localctx, 24, BundParserRULE_falseblock)
 	var _la int
 
 	defer func() {
@@ -2612,16 +2807,16 @@ func (p *BundParser) Falseblock() (localctx IFalseblockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(193)
-		p.Match(BundParserT__9)
+		p.SetState(205)
+		p.Match(BundParserT__10)
 	}
-	p.SetState(197)
+	p.SetState(209)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(194)
+			p.SetState(206)
 
 			var _x = p.Term()
 
@@ -2629,12 +2824,12 @@ func (p *BundParser) Falseblock() (localctx IFalseblockContext) {
 		}
 		localctx.(*FalseblockContext).body = append(localctx.(*FalseblockContext).body, localctx.(*FalseblockContext)._term)
 
-		p.SetState(199)
+		p.SetState(211)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(200)
+		p.SetState(212)
 		p.Match(BundParserT__3)
 	}
 
@@ -2746,7 +2941,7 @@ func (s *IgnoreblockContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Ignoreblock() (localctx IIgnoreblockContext) {
 	localctx = NewIgnoreblockContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 24, BundParserRULE_ignoreblock)
+	p.EnterRule(localctx, 26, BundParserRULE_ignoreblock)
 	var _la int
 
 	defer func() {
@@ -2767,16 +2962,16 @@ func (p *BundParser) Ignoreblock() (localctx IIgnoreblockContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(202)
-		p.Match(BundParserT__10)
+		p.SetState(214)
+		p.Match(BundParserT__11)
 	}
-	p.SetState(206)
+	p.SetState(218)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(203)
+			p.SetState(215)
 
 			var _x = p.Term()
 
@@ -2784,12 +2979,12 @@ func (p *BundParser) Ignoreblock() (localctx IIgnoreblockContext) {
 		}
 		localctx.(*IgnoreblockContext).body = append(localctx.(*IgnoreblockContext).body, localctx.(*IgnoreblockContext)._term)
 
-		p.SetState(208)
+		p.SetState(220)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(209)
+		p.SetState(221)
 		p.Match(BundParserT__3)
 	}
 
@@ -2916,7 +3111,7 @@ func (s *LambdaContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Lambda() (localctx ILambdaContext) {
 	localctx = NewLambdaContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 26, BundParserRULE_lambda)
+	p.EnterRule(localctx, 28, BundParserRULE_lambda)
 	var _la int
 
 	defer func() {
@@ -2937,27 +3132,27 @@ func (p *BundParser) Lambda() (localctx ILambdaContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(211)
+		p.SetState(223)
 		p.Match(BundParserT__0)
 	}
 	{
-		p.SetState(212)
+		p.SetState(224)
 
 		var _m = p.Match(BundParserNAME)
 
 		localctx.(*LambdaContext).name = _m
 	}
 	{
-		p.SetState(213)
-		p.Match(BundParserT__11)
+		p.SetState(225)
+		p.Match(BundParserT__12)
 	}
-	p.SetState(217)
+	p.SetState(229)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(214)
+			p.SetState(226)
 
 			var _x = p.Term()
 
@@ -2965,13 +3160,13 @@ func (p *BundParser) Lambda() (localctx ILambdaContext) {
 		}
 		localctx.(*LambdaContext).body = append(localctx.(*LambdaContext).body, localctx.(*LambdaContext)._term)
 
-		p.SetState(219)
+		p.SetState(231)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(220)
-		p.Match(BundParserT__12)
+		p.SetState(232)
+		p.Match(BundParserT__13)
 	}
 
 	return localctx
@@ -3082,7 +3277,7 @@ func (s *AlambdaContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Alambda() (localctx IAlambdaContext) {
 	localctx = NewAlambdaContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 28, BundParserRULE_alambda)
+	p.EnterRule(localctx, 30, BundParserRULE_alambda)
 	var _la int
 
 	defer func() {
@@ -3103,16 +3298,16 @@ func (p *BundParser) Alambda() (localctx IAlambdaContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(222)
-		p.Match(BundParserT__13)
+		p.SetState(234)
+		p.Match(BundParserT__14)
 	}
-	p.SetState(226)
+	p.SetState(238)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(223)
+			p.SetState(235)
 
 			var _x = p.Term()
 
@@ -3120,13 +3315,13 @@ func (p *BundParser) Alambda() (localctx IAlambdaContext) {
 		}
 		localctx.(*AlambdaContext).body = append(localctx.(*AlambdaContext).body, localctx.(*AlambdaContext)._term)
 
-		p.SetState(228)
+		p.SetState(240)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(229)
-		p.Match(BundParserT__12)
+		p.SetState(241)
+		p.Match(BundParserT__13)
 	}
 
 	return localctx
@@ -3252,7 +3447,7 @@ func (s *Lambda_cmdContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Lambda_cmd() (localctx ILambda_cmdContext) {
 	localctx = NewLambda_cmdContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 30, BundParserRULE_lambda_cmd)
+	p.EnterRule(localctx, 32, BundParserRULE_lambda_cmd)
 	var _la int
 
 	defer func() {
@@ -3273,27 +3468,27 @@ func (p *BundParser) Lambda_cmd() (localctx ILambda_cmdContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(231)
-		p.Match(BundParserT__14)
+		p.SetState(243)
+		p.Match(BundParserT__15)
 	}
 	{
-		p.SetState(232)
+		p.SetState(244)
 
 		var _m = p.Match(BundParserCMD)
 
 		localctx.(*Lambda_cmdContext).name = _m
 	}
 	{
-		p.SetState(233)
-		p.Match(BundParserT__15)
+		p.SetState(245)
+		p.Match(BundParserT__16)
 	}
-	p.SetState(237)
+	p.SetState(249)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__13)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND)|(1<<BundParserDROP))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<BundParserT__0)|(1<<BundParserT__2)|(1<<BundParserT__4)|(1<<BundParserT__5)|(1<<BundParserT__6)|(1<<BundParserT__7)|(1<<BundParserT__8)|(1<<BundParserT__9)|(1<<BundParserT__10)|(1<<BundParserT__11)|(1<<BundParserT__14)|(1<<BundParserTRUE)|(1<<BundParserFALSE)|(1<<BundParserINTEGER)|(1<<BundParserUINTEGER)|(1<<BundParserFLOAT_NUMBER)|(1<<BundParserUFLOAT_NUMBER)|(1<<BundParserCOMPLEX_NUMBER)|(1<<BundParserSTRING)|(1<<BundParserGLOB)|(1<<BundParserTOBEGIN)|(1<<BundParserTOEND))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(BundParserDROP-32))|(1<<(BundParserDUPLICATE-32))|(1<<(BundParserNAME-32))|(1<<(BundParserCMD-32))|(1<<(BundParserEXECUTE-32))|(1<<(BundParserRETURN-32)))) != 0) {
 		{
-			p.SetState(234)
+			p.SetState(246)
 
 			var _x = p.Term()
 
@@ -3301,13 +3496,13 @@ func (p *BundParser) Lambda_cmd() (localctx ILambda_cmdContext) {
 		}
 		localctx.(*Lambda_cmdContext).body = append(localctx.(*Lambda_cmdContext).body, localctx.(*Lambda_cmdContext)._term)
 
-		p.SetState(239)
+		p.SetState(251)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(240)
-		p.Match(BundParserT__12)
+		p.SetState(252)
+		p.Match(BundParserT__13)
 	}
 
 	return localctx
@@ -3388,7 +3583,7 @@ func (s *True_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) True_term() (localctx ITrue_termContext) {
 	localctx = NewTrue_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 32, BundParserRULE_true_term)
+	p.EnterRule(localctx, 34, BundParserRULE_true_term)
 
 	defer func() {
 		p.ExitRule()
@@ -3408,7 +3603,7 @@ func (p *BundParser) True_term() (localctx ITrue_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(242)
+		p.SetState(254)
 
 		var _m = p.Match(BundParserTRUE)
 
@@ -3493,7 +3688,7 @@ func (s *False_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) False_term() (localctx IFalse_termContext) {
 	localctx = NewFalse_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 34, BundParserRULE_false_term)
+	p.EnterRule(localctx, 36, BundParserRULE_false_term)
 
 	defer func() {
 		p.ExitRule()
@@ -3513,7 +3708,7 @@ func (p *BundParser) False_term() (localctx IFalse_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(244)
+		p.SetState(256)
 
 		var _m = p.Match(BundParserFALSE)
 
@@ -3598,7 +3793,7 @@ func (s *String_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) String_term() (localctx IString_termContext) {
 	localctx = NewString_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 36, BundParserRULE_string_term)
+	p.EnterRule(localctx, 38, BundParserRULE_string_term)
 
 	defer func() {
 		p.ExitRule()
@@ -3618,7 +3813,7 @@ func (p *BundParser) String_term() (localctx IString_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(246)
+		p.SetState(258)
 
 		var _m = p.Match(BundParserSTRING)
 
@@ -3703,7 +3898,7 @@ func (s *Glob_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Glob_term() (localctx IGlob_termContext) {
 	localctx = NewGlob_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 38, BundParserRULE_glob_term)
+	p.EnterRule(localctx, 40, BundParserRULE_glob_term)
 
 	defer func() {
 		p.ExitRule()
@@ -3723,7 +3918,7 @@ func (p *BundParser) Glob_term() (localctx IGlob_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(248)
+		p.SetState(260)
 
 		var _m = p.Match(BundParserGLOB)
 
@@ -3808,7 +4003,7 @@ func (s *IntegerContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Integer() (localctx IIntegerContext) {
 	localctx = NewIntegerContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 40, BundParserRULE_integer)
+	p.EnterRule(localctx, 42, BundParserRULE_integer)
 
 	defer func() {
 		p.ExitRule()
@@ -3828,7 +4023,7 @@ func (p *BundParser) Integer() (localctx IIntegerContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(250)
+		p.SetState(262)
 
 		var _m = p.Match(BundParserINTEGER)
 
@@ -3913,7 +4108,7 @@ func (s *UintegerContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Uinteger() (localctx IUintegerContext) {
 	localctx = NewUintegerContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 42, BundParserRULE_uinteger)
+	p.EnterRule(localctx, 44, BundParserRULE_uinteger)
 
 	defer func() {
 		p.ExitRule()
@@ -3933,7 +4128,7 @@ func (p *BundParser) Uinteger() (localctx IUintegerContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(252)
+		p.SetState(264)
 
 		var _m = p.Match(BundParserUINTEGER)
 
@@ -4018,7 +4213,7 @@ func (s *FloatContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Float() (localctx IFloatContext) {
 	localctx = NewFloatContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 44, BundParserRULE_float)
+	p.EnterRule(localctx, 46, BundParserRULE_float)
 
 	defer func() {
 		p.ExitRule()
@@ -4038,7 +4233,7 @@ func (p *BundParser) Float() (localctx IFloatContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(254)
+		p.SetState(266)
 
 		var _m = p.Match(BundParserFLOAT_NUMBER)
 
@@ -4123,7 +4318,7 @@ func (s *UfloatContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Ufloat() (localctx IUfloatContext) {
 	localctx = NewUfloatContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 46, BundParserRULE_ufloat)
+	p.EnterRule(localctx, 48, BundParserRULE_ufloat)
 
 	defer func() {
 		p.ExitRule()
@@ -4143,7 +4338,7 @@ func (p *BundParser) Ufloat() (localctx IUfloatContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(256)
+		p.SetState(268)
 
 		var _m = p.Match(BundParserUFLOAT_NUMBER)
 
@@ -4232,7 +4427,7 @@ func (s *AllfloatContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Allfloat() (localctx IAllfloatContext) {
 	localctx = NewAllfloatContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 48, BundParserRULE_allfloat)
+	p.EnterRule(localctx, 50, BundParserRULE_allfloat)
 	var _la int
 
 	defer func() {
@@ -4253,7 +4448,7 @@ func (p *BundParser) Allfloat() (localctx IAllfloatContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(258)
+		p.SetState(270)
 
 		var _lt = p.GetTokenStream().LT(1)
 
@@ -4349,7 +4544,7 @@ func (s *Complex_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Complex_term() (localctx IComplex_termContext) {
 	localctx = NewComplex_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 50, BundParserRULE_complex_term)
+	p.EnterRule(localctx, 52, BundParserRULE_complex_term)
 
 	defer func() {
 		p.ExitRule()
@@ -4369,7 +4564,7 @@ func (p *BundParser) Complex_term() (localctx IComplex_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(260)
+		p.SetState(272)
 
 		var _m = p.Match(BundParserCOMPLEX_NUMBER)
 
@@ -4454,7 +4649,7 @@ func (s *Call_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Call_term() (localctx ICall_termContext) {
 	localctx = NewCall_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 52, BundParserRULE_call_term)
+	p.EnterRule(localctx, 54, BundParserRULE_call_term)
 
 	defer func() {
 		p.ExitRule()
@@ -4474,7 +4669,7 @@ func (p *BundParser) Call_term() (localctx ICall_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(262)
+		p.SetState(274)
 
 		var _m = p.Match(BundParserNAME)
 
@@ -4578,7 +4773,7 @@ func (s *Call_sysContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Call_sys() (localctx ICall_sysContext) {
 	localctx = NewCall_sysContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 54, BundParserRULE_call_sys)
+	p.EnterRule(localctx, 56, BundParserRULE_call_sys)
 	var _la int
 
 	defer func() {
@@ -4599,18 +4794,18 @@ func (p *BundParser) Call_sys() (localctx ICall_sysContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(264)
+		p.SetState(276)
 
 		var _m = p.Match(BundParserNAME)
 
 		localctx.(*Call_sysContext).value = _m
 	}
 	{
-		p.SetState(265)
-		p.Match(BundParserT__16)
+		p.SetState(277)
+		p.Match(BundParserT__17)
 	}
 	{
-		p.SetState(266)
+		p.SetState(278)
 
 		var _lt = p.GetTokenStream().LT(1)
 
@@ -4628,7 +4823,7 @@ func (p *BundParser) Call_sys() (localctx ICall_sysContext) {
 		}
 	}
 	{
-		p.SetState(267)
+		p.SetState(279)
 		p.Match(BundParserT__3)
 	}
 
@@ -4710,7 +4905,7 @@ func (s *Cmd_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Cmd_term() (localctx ICmd_termContext) {
 	localctx = NewCmd_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 56, BundParserRULE_cmd_term)
+	p.EnterRule(localctx, 58, BundParserRULE_cmd_term)
 
 	defer func() {
 		p.ExitRule()
@@ -4730,7 +4925,7 @@ func (p *BundParser) Cmd_term() (localctx ICmd_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(269)
+		p.SetState(281)
 
 		var _m = p.Match(BundParserCMD)
 
@@ -4834,7 +5029,7 @@ func (s *Cmd_sysContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Cmd_sys() (localctx ICmd_sysContext) {
 	localctx = NewCmd_sysContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 58, BundParserRULE_cmd_sys)
+	p.EnterRule(localctx, 60, BundParserRULE_cmd_sys)
 	var _la int
 
 	defer func() {
@@ -4855,18 +5050,18 @@ func (p *BundParser) Cmd_sys() (localctx ICmd_sysContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(271)
+		p.SetState(283)
 
 		var _m = p.Match(BundParserCMD)
 
 		localctx.(*Cmd_sysContext).value = _m
 	}
 	{
-		p.SetState(272)
-		p.Match(BundParserT__16)
+		p.SetState(284)
+		p.Match(BundParserT__17)
 	}
 	{
-		p.SetState(273)
+		p.SetState(285)
 
 		var _lt = p.GetTokenStream().LT(1)
 
@@ -4884,7 +5079,7 @@ func (p *BundParser) Cmd_sys() (localctx ICmd_sysContext) {
 		}
 	}
 	{
-		p.SetState(274)
+		p.SetState(286)
 		p.Match(BundParserT__3)
 	}
 
@@ -4966,7 +5161,7 @@ func (s *BeginContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Begin() (localctx IBeginContext) {
 	localctx = NewBeginContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 60, BundParserRULE_begin)
+	p.EnterRule(localctx, 62, BundParserRULE_begin)
 
 	defer func() {
 		p.ExitRule()
@@ -4986,7 +5181,7 @@ func (p *BundParser) Begin() (localctx IBeginContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(276)
+		p.SetState(288)
 
 		var _m = p.Match(BundParserTOBEGIN)
 
@@ -5071,7 +5266,7 @@ func (s *EndContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) End() (localctx IEndContext) {
 	localctx = NewEndContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 62, BundParserRULE_end)
+	p.EnterRule(localctx, 64, BundParserRULE_end)
 
 	defer func() {
 		p.ExitRule()
@@ -5091,7 +5286,7 @@ func (p *BundParser) End() (localctx IEndContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(278)
+		p.SetState(290)
 
 		var _m = p.Match(BundParserTOEND)
 
@@ -5176,7 +5371,7 @@ func (s *DropContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Drop() (localctx IDropContext) {
 	localctx = NewDropContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 64, BundParserRULE_drop)
+	p.EnterRule(localctx, 66, BundParserRULE_drop)
 
 	defer func() {
 		p.ExitRule()
@@ -5196,7 +5391,7 @@ func (p *BundParser) Drop() (localctx IDropContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(280)
+		p.SetState(292)
 
 		var _m = p.Match(BundParserDROP)
 
@@ -5281,7 +5476,7 @@ func (s *DuplicateContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Duplicate() (localctx IDuplicateContext) {
 	localctx = NewDuplicateContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 66, BundParserRULE_duplicate)
+	p.EnterRule(localctx, 68, BundParserRULE_duplicate)
 
 	defer func() {
 		p.ExitRule()
@@ -5301,7 +5496,7 @@ func (p *BundParser) Duplicate() (localctx IDuplicateContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(282)
+		p.SetState(294)
 
 		var _m = p.Match(BundParserDUPLICATE)
 
@@ -5386,7 +5581,7 @@ func (s *Execute_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Execute_term() (localctx IExecute_termContext) {
 	localctx = NewExecute_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 68, BundParserRULE_execute_term)
+	p.EnterRule(localctx, 70, BundParserRULE_execute_term)
 
 	defer func() {
 		p.ExitRule()
@@ -5406,7 +5601,7 @@ func (p *BundParser) Execute_term() (localctx IExecute_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(284)
+		p.SetState(296)
 
 		var _m = p.Match(BundParserEXECUTE)
 
@@ -5491,7 +5686,7 @@ func (s *Return_termContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *BundParser) Return_term() (localctx IReturn_termContext) {
 	localctx = NewReturn_termContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 70, BundParserRULE_return_term)
+	p.EnterRule(localctx, 72, BundParserRULE_return_term)
 
 	defer func() {
 		p.ExitRule()
@@ -5511,7 +5706,7 @@ func (p *BundParser) Return_term() (localctx IReturn_termContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(286)
+		p.SetState(298)
 
 		var _m = p.Match(BundParserRETURN)
 

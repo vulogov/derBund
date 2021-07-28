@@ -26,6 +26,9 @@ type BundListener interface {
 	// EnterBlock is called when entering the block production.
 	EnterBlock(c *BlockContext)
 
+	// EnterCblock is called when entering the cblock production.
+	EnterCblock(c *CblockContext)
+
 	// EnterDatablock is called when entering the datablock production.
 	EnterDatablock(c *DatablockContext)
 
@@ -133,6 +136,9 @@ type BundListener interface {
 
 	// ExitBlock is called when exiting the block production.
 	ExitBlock(c *BlockContext)
+
+	// ExitCblock is called when exiting the cblock production.
+	ExitCblock(c *CblockContext)
 
 	// ExitDatablock is called when exiting the datablock production.
 	ExitDatablock(c *DatablockContext)

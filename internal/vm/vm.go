@@ -17,6 +17,7 @@ type VM struct {
 	Current     *deque.Deque
 	CurrentNS   *NS
 	CurrentElem *Elem
+	RootNS      *NS
 }
 
 func NewVM(name string) *VM {
@@ -38,7 +39,8 @@ func (vm *VM) GetNS(name string) *NS {
 	if vm.CurrentNS != nil {
 		vm.NSStack.PushBack(vm.CurrentNS)
 	} else {
-		log.Debugf("Skip sending an empty state to a NAMESPACE stack")
+		log.Debugf("Setting a Root Namespace")
+		vm.RootNS = res
 	}
 	vm.CurrentNS = res
 	vm.Current = &res.Stack

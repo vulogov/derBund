@@ -74,6 +74,14 @@ func (l *bundListener) ExitBlock(c *parser.BlockContext) {
 	log.Infof("EXITING Block")
 }
 
+func (l *bundListener) EnterCblock(c *parser.CblockContext) {
+	log.Infof("ENTERING CBlock")
+}
+
+func (l *bundListener) ExitCblock(c *parser.CblockContext) {
+	log.Infof("EXITING CBlock")
+}
+
 func (l *bundListener) EnterDatablock(c *parser.DatablockContext) {
 	log.Infof("ENTERING Data Block")
 }
