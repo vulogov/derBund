@@ -360,7 +360,10 @@ func (l *bundExecListener) EnterCall_term(c *parser.Call_termContext) {
 	}
 	if !l.VM.InLambda() {
 		log.Debugf("CALLING: %v", c.GetValue().GetText())
-		l.VM.Exec(c.GetValue().GetText())
+		err := l.VM.Exec(c.GetValue().GetText())
+		if err != nil {
+			log.Errorf("F(%v) returns: %v", c.GetValue().GetText(), err)
+		}
 	} else {
 		ls := l.VM.CurrentLambda()
 		if ls != nil {
