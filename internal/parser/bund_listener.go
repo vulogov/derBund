@@ -101,6 +101,12 @@ type BundListener interface {
 	// EnterCmd_sys is called when entering the cmd_sys production.
 	EnterCmd_sys(c *Cmd_sysContext)
 
+	// EnterRef_call is called when entering the ref_call production.
+	EnterRef_call(c *Ref_callContext)
+
+	// EnterRef_cmd is called when entering the ref_cmd production.
+	EnterRef_cmd(c *Ref_cmdContext)
+
 	// EnterBegin is called when entering the begin production.
 	EnterBegin(c *BeginContext)
 
@@ -211,6 +217,12 @@ type BundListener interface {
 
 	// ExitCmd_sys is called when exiting the cmd_sys production.
 	ExitCmd_sys(c *Cmd_sysContext)
+
+	// ExitRef_call is called when exiting the ref_call production.
+	ExitRef_call(c *Ref_callContext)
+
+	// ExitRef_cmd is called when exiting the ref_cmd production.
+	ExitRef_cmd(c *Ref_cmdContext)
 
 	// ExitBegin is called when exiting the begin production.
 	ExitBegin(c *BeginContext)

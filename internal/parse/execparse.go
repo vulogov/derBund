@@ -453,15 +453,49 @@ func (l *bundExecListener) EnterExecute_term(c *parser.Execute_termContext) {
 				return
 			} else {
 				cmd := l.VM.Get()
+				log.Debugf("Get execution context type: %v", cmd.Type)
 				if cmd.Type == "CALL" || cmd.Type == "ACALL" {
+					log.Debugf("Executing lambda %v(%v)", cmd.Type, cmd.Value.(string))
 					switch c.GetValue().GetText() {
 					case "!":
 						l.VM.Take()
-						l.VM.Exec(cmd.Value.(string))
+						err := l.VM.Exec(cmd.Value.(string))
+						if err != nil {
+							log.Errorf("F(%v) return: %v", c.GetValue().GetText(), err)
+							return
+						}
 					case "!!":
-						l.VM.Exec(cmd.Value.(string))
+						l.VM.Take()
+						err := l.VM.Exec(cmd.Value.(string))
+						if err != nil {
+							log.Errorf("F(%v) return: %v", c.GetValue().GetText(), err)
+							return
+						}
+						l.VM.Put(cmd)
 					default:
 						log.Errorf("I do not know how to execute %v", c.GetValue().GetText())
+						return
+					}
+				} else if cmd.Type == "OCALL" {
+					log.Debugf("Executing operation %v(%v)", cmd.Type, cmd.Value.(string))
+					switch c.GetValue().GetText() {
+					case "!":
+						l.VM.Take()
+						err := l.VM.Op(cmd.Value.(string))
+						if err != nil {
+							log.Errorf("OP(%v) return: %v", c.GetValue().GetText(), err)
+							return
+						}
+					case "!!":
+						l.VM.Take()
+						err := l.VM.Op(cmd.Value.(string))
+						if err != nil {
+							log.Errorf("OP(%v) return: %v", c.GetValue().GetText(), err)
+							return
+						}
+						l.VM.Put(cmd)
+					default:
+						log.Errorf("I do not know how to execute op %v", c.GetValue().GetText())
 						return
 					}
 				} else {
@@ -907,4 +941,20 @@ func (l *bundExecListener) ExitAlambda(c *parser.AlambdaContext) {
 		l.VM.Put(res)
 	}
 	log.Debugf("ALAMBDA(fin): %v, size: %v", name, ls.Len())
+}
+
+func (l *bundExecListener) EnterRef_call(c *parser.Ref_callContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	log.Debugf("REF %v", c.GetValue().GetText())
+	l.VM.Put(&vm.Elem{Type: "CALL", Value: c.GetValue().GetText()})
+}
+
+func (l *bundExecListener) EnterRef_cmd(c *parser.Ref_cmdContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	log.Debugf("REF OP:  %v", c.GetValue().GetText())
+	l.VM.Put(&vm.Elem{Type: "OCALL", Value: c.GetValue().GetText()})
 }

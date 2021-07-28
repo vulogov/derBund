@@ -229,3 +229,11 @@ func (l *bundListener) EnterAlambda(c *parser.AlambdaContext) {
 func (l *bundListener) ExitAlambda(c *parser.AlambdaContext) {
 	log.Infof("ALAMBDA(fin)")
 }
+
+func (l *bundListener) EnterRef_call(c *parser.Ref_callContext) {
+	log.Infof("REF %v", c.GetValue().GetText())
+}
+
+func (l *bundListener) EnterRef_cmd(c *parser.Ref_cmdContext) {
+	log.Infof("REF OP:  %v", c.GetValue().GetText())
+}

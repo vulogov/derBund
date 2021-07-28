@@ -46,6 +46,8 @@ term
     | return_term
     | drop
     | duplicate
+    | ref_call
+    | ref_cmd
   )
 ;
 
@@ -139,6 +141,8 @@ cmd_term:     value=CMD ;
 cmd_sys
   : value=CMD '.(' syscmd=(SYS|NAME) ')'
   ;
+ref_call:     '`' value=NAME ;
+ref_cmd:      '`' value=CMD ;
 begin:        value=TOBEGIN;
 end:          value=TOEND ;
 drop:         value=DROP ;

@@ -207,6 +207,18 @@ func (s *BaseBundListener) EnterCmd_sys(ctx *Cmd_sysContext) {}
 // ExitCmd_sys is called when production cmd_sys is exited.
 func (s *BaseBundListener) ExitCmd_sys(ctx *Cmd_sysContext) {}
 
+// EnterRef_call is called when production ref_call is entered.
+func (s *BaseBundListener) EnterRef_call(ctx *Ref_callContext) {}
+
+// ExitRef_call is called when production ref_call is exited.
+func (s *BaseBundListener) ExitRef_call(ctx *Ref_callContext) {}
+
+// EnterRef_cmd is called when production ref_cmd is entered.
+func (s *BaseBundListener) EnterRef_cmd(ctx *Ref_cmdContext) {}
+
+// ExitRef_cmd is called when production ref_cmd is exited.
+func (s *BaseBundListener) ExitRef_cmd(ctx *Ref_cmdContext) {}
+
 // EnterBegin is called when production begin is entered.
 func (s *BaseBundListener) EnterBegin(ctx *BeginContext) {}
 

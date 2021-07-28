@@ -9,4 +9,5 @@ func InitEmbeddedOperators() {
 	InitCMPOperators()
 	InitGPMOperators()
 	InitMathOperators()
+	InitZipOperators()
 }

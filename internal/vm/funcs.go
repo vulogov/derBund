@@ -13,7 +13,7 @@ var BundSys cmap.Cmap
 
 type BundFunction func(vm *VM, e *Elem) (*Elem, error)
 type BundOperator func(vm *VM, e1 *Elem, e2 *Elem) (*Elem, error)
-type BundSysfun func(vm *VM) error
+type BundSysfun func(vm *VM, n string) error
 
 func AddFunction(name string, fn BundFunction) bool {
 	if _, ok := BundFunctions.Load(name); ok {
