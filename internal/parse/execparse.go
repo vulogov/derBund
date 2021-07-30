@@ -272,7 +272,7 @@ func (l *bundExecListener) EnterBinteger(c *parser.BintegerContext) {
 	}
 	val := eh.FromString(c.GetValue().GetText()[1:])
 	if !l.VM.InLambda() {
-		log.Debugf("Big integer Value: %v", c.GetValue().GetText())
+		log.Debugf("Big int Value: %v", c.GetValue().GetText())
 		l.VM.Put(val)
 	} else {
 		ls := l.VM.CurrentLambda()

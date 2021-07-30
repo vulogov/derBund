@@ -24,7 +24,7 @@ func PrintlnElement(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 		return nil, err
 	}
 	fmt.Printf("%s\n", eh.ToString(e))
-	return &vm.Elem{Type: "bool", Value: true}, nil
+	return e, nil
 }
 
 func InitPrintFunctions() {

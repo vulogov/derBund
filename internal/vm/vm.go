@@ -143,18 +143,28 @@ func (vm *VM) Apply(name string) error {
 }
 
 func (vm *VM) Op(name string) error {
+	var val1, val2 *Elem
 	if HasUserFunction(name, vm) {
 		return vm.Apply(name)
 	}
-	if vm.Current.Len() < 2 {
+	if vm.Current.Len() < 1 {
 		return fmt.Errorf("Attempt to call an operation: %v on empty stack", name)
 	}
 	f, err := GetOperator(name)
 	if err != nil {
 		return err
 	}
-	val1 := vm.Take()
-	val2 := vm.Take()
+
+	if vm.Current.Len() >= 1 {
+		val1 = vm.Take()
+	} else {
+		return fmt.Errorf("Attempt to call an operation: %v on empty stack", name)
+	}
+	if vm.Current.Len() >= 1 {
+		val2 = vm.Take()
+	} else {
+		val2 = &Elem{Type: "NONE"}
+	}
 	res, err := f(vm, val1, val2)
 	if err != nil {
 		return err
