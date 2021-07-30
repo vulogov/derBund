@@ -10,6 +10,7 @@ type NS struct {
 	Name         string
 	Stack        deque.Deque
 	Fun          cmap.Cmap
+	Options      cmap.Cmap
 	LambdasStack deque.Deque
 }
 
@@ -23,6 +24,19 @@ func (ns *NS) HasLambda(name string) bool {
 		return true
 	}
 	return false
+}
+
+func (ns *NS) SetOption(key string, val interface{}) {
+	log.Debugf("NS(%s) OPTION %v=%v ", ns.Name, key, val)
+	ns.Options.Store(key, val)
+}
+
+func (ns *NS) GetOption(key string, deflt interface{}) interface{} {
+	log.Debugf("NS(%s) OPTION-GET %v ", ns.Name, key)
+	if res, ok := ns.Options.Load(key); ok {
+		return res
+	}
+	return deflt
 }
 
 func (ns *NS) GetLambda(name string) *deque.Deque {

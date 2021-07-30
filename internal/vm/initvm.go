@@ -25,4 +25,6 @@ func RegisterDataTypes() {
 	RegisterFun()
 	RegisterFuna()
 	RegisterGlob()
+	RegisterSep()
+	RegisterBig()
 }

@@ -261,6 +261,27 @@ func (l *bundExecListener) EnterUinteger(c *parser.UintegerContext) {
 	}
 }
 
+func (l *bundExecListener) EnterBinteger(c *parser.BintegerContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	eh, err := vm.GetType("big")
+	if err != nil {
+		log.Errorf("BUND type 'big' not defined: %v", err)
+		return
+	}
+	val := eh.FromString(c.GetValue().GetText()[1:])
+	if !l.VM.InLambda() {
+		log.Debugf("Big integer Value: %v", c.GetValue().GetText())
+		l.VM.Put(val)
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(val)
+		}
+	}
+}
+
 func (l *bundExecListener) EnterFloat(c *parser.FloatContext) {
 	if l.VM.CheckIgnore() {
 		return
@@ -523,6 +544,7 @@ func (l *bundExecListener) EnterDatablock(c *parser.DatablockContext) {
 	if !l.VM.InLambda() {
 		log.Debugf("ENTERING Data Block")
 		l.VM.GetNS(blockname)
+		l.VM.CurrentNS.SetOption("separateinline", true)
 	} else {
 		ls := l.VM.CurrentLambda()
 		if ls != nil {
@@ -541,6 +563,7 @@ func (l *bundExecListener) ExitDatablock(c *parser.DatablockContext) {
 			res := new(vm.Elem)
 			res.Type = "dblock"
 			res.Value = l.VM.Current
+			l.VM.CurrentNS.SetOption("separateinline", false)
 			l.VM.EndNS()
 			if l.VM.IsStack() {
 				l.VM.Put(res)
@@ -957,4 +980,28 @@ func (l *bundExecListener) EnterRef_cmd(c *parser.Ref_cmdContext) {
 	}
 	log.Debugf("REF OP:  %v", c.GetValue().GetText())
 	l.VM.Put(&vm.Elem{Type: "OCALL", Value: c.GetValue().GetText()})
+}
+
+func (l *bundExecListener) EnterSeparate_term(c *parser.Separate_termContext) {
+	if l.VM.CheckIgnore() {
+		return
+	}
+	if !l.VM.IsStack() {
+		log.Errorf("Attempt of setting separator with empty context")
+		return
+	}
+	if !l.VM.InLambda() {
+		if l.VM.CurrentNS.GetOption("separateinline", false).(bool) {
+			log.Debugf("SEPARATE inline")
+			l.VM.Put(&vm.Elem{Type: "SEPARATE", Value: nil})
+		} else {
+			log.Debugf("SEPARATE command")
+			vm.Separate(l.VM)
+		}
+	} else {
+		ls := l.VM.CurrentLambda()
+		if ls != nil {
+			ls.PushBack(&vm.Elem{Type: "SEPARATE", Value: nil})
+		}
+	}
 }

@@ -2,6 +2,8 @@ package stdlib
 
 import (
 	"fmt"
+	"math"
+	"math/big"
 
 	"github.com/pieterclaerhout/go-log"
 	"gonum.org/v1/gonum/floats"
@@ -18,6 +20,11 @@ func AddOperator(v *vm.VM, e1 *vm.Elem, e2 *vm.Elem) (*vm.Elem, error) {
 		return &vm.Elem{Type: "int", Value: (e1.Value.(int64) + e2.Value.(int64))}, nil
 	case "uint":
 		return &vm.Elem{Type: "uint", Value: (e1.Value.(uint64) + e2.Value.(uint64))}, nil
+	case "big":
+		d1 := e1.Value.(*big.Int)
+		d2 := e2.Value.(*big.Int)
+		d1.Add(d1, d2)
+		return &vm.Elem{Type: "big", Value: d1}, nil
 	case "flt":
 		return &vm.Elem{Type: "flt", Value: (e1.Value.(float64) + e2.Value.(float64))}, nil
 	case "uflt":
@@ -88,6 +95,11 @@ func MulOperator(v *vm.VM, e1 *vm.Elem, e2 *vm.Elem) (*vm.Elem, error) {
 		return &vm.Elem{Type: "int", Value: (e1.Value.(int64) * e2.Value.(int64))}, nil
 	case "uint":
 		return &vm.Elem{Type: "uint", Value: (e1.Value.(uint64) * e2.Value.(uint64))}, nil
+	case "big":
+		d1 := e1.Value.(*big.Int)
+		d2 := e2.Value.(*big.Int)
+		d1.Mul(d1, d2)
+		return &vm.Elem{Type: "big", Value: d1}, nil
 	case "flt":
 		return &vm.Elem{Type: "flt", Value: (e1.Value.(float64) * e2.Value.(float64))}, nil
 	case "uflt":
@@ -156,6 +168,11 @@ func DivOperator(v *vm.VM, e1 *vm.Elem, e2 *vm.Elem) (*vm.Elem, error) {
 		return &vm.Elem{Type: "int", Value: (e1.Value.(int64) / e2.Value.(int64))}, nil
 	case "uint":
 		return &vm.Elem{Type: "uint", Value: (e1.Value.(uint64) / e2.Value.(uint64))}, nil
+	case "big":
+		d1 := e1.Value.(*big.Int)
+		d2 := e2.Value.(*big.Int)
+		d1.Div(d1, d2)
+		return &vm.Elem{Type: "big", Value: d1}, nil
 	case "flt":
 		return &vm.Elem{Type: "flt", Value: (e1.Value.(float64) / e2.Value.(float64))}, nil
 	case "uflt":
@@ -224,6 +241,11 @@ func SubOperator(v *vm.VM, e1 *vm.Elem, e2 *vm.Elem) (*vm.Elem, error) {
 		return &vm.Elem{Type: "int", Value: (e1.Value.(int64) - e2.Value.(int64))}, nil
 	case "uint":
 		return &vm.Elem{Type: "uint", Value: (e1.Value.(uint64) - e2.Value.(uint64))}, nil
+	case "big":
+		d1 := e1.Value.(*big.Int)
+		d2 := e2.Value.(*big.Int)
+		d1.Sub(d1, d2)
+		return &vm.Elem{Type: "big", Value: d1}, nil
 	case "flt":
 		return &vm.Elem{Type: "flt", Value: (e1.Value.(float64) - e2.Value.(float64))}, nil
 	case "uflt":
@@ -283,6 +305,31 @@ func SubEqualOperator(v *vm.VM, e1 *vm.Elem, e2 *vm.Elem) (*vm.Elem, error) {
 	return nil, fmt.Errorf("I do not know how to perform '+=' for this data: %v %v", e1.Type, e2.Type)
 }
 
+func ExpOperator(v *vm.VM, e1 *vm.Elem, e2 *vm.Elem) (*vm.Elem, error) {
+	if e1.Type == e2.Type {
+		switch e1.Type {
+		case "int":
+			r1 := e1.Value.(int64)
+			r2 := e2.Value.(int64)
+			return &vm.Elem{Type: "int", Value: int64(math.Pow(float64(r1), float64(r2)))}, nil
+		case "uint":
+			r1 := e1.Value.(uint64)
+			r2 := e2.Value.(uint64)
+			return &vm.Elem{Type: "uint", Value: uint64(math.Pow(float64(r1), float64(r2)))}, nil
+		case "flt":
+			r1 := e1.Value.(float64)
+			r2 := e2.Value.(float64)
+			return &vm.Elem{Type: "flt", Value: math.Pow(r1, r2)}, nil
+		case "big":
+			res := big.NewInt(0)
+			r1 := e1.Value.(*big.Int)
+			r2 := e2.Value.(*big.Int)
+			return &vm.Elem{Type: "big", Value: res.Exp(r1, r2, nil)}, nil
+		}
+	}
+	return nil, fmt.Errorf("I do not know how to perform '+=' for this data: %v %v", e1.Type, e2.Type)
+}
+
 func InitMathOperators() {
 	log.Debug("[ BUND ] bund.InitMathOperators() reached")
 	vm.AddOperator("+", AddOperator)
@@ -297,4 +344,6 @@ func InitMathOperators() {
 	vm.AddOperator("\\=", DivEqualOperator)
 	vm.AddOperator("÷=", DivEqualOperator)
 	vm.AddOperator("-=", SubEqualOperator)
+	vm.AddOperator("**", ExpOperator)
+	vm.AddOperator("↑", ExpOperator)
 }

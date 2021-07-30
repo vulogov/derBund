@@ -14,7 +14,7 @@ require (
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
 	github.com/pieterclaerhout/go-log v1.14.0
 	github.com/tomlazar/table v0.1.0
-	golang.org/x/exp v0.0.0-20210722180016-6781d3edade3 // indirect
+	golang.org/x/exp v0.0.0-20210729172720-737cce5152fc // indirect
 	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
 	gonum.org/v1/gonum v0.9.3
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6

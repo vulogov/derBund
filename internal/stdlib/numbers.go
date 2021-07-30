@@ -2,6 +2,8 @@ package stdlib
 
 import (
 	"fmt"
+	"math"
+	"math/big"
 
 	"github.com/pieterclaerhout/go-log"
 	"gonum.org/v1/gonum/floats"
@@ -11,7 +13,7 @@ import (
 
 func SpanFblock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 	if e.Type != "dblock" {
-		return nil, fmt.Errorf("For number/Span expecting (* ) in the stack")
+		return nil, fmt.Errorf("For numbers/Span expecting (* ) in the stack")
 	}
 	N, err := vm.BlockAt(e, "int", 0)
 	if err != nil {
@@ -32,7 +34,7 @@ func SpanFblock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 
 func LogSpanFblock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 	if e.Type != "dblock" {
-		return nil, fmt.Errorf("For number/Span expecting (* ) in the stack")
+		return nil, fmt.Errorf("For numbers/Span expecting (* ) in the stack")
 	}
 	N, err := vm.BlockAt(e, "int", 0)
 	if err != nil {
@@ -58,7 +60,7 @@ func ReverseBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 		floats.Reverse(ar1)
 		return vm.ArrayToBlock(e.Type, ar1), nil
 	}
-	return nil, fmt.Errorf("I do not know how to do number/Reverse for %v", e.Type)
+	return nil, fmt.Errorf("I do not know how to do numbers/Reverse for %v", e.Type)
 }
 
 func SumBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
@@ -68,7 +70,7 @@ func SumBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 		res := floats.SumCompensated(ar1)
 		return &vm.Elem{Type: "flt", Value: res}, nil
 	}
-	return nil, fmt.Errorf("I do not know how to do number/Sum for %v", e.Type)
+	return nil, fmt.Errorf("I do not know how to do numbers/Sum for %v", e.Type)
 }
 
 func MaxBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
@@ -86,7 +88,7 @@ func MaxBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 	case "fblock":
 		return &vm.Elem{Type: "int", Value: float64(res)}, nil
 	}
-	return nil, fmt.Errorf("I do not know how to do number/Max for %v", e.Type)
+	return nil, fmt.Errorf("I do not know how to do numbers/Max for %v", e.Type)
 }
 
 func MinBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
@@ -104,7 +106,31 @@ func MinBlock(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
 	case "fblock":
 		return &vm.Elem{Type: "int", Value: float64(res)}, nil
 	}
-	return nil, fmt.Errorf("I do not know how to do number/Max for %v", e.Type)
+	return nil, fmt.Errorf("I do not know how to do numbers/Max for %v", e.Type)
+}
+
+func NumSqrt(v *vm.VM, e *vm.Elem) (*vm.Elem, error) {
+	switch e.Type {
+	case "int":
+		d := e.Value.(int64)
+		return &vm.Elem{Type: "flt", Value: math.Sqrt(float64(d))}, nil
+	case "uint":
+		d := e.Value.(uint64)
+		return &vm.Elem{Type: "flt", Value: math.Sqrt(float64(d))}, nil
+	case "flt":
+		d := e.Value.(float64)
+		return &vm.Elem{Type: "flt", Value: math.Sqrt(d)}, nil
+	case "big":
+		res := big.NewInt(0)
+		d := e.Value.(*big.Int)
+		return &vm.Elem{Type: "big", Value: res.Sqrt(d)}, nil
+	case "iblock", "uiblock", "fblock":
+		res := vm.ApplyFloatFunc(e, math.Sqrt)
+		if res != nil {
+			return res, nil
+		}
+	}
+	return nil, fmt.Errorf("I do not know how to do numbers/Sqrt for %v", e.Type)
 }
 
 func InitNumbersFunctions() {
@@ -115,4 +141,5 @@ func InitNumbersFunctions() {
 	vm.AddFunction("numbers/Sum", SumBlock)
 	vm.AddFunction("numbers/Max", MaxBlock)
 	vm.AddFunction("numbers/Min", MinBlock)
+	vm.AddFunction("numbers/Sqrt", NumSqrt)
 }

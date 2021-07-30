@@ -77,6 +77,9 @@ type BundListener interface {
 	// EnterUinteger is called when entering the uinteger production.
 	EnterUinteger(c *UintegerContext)
 
+	// EnterBinteger is called when entering the binteger production.
+	EnterBinteger(c *BintegerContext)
+
 	// EnterFloat is called when entering the float production.
 	EnterFloat(c *FloatContext)
 
@@ -121,6 +124,9 @@ type BundListener interface {
 
 	// EnterExecute_term is called when entering the execute_term production.
 	EnterExecute_term(c *Execute_termContext)
+
+	// EnterSeparate_term is called when entering the separate_term production.
+	EnterSeparate_term(c *Separate_termContext)
 
 	// EnterReturn_term is called when entering the return_term production.
 	EnterReturn_term(c *Return_termContext)
@@ -194,6 +200,9 @@ type BundListener interface {
 	// ExitUinteger is called when exiting the uinteger production.
 	ExitUinteger(c *UintegerContext)
 
+	// ExitBinteger is called when exiting the binteger production.
+	ExitBinteger(c *BintegerContext)
+
 	// ExitFloat is called when exiting the float production.
 	ExitFloat(c *FloatContext)
 
@@ -238,6 +247,9 @@ type BundListener interface {
 
 	// ExitExecute_term is called when exiting the execute_term production.
 	ExitExecute_term(c *Execute_termContext)
+
+	// ExitSeparate_term is called when exiting the separate_term production.
+	ExitSeparate_term(c *Separate_termContext)
 
 	// ExitReturn_term is called when exiting the return_term production.
 	ExitReturn_term(c *Return_termContext)

@@ -159,6 +159,12 @@ func (s *BaseBundListener) EnterUinteger(ctx *UintegerContext) {}
 // ExitUinteger is called when production uinteger is exited.
 func (s *BaseBundListener) ExitUinteger(ctx *UintegerContext) {}
 
+// EnterBinteger is called when production binteger is entered.
+func (s *BaseBundListener) EnterBinteger(ctx *BintegerContext) {}
+
+// ExitBinteger is called when production binteger is exited.
+func (s *BaseBundListener) ExitBinteger(ctx *BintegerContext) {}
+
 // EnterFloat is called when production float is entered.
 func (s *BaseBundListener) EnterFloat(ctx *FloatContext) {}
 
@@ -248,6 +254,12 @@ func (s *BaseBundListener) EnterExecute_term(ctx *Execute_termContext) {}
 
 // ExitExecute_term is called when production execute_term is exited.
 func (s *BaseBundListener) ExitExecute_term(ctx *Execute_termContext) {}
+
+// EnterSeparate_term is called when production separate_term is entered.
+func (s *BaseBundListener) EnterSeparate_term(ctx *Separate_termContext) {}
+
+// ExitSeparate_term is called when production separate_term is exited.
+func (s *BaseBundListener) ExitSeparate_term(ctx *Separate_termContext) {}
 
 // EnterReturn_term is called when production return_term is entered.
 func (s *BaseBundListener) EnterReturn_term(ctx *Return_termContext) {}

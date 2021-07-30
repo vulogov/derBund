@@ -6,11 +6,37 @@ import (
 	"github.com/gammazero/deque"
 )
 
+func ApplyFloatFunc(d *Elem, f func(float64) float64) *Elem {
+	var res float64
+	switch d.Type {
+	case "iblock", "uiblock", "fblock":
+		q1 := d.Value.(*deque.Deque)
+		q2 := new(deque.Deque)
+		for q1.Len() > 0 {
+			e := q1.PopFront().(*Elem)
+			switch e.Type {
+			case "int":
+				res = f(float64(e.Value.(int64)))
+			case "uint":
+				res = f(float64(e.Value.(uint64)))
+			case "flt":
+				res = f(e.Value.(float64))
+			default:
+				return nil
+			}
+			q2.PushBack(&Elem{Type: "flt", Value: res})
+		}
+		return &Elem{Type: "fblock", Value: q2}
+	}
+	return nil
+}
+
 func BlockToArray(d *Elem) []float64 {
 	var res []float64
 	q := d.Value.(*deque.Deque)
 	for i := 0; i < q.Len(); i++ {
 		e := q.At(i).(*Elem)
+
 		switch d.Type {
 		case "iblock":
 			res = append(res, float64(e.Value.(int64)))
@@ -19,6 +45,7 @@ func BlockToArray(d *Elem) []float64 {
 		case "fblock":
 			res = append(res, float64(e.Value.(float64)))
 		}
+
 	}
 	return res
 }

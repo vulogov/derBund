@@ -237,3 +237,7 @@ func (l *bundListener) EnterRef_call(c *parser.Ref_callContext) {
 func (l *bundListener) EnterRef_cmd(c *parser.Ref_cmdContext) {
 	log.Infof("REF OP:  %v", c.GetValue().GetText())
 }
+
+func (l *bundListener) EnterSeparate_term(c *parser.Separate_termContext) {
+	log.Infof("SEPARATE:  %v", c.GetValue().GetText())
+}

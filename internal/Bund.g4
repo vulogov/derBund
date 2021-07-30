@@ -33,6 +33,7 @@ term
     | glob_term
     | integer
     | uinteger
+    | binteger
     | float
     | ufloat
     | complex_term
@@ -48,6 +49,7 @@ term
     | duplicate
     | ref_call
     | ref_cmd
+    | separate_term
   )
 ;
 
@@ -57,6 +59,7 @@ data
     | string_term
     | integer
     | uinteger
+    | binteger
     | float
     | ufloat
     | complex_term
@@ -65,6 +68,7 @@ data
     | cmd_term
     | cmd_sys
     | glob_term
+    | separate_term
   )
 ;
 
@@ -129,6 +133,7 @@ string_term:  value=STRING ;
 glob_term:    value=GLOB ;
 integer:      value=INTEGER ;
 uinteger:     value=UINTEGER ;
+binteger:     value=BINTEGER ;
 float:        value=FLOAT_NUMBER ;
 ufloat:       value=UFLOAT_NUMBER ;
 allfloat:     value=(FLOAT_NUMBER|UFLOAT_NUMBER) ;
@@ -148,6 +153,7 @@ end:          value=TOEND ;
 drop:         value=DROP ;
 duplicate:    value=DUPLICATE ;
 execute_term: value=EXECUTE ;
+separate_term: value=SEPARATE ;
 return_term:  value=RETURN ;
 
 
@@ -178,6 +184,10 @@ INTEGER
 
 UINTEGER
   :  ('U'|'u') DECIMAL_INTEGER
+  ;
+
+BINTEGER
+  :  ('B'|'b') DECIMAL_INTEGER
   ;
 
 
@@ -218,7 +228,7 @@ NAME
   ;
 
 CMD
-  : ('≉'|'≈'|'∐'|'∏'|'∇'|'∆'|'∪'|'∩'|'∉'|'∈'|'⊉'|'⊈'|'⊇'|'⊆'|'⊅'|'⊄'|'⊃'|'⊂'|'÷'|'\\'|'+'|'-'|'&'|'='|'<'|'>'|'*'|'×')+
+  : ('↑'|'√'|'≉'|'≈'|'∐'|'∏'|'∇'|'∆'|'∪'|'∩'|'∉'|'∈'|'⊉'|'⊈'|'⊇'|'⊆'|'⊅'|'⊄'|'⊃'|'⊂'|'÷'|'\\'|'+'|'-'|'&'|'='|'<'|'>'|'*'|'×')+
   ;
 
 SYS
@@ -227,6 +237,10 @@ SYS
 
 EXECUTE
   : ('!')+
+  ;
+
+SEPARATE
+  : '|'
   ;
 
 RETURN
